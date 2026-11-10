@@ -1,19 +1,171 @@
 {
   "@@locale": "uz",
   "ilovaNomi": "Zikr",
-  "@ilovaNomi": { "description": "Ilova nomi" },
+  "@ilovaNomi": {
+    "description": "Ilova nomi"
+  },
   "tabSanagich": "Sanagich",
-  "@tabSanagich": { "description": "Tab bar: sanagich bo'limi" },
+  "@tabSanagich": {
+    "description": "Tab bar: sanagich bo'limi"
+  },
   "tabZikrlar": "Zikrlar",
-  "@tabZikrlar": { "description": "Tab bar: zikrlar kutubxonasi" },
+  "@tabZikrlar": {
+    "description": "Tab bar: zikrlar kutubxonasi"
+  },
   "tabStatistika": "Statistika",
-  "@tabStatistika": { "description": "Tab bar: statistika bo'limi" },
+  "@tabStatistika": {
+    "description": "Tab bar: statistika bo'limi"
+  },
   "tabSozlamalar": "Sozlamalar",
-  "@tabSozlamalar": { "description": "Tab bar: sozlamalar bo'limi" },
+  "@tabSozlamalar": {
+    "description": "Tab bar: sozlamalar bo'limi"
+  },
   "sarlavhaZikrlar": "Zikrlar",
-  "@sarlavhaZikrlar": { "description": "Zikrlar ekrani sarlavhasi" },
+  "@sarlavhaZikrlar": {
+    "description": "Zikrlar ekrani sarlavhasi"
+  },
   "sarlavhaStatistika": "Statistika",
-  "@sarlavhaStatistika": { "description": "Statistika ekrani sarlavhasi" },
+  "@sarlavhaStatistika": {
+    "description": "Statistika ekrani sarlavhasi"
+  },
   "sarlavhaSozlamalar": "Sozlamalar",
-  "@sarlavhaSozlamalar": { "description": "Sozlamalar ekrani sarlavhasi" }
+  "@sarlavhaSozlamalar": {
+    "description": "Sozlamalar ekrani sarlavhasi"
+  },
+  "aylanaTeg": "{raqam}-aylana",
+  "@aylanaTeg": {
+    "description": "Markaziy tugmadagi teg: bugungi aylana raqami",
+    "placeholders": {
+      "raqam": {
+        "type": "String"
+      }
+    }
+  },
+  "maqsadKasr": "/ {maqsad}",
+  "@maqsadKasr": {
+    "description": "Sonning ostidagi maqsad",
+    "placeholders": {
+      "maqsad": {
+        "type": "String"
+      }
+    }
+  },
+  "sanashIshora": "Ekranning istalgan joyini bosing",
+  "@sanashIshora": {
+    "description": "Halqa ostidagi ishora"
+  },
+  "maqsadCheksiz": "∞",
+  "@maqsadCheksiz": {
+    "description": "Cheksiz maqsad tugmasi"
+  },
+  "maqsadMaxsus": "Maxsus",
+  "@maqsadMaxsus": {
+    "description": "Maxsus maqsad tugmasi"
+  },
+  "keyingisi": "Keyingisi: {nomi}",
+  "@keyingisi": {
+    "description": "To'plamdagi keyingi zikrga o'tish tugmasi",
+    "placeholders": {
+      "nomi": {
+        "type": "String"
+      }
+    }
+  },
+  "bekorQilish": "Bekor qilish",
+  "@bekorQilish": {
+    "description": "Tasdiq dialogidagi bekor qilish"
+  },
+  "maqsadTasdiqSarlavha": "Maqsadni almashtirish",
+  "@maqsadTasdiqSarlavha": {
+    "description": "Maqsad almashtirish tasdig'i sarlavhasi"
+  },
+  "maqsadTasdiqMatn": "Joriy aylana nollanadi",
+  "@maqsadTasdiqMatn": {
+    "description": "Maqsad almashtirish tasdig'i matni"
+  },
+  "maqsadTasdiqTugma": "Almashtirish",
+  "@maqsadTasdiqTugma": {
+    "description": "Maqsad almashtirishni tasdiqlash"
+  },
+  "nollashSarlavha": "Aylanani nollash",
+  "@nollashSarlavha": {
+    "description": "Nollash tasdig'i sarlavhasi"
+  },
+  "nollashMatn": "Joriy aylanadagi {son} ta bosish oʻchiriladi. Tugagan aylanalar saqlanib qoladi.",
+  "@nollashMatn": {
+    "description": "Nollash tasdig'i matni",
+    "placeholders": {
+      "son": {
+        "type": "String"
+      }
+    }
+  },
+  "nollashTugma": "Nollash",
+  "@nollashTugma": {
+    "description": "Nollashni tasdiqlash"
+  },
+  "maxsusSarlavha": "Maxsus maqsad",
+  "@maxsusSarlavha": {
+    "description": "Maxsus maqsad paneli sarlavhasi"
+  },
+  "maxsusYorliq": "Bir aylanadagi son",
+  "@maxsusYorliq": {
+    "description": "Maxsus maqsad maydoni yorlig'i"
+  },
+  "maxsusXato": "1 dan {eng_kop} gacha son kiriting",
+  "@maxsusXato": {
+    "description": "Maxsus maqsad chegarasi",
+    "placeholders": {
+      "eng_kop": {
+        "type": "String"
+      }
+    }
+  },
+  "saqlash": "Saqlash",
+  "@saqlash": {
+    "description": "Saqlash tugmasi"
+  },
+  "yopish": "Yopish",
+  "@yopish": {
+    "description": "Panelni yopish (ekran o'quvchi uchun)"
+  },
+  "streakIzoh": "Ketma-ket kunlar: {kun}",
+  "@streakIzoh": {
+    "description": "Olov pill'i (ekran o'quvchi uchun)",
+    "placeholders": {
+      "kun": {
+        "type": "String"
+      }
+    }
+  },
+  "aylanalarIzoh": "Bugun tugagan aylanalar: {soni}",
+  "@aylanalarIzoh": {
+    "description": "Tasbeh pill'i (ekran o'quvchi uchun)",
+    "placeholders": {
+      "soni": {
+        "type": "String"
+      }
+    }
+  },
+  "haptikYoqilgan": "Tebranish yoqilgan",
+  "@haptikYoqilgan": {
+    "description": "Tebranish tugmasi (ekran o'quvchi uchun)"
+  },
+  "haptikOchirilgan": "Tebranish oʻchirilgan",
+  "@haptikOchirilgan": {
+    "description": "Tebranish tugmasi (ekran o'quvchi uchun)"
+  },
+  "nollashIzoh": "Joriy aylanani nollash",
+  "@nollashIzoh": {
+    "description": "Nollash tugmasi (ekran o'quvchi uchun)"
+  },
+  "sanashIzoh": "Sanash, joriy son {son}",
+  "@sanashIzoh": {
+    "description": "Markaziy tugma (ekran o'quvchi uchun)",
+    "placeholders": {
+      "son": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -11,6 +11,8 @@ class OsmonEkran extends StatelessWidget {
     super.key,
     required this.vaqt,
     this.sarlavha,
+    this.yuqori,
+    this.fon,
     this.yuqoriBalandlik = 44,
     this.child = const SizedBox.shrink(),
   });
@@ -19,6 +21,12 @@ class OsmonEkran extends StatelessWidget {
 
   /// `null` bo'lsa, sarlavha o'rnida bo'sh joy qoladi.
   final String? sarlavha;
+
+  /// Sarlavha o'rniga "Yuqori" qatorining o'z mazmuni.
+  final Widget? yuqori;
+
+  /// Osmon ortidagi fon qatlami (ekran o'lchamida).
+  final Widget? fon;
 
   /// Status bar ostidagi "Yuqori" qatorining balandligi (Figma).
   final double yuqoriBalandlik;
@@ -35,12 +43,8 @@ class OsmonEkran extends StatelessWidget {
         color: c.fon,
         child: Stack(
           children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: SkyHeader(vaqt: vaqt),
-            ),
+            if (fon != null) Positioned.fill(child: fon!),
+            Positioned(top: 0, left: 0, right: 0, child: SkyHeader(vaqt: vaqt)),
             SafeArea(
               bottom: false,
               child: Column(
@@ -48,23 +52,27 @@ class OsmonEkran extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: yuqoriBalandlik,
-                    child: sarlavha == null
-                        ? null
-                        : Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Semantics(
-                                header: true,
-                                child: Text(
-                                  sarlavha!,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: AppText.h1.copyWith(color: c.matn),
+                    child:
+                        yuqori ??
+                        (sarlavha == null
+                            ? null
+                            : Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
                                 ),
-                              ),
-                            ),
-                          ),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Semantics(
+                                    header: true,
+                                    child: Text(
+                                      sarlavha!,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppText.h1.copyWith(color: c.matn),
+                                    ),
+                                  ),
+                                ),
+                              )),
                   ),
                   Expanded(child: child),
                 ],

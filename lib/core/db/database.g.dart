@@ -912,6 +912,16 @@ class $SessiyaTable extends Sessiya
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
+  static const VerificationMeta _jamiMeta = const VerificationMeta('jami');
+  @override
+  late final GeneratedColumn<int> jami = GeneratedColumn<int>(
+    'jami',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
   static const VerificationMeta _boshlandiMeta = const VerificationMeta(
     'boshlandi',
   );
@@ -950,6 +960,7 @@ class $SessiyaTable extends Sessiya
     toplamId,
     son,
     aylanalar,
+    jami,
     boshlandi,
     yangilandi,
     sana,
@@ -993,6 +1004,12 @@ class $SessiyaTable extends Sessiya
       context.handle(
         _aylanalarMeta,
         aylanalar.isAcceptableOrUnknown(data['aylanalar']!, _aylanalarMeta),
+      );
+    }
+    if (data.containsKey('jami')) {
+      context.handle(
+        _jamiMeta,
+        jami.isAcceptableOrUnknown(data['jami']!, _jamiMeta),
       );
     }
     if (data.containsKey('boshlandi')) {
@@ -1048,6 +1065,10 @@ class $SessiyaTable extends Sessiya
         DriftSqlType.int,
         data['${effectivePrefix}aylanalar'],
       )!,
+      jami: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}jami'],
+      )!,
       boshlandi: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}boshlandi'],
@@ -1073,8 +1094,15 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
   final int id;
   final int zikrId;
   final int? toplamId;
+
+  /// Joriy aylanadagi son.
   final int son;
+
+  /// Shu kuni tugagan aylanalar.
   final int aylanalar;
+
+  /// Shu kuni shu zikr bo'yicha barcha bosishlar (v2).
+  final int jami;
   final DateTime boshlandi;
   final DateTime yangilandi;
 
@@ -1086,6 +1114,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
     this.toplamId,
     required this.son,
     required this.aylanalar,
+    required this.jami,
     required this.boshlandi,
     required this.yangilandi,
     required this.sana,
@@ -1100,6 +1129,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
     }
     map['son'] = Variable<int>(son);
     map['aylanalar'] = Variable<int>(aylanalar);
+    map['jami'] = Variable<int>(jami);
     map['boshlandi'] = Variable<DateTime>(boshlandi);
     map['yangilandi'] = Variable<DateTime>(yangilandi);
     map['sana'] = Variable<String>(sana);
@@ -1115,6 +1145,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
           : Value(toplamId),
       son: Value(son),
       aylanalar: Value(aylanalar),
+      jami: Value(jami),
       boshlandi: Value(boshlandi),
       yangilandi: Value(yangilandi),
       sana: Value(sana),
@@ -1132,6 +1163,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
       toplamId: serializer.fromJson<int?>(json['toplamId']),
       son: serializer.fromJson<int>(json['son']),
       aylanalar: serializer.fromJson<int>(json['aylanalar']),
+      jami: serializer.fromJson<int>(json['jami']),
       boshlandi: serializer.fromJson<DateTime>(json['boshlandi']),
       yangilandi: serializer.fromJson<DateTime>(json['yangilandi']),
       sana: serializer.fromJson<String>(json['sana']),
@@ -1146,6 +1178,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
       'toplamId': serializer.toJson<int?>(toplamId),
       'son': serializer.toJson<int>(son),
       'aylanalar': serializer.toJson<int>(aylanalar),
+      'jami': serializer.toJson<int>(jami),
       'boshlandi': serializer.toJson<DateTime>(boshlandi),
       'yangilandi': serializer.toJson<DateTime>(yangilandi),
       'sana': serializer.toJson<String>(sana),
@@ -1158,6 +1191,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
     Value<int?> toplamId = const Value.absent(),
     int? son,
     int? aylanalar,
+    int? jami,
     DateTime? boshlandi,
     DateTime? yangilandi,
     String? sana,
@@ -1167,6 +1201,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
     toplamId: toplamId.present ? toplamId.value : this.toplamId,
     son: son ?? this.son,
     aylanalar: aylanalar ?? this.aylanalar,
+    jami: jami ?? this.jami,
     boshlandi: boshlandi ?? this.boshlandi,
     yangilandi: yangilandi ?? this.yangilandi,
     sana: sana ?? this.sana,
@@ -1178,6 +1213,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
       toplamId: data.toplamId.present ? data.toplamId.value : this.toplamId,
       son: data.son.present ? data.son.value : this.son,
       aylanalar: data.aylanalar.present ? data.aylanalar.value : this.aylanalar,
+      jami: data.jami.present ? data.jami.value : this.jami,
       boshlandi: data.boshlandi.present ? data.boshlandi.value : this.boshlandi,
       yangilandi: data.yangilandi.present
           ? data.yangilandi.value
@@ -1194,6 +1230,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
           ..write('toplamId: $toplamId, ')
           ..write('son: $son, ')
           ..write('aylanalar: $aylanalar, ')
+          ..write('jami: $jami, ')
           ..write('boshlandi: $boshlandi, ')
           ..write('yangilandi: $yangilandi, ')
           ..write('sana: $sana')
@@ -1208,6 +1245,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
     toplamId,
     son,
     aylanalar,
+    jami,
     boshlandi,
     yangilandi,
     sana,
@@ -1221,6 +1259,7 @@ class SessiyaQator extends DataClass implements Insertable<SessiyaQator> {
           other.toplamId == this.toplamId &&
           other.son == this.son &&
           other.aylanalar == this.aylanalar &&
+          other.jami == this.jami &&
           other.boshlandi == this.boshlandi &&
           other.yangilandi == this.yangilandi &&
           other.sana == this.sana);
@@ -1232,6 +1271,7 @@ class SessiyaCompanion extends UpdateCompanion<SessiyaQator> {
   final Value<int?> toplamId;
   final Value<int> son;
   final Value<int> aylanalar;
+  final Value<int> jami;
   final Value<DateTime> boshlandi;
   final Value<DateTime> yangilandi;
   final Value<String> sana;
@@ -1241,6 +1281,7 @@ class SessiyaCompanion extends UpdateCompanion<SessiyaQator> {
     this.toplamId = const Value.absent(),
     this.son = const Value.absent(),
     this.aylanalar = const Value.absent(),
+    this.jami = const Value.absent(),
     this.boshlandi = const Value.absent(),
     this.yangilandi = const Value.absent(),
     this.sana = const Value.absent(),
@@ -1251,6 +1292,7 @@ class SessiyaCompanion extends UpdateCompanion<SessiyaQator> {
     this.toplamId = const Value.absent(),
     this.son = const Value.absent(),
     this.aylanalar = const Value.absent(),
+    this.jami = const Value.absent(),
     required DateTime boshlandi,
     required DateTime yangilandi,
     required String sana,
@@ -1264,6 +1306,7 @@ class SessiyaCompanion extends UpdateCompanion<SessiyaQator> {
     Expression<int>? toplamId,
     Expression<int>? son,
     Expression<int>? aylanalar,
+    Expression<int>? jami,
     Expression<DateTime>? boshlandi,
     Expression<DateTime>? yangilandi,
     Expression<String>? sana,
@@ -1274,6 +1317,7 @@ class SessiyaCompanion extends UpdateCompanion<SessiyaQator> {
       if (toplamId != null) 'toplam_id': toplamId,
       if (son != null) 'son': son,
       if (aylanalar != null) 'aylanalar': aylanalar,
+      if (jami != null) 'jami': jami,
       if (boshlandi != null) 'boshlandi': boshlandi,
       if (yangilandi != null) 'yangilandi': yangilandi,
       if (sana != null) 'sana': sana,
@@ -1286,6 +1330,7 @@ class SessiyaCompanion extends UpdateCompanion<SessiyaQator> {
     Value<int?>? toplamId,
     Value<int>? son,
     Value<int>? aylanalar,
+    Value<int>? jami,
     Value<DateTime>? boshlandi,
     Value<DateTime>? yangilandi,
     Value<String>? sana,
@@ -1296,6 +1341,7 @@ class SessiyaCompanion extends UpdateCompanion<SessiyaQator> {
       toplamId: toplamId ?? this.toplamId,
       son: son ?? this.son,
       aylanalar: aylanalar ?? this.aylanalar,
+      jami: jami ?? this.jami,
       boshlandi: boshlandi ?? this.boshlandi,
       yangilandi: yangilandi ?? this.yangilandi,
       sana: sana ?? this.sana,
@@ -1320,6 +1366,9 @@ class SessiyaCompanion extends UpdateCompanion<SessiyaQator> {
     if (aylanalar.present) {
       map['aylanalar'] = Variable<int>(aylanalar.value);
     }
+    if (jami.present) {
+      map['jami'] = Variable<int>(jami.value);
+    }
     if (boshlandi.present) {
       map['boshlandi'] = Variable<DateTime>(boshlandi.value);
     }
@@ -1340,6 +1389,7 @@ class SessiyaCompanion extends UpdateCompanion<SessiyaQator> {
           ..write('toplamId: $toplamId, ')
           ..write('son: $son, ')
           ..write('aylanalar: $aylanalar, ')
+          ..write('jami: $jami, ')
           ..write('boshlandi: $boshlandi, ')
           ..write('yangilandi: $yangilandi, ')
           ..write('sana: $sana')
@@ -1563,6 +1613,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ToplamTable toplam = $ToplamTable(this);
   late final $SessiyaTable sessiya = $SessiyaTable(this);
   late final $SozlamaTable sozlama = $SozlamaTable(this);
+  late final Index sessiyaZikrSana = Index(
+    'sessiya_zikr_sana',
+    'CREATE UNIQUE INDEX sessiya_zikr_sana ON sessiya (zikr_id, sana)',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1572,6 +1626,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     toplam,
     sessiya,
     sozlama,
+    sessiyaZikrSana,
   ];
 }
 
@@ -2208,6 +2263,7 @@ typedef $$SessiyaTableCreateCompanionBuilder = SessiyaCompanion Function({
   Value<int?> toplamId,
   Value<int> son,
   Value<int> aylanalar,
+  Value<int> jami,
   required DateTime boshlandi,
   required DateTime yangilandi,
   required String sana,
@@ -2218,6 +2274,7 @@ typedef $$SessiyaTableUpdateCompanionBuilder = SessiyaCompanion Function({
   Value<int?> toplamId,
   Value<int> son,
   Value<int> aylanalar,
+  Value<int> jami,
   Value<DateTime> boshlandi,
   Value<DateTime> yangilandi,
   Value<String> sana,
@@ -2283,6 +2340,11 @@ class $$SessiyaTableFilterComposer
 
   ColumnFilters<int> get aylanalar => $composableBuilder(
     column: $table.aylanalar,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get jami => $composableBuilder(
+    column: $table.jami,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2372,6 +2434,11 @@ class $$SessiyaTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get jami => $composableBuilder(
+    column: $table.jami,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get boshlandi => $composableBuilder(
     column: $table.boshlandi,
     builder: (column) => ColumnOrderings(column),
@@ -2451,6 +2518,9 @@ class $$SessiyaTableAnnotationComposer
 
   GeneratedColumn<int> get aylanalar =>
       $composableBuilder(column: $table.aylanalar, builder: (column) => column);
+
+  GeneratedColumn<int> get jami =>
+      $composableBuilder(column: $table.jami, builder: (column) => column);
 
   GeneratedColumn<DateTime> get boshlandi =>
       $composableBuilder(column: $table.boshlandi, builder: (column) => column);
@@ -2543,6 +2613,7 @@ class $$SessiyaTableTableManager
                 Value<int?> toplamId = const Value.absent(),
                 Value<int> son = const Value.absent(),
                 Value<int> aylanalar = const Value.absent(),
+                Value<int> jami = const Value.absent(),
                 Value<DateTime> boshlandi = const Value.absent(),
                 Value<DateTime> yangilandi = const Value.absent(),
                 Value<String> sana = const Value.absent(),
@@ -2552,6 +2623,7 @@ class $$SessiyaTableTableManager
                 toplamId: toplamId,
                 son: son,
                 aylanalar: aylanalar,
+                jami: jami,
                 boshlandi: boshlandi,
                 yangilandi: yangilandi,
                 sana: sana,
@@ -2563,6 +2635,7 @@ class $$SessiyaTableTableManager
                 Value<int?> toplamId = const Value.absent(),
                 Value<int> son = const Value.absent(),
                 Value<int> aylanalar = const Value.absent(),
+                Value<int> jami = const Value.absent(),
                 required DateTime boshlandi,
                 required DateTime yangilandi,
                 required String sana,
@@ -2572,6 +2645,7 @@ class $$SessiyaTableTableManager
                 toplamId: toplamId,
                 son: son,
                 aylanalar: aylanalar,
+                jami: jami,
                 boshlandi: boshlandi,
                 yangilandi: yangilandi,
                 sana: sana,

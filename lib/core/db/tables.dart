@@ -59,7 +59,9 @@ class Toplam extends Table {
   TextColumn get qadamlar => text().map(const QadamlarConverter())();
 }
 
+/// Har zikr uchun har kalendar kunga bitta qator.
 @DataClassName('SessiyaQator')
+@TableIndex(name: 'sessiya_zikr_sana', columns: {#zikrId, #sana}, unique: true)
 class Sessiya extends Table {
   @override
   String get tableName => 'sessiya';
@@ -67,8 +69,15 @@ class Sessiya extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get zikrId => integer().named('zikr_id').references(Zikr, #id)();
   IntColumn get toplamId => integer().named('toplam_id').nullable().references(Toplam, #id)();
+
+  /// Joriy aylanadagi son.
   IntColumn get son => integer().withDefault(const Constant(0))();
+
+  /// Shu kuni tugagan aylanalar.
   IntColumn get aylanalar => integer().withDefault(const Constant(0))();
+
+  /// Shu kuni shu zikr bo'yicha barcha bosishlar (v2).
+  IntColumn get jami => integer().withDefault(const Constant(0))();
   DateTimeColumn get boshlandi => dateTime()();
   DateTimeColumn get yangilandi => dateTime()();
 

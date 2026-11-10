@@ -11,6 +11,16 @@ abstract final class AppShadows {
     BoxShadow(color: Color(0x240A1A33), offset: Offset(0, 8), blurRadius: 28),
   ];
 
+  /// Tepadagi ko'rsatkich pill'lari: rgba(15, 41, 82, 0.08), y 2, blur 8.
+  static const pill = [
+    BoxShadow(color: Color(0x140F2952), offset: Offset(0, 2), blurRadius: 8),
+  ];
+
+  /// Tepadagi doira ikonka tugmalari: rgba(15, 41, 82, 0.1), y 3, blur 10.
+  static const ikonkaTugma = [
+    BoxShadow(color: Color(0x1A0F2952), offset: Offset(0, 3), blurRadius: 10),
+  ];
+
   /// Bo'rtiq (3D) effekt: xiralashmagan, pastga surilgan soya.
   static List<BoxShadow> bortiq(Color rang, {double balandlik = 4}) => [
         BoxShadow(color: rang, offset: Offset(0, balandlik), blurRadius: 0),

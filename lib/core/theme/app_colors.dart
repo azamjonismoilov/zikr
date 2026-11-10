@@ -27,6 +27,13 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.shisha,
     required this.shishaFaol,
     required this.shishaChiziq,
+    required this.chuqurlik,
+    required this.tugmaYuqori,
+    required this.tugmaPast,
+    required this.bortiq,
+    required this.asosiyYuqori,
+    required this.asosiyPast,
+    required this.asosiySoya,
   });
 
   final Color fon;
@@ -52,6 +59,21 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color shishaFaol;
   final Color shishaChiziq;
 
+  /// Markaziy tugma ostidagi bo'rtiq chuqurlik.
+  final Color chuqurlik;
+  /// Markaziy tugma gradienti, yuqori.
+  final Color tugmaYuqori;
+  /// Markaziy tugma gradienti, past.
+  final Color tugmaPast;
+  /// Oq tugmalar ostidagi bo'rtiq soya.
+  final Color bortiq;
+  /// Asosiy tugma gradienti, yuqori.
+  final Color asosiyYuqori;
+  /// Asosiy tugma gradienti, past.
+  final Color asosiyPast;
+  /// Asosiy tugma ostidagi bo'rtiq soya.
+  final Color asosiySoya;
+
   static const yorug = AppColors(
     fon: Color(0xFFFFFFFF),
     fon2: Color(0xFFF4F9FE),
@@ -75,6 +97,13 @@ class AppColors extends ThemeExtension<AppColors> {
     shisha: Color(0xB8FFFFFF), // #FFFFFF 72%
     shishaFaol: Color(0x0F000000), // #000000 6%
     shishaChiziq: Color(0xE6FFFFFF), // #FFFFFF 90%
+    chuqurlik: Color(0xFFD5E3F1),
+    tugmaYuqori: Color(0xFFFFFFFF),
+    tugmaPast: Color(0xFFF1F7FD),
+    bortiq: Color(0xFFE5EAF1),
+    asosiyYuqori: Color(0xFF62BDFF),
+    asosiyPast: Color(0xFF2E9BF2),
+    asosiySoya: Color(0xFF1B7FD0),
   );
 
   static const tun = AppColors(
@@ -100,6 +129,13 @@ class AppColors extends ThemeExtension<AppColors> {
     shisha: Color(0xB81A2438), // #1A2438 72%
     shishaFaol: Color(0x1AFFFFFF), // #FFFFFF 10%
     shishaChiziq: Color(0x14FFFFFF), // #FFFFFF 8%
+    chuqurlik: Color(0xFF16304D),
+    tugmaYuqori: Color(0xFF1B2A44),
+    tugmaPast: Color(0xFF142033),
+    bortiq: Color(0xFF0A1220),
+    asosiyYuqori: Color(0xFF62BDFF),
+    asosiyPast: Color(0xFF2E9BF2),
+    asosiySoya: Color(0xFF14548C),
   );
 
   /// Barcha tokenlar nomi bilan, `CLAUDE.md` jadvali tartibida.
@@ -126,6 +162,13 @@ class AppColors extends ThemeExtension<AppColors> {
         'shisha': shisha,
         'shishaFaol': shishaFaol,
         'shishaChiziq': shishaChiziq,
+        'chuqurlik': chuqurlik,
+        'tugmaYuqori': tugmaYuqori,
+        'tugmaPast': tugmaPast,
+        'bortiq': bortiq,
+        'asosiyYuqori': asosiyYuqori,
+        'asosiyPast': asosiyPast,
+        'asosiySoya': asosiySoya,
       };
 
   @override
@@ -152,6 +195,13 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? shisha,
     Color? shishaFaol,
     Color? shishaChiziq,
+    Color? chuqurlik,
+    Color? tugmaYuqori,
+    Color? tugmaPast,
+    Color? bortiq,
+    Color? asosiyYuqori,
+    Color? asosiyPast,
+    Color? asosiySoya,
   }) {
     return AppColors(
       fon: fon ?? this.fon,
@@ -176,6 +226,13 @@ class AppColors extends ThemeExtension<AppColors> {
       shisha: shisha ?? this.shisha,
       shishaFaol: shishaFaol ?? this.shishaFaol,
       shishaChiziq: shishaChiziq ?? this.shishaChiziq,
+      chuqurlik: chuqurlik ?? this.chuqurlik,
+      tugmaYuqori: tugmaYuqori ?? this.tugmaYuqori,
+      tugmaPast: tugmaPast ?? this.tugmaPast,
+      bortiq: bortiq ?? this.bortiq,
+      asosiyYuqori: asosiyYuqori ?? this.asosiyYuqori,
+      asosiyPast: asosiyPast ?? this.asosiyPast,
+      asosiySoya: asosiySoya ?? this.asosiySoya,
     );
   }
 
@@ -206,6 +263,13 @@ class AppColors extends ThemeExtension<AppColors> {
       shisha: l(shisha, other.shisha),
       shishaFaol: l(shishaFaol, other.shishaFaol),
       shishaChiziq: l(shishaChiziq, other.shishaChiziq),
+      chuqurlik: l(chuqurlik, other.chuqurlik),
+      tugmaYuqori: l(tugmaYuqori, other.tugmaYuqori),
+      tugmaPast: l(tugmaPast, other.tugmaPast),
+      bortiq: l(bortiq, other.bortiq),
+      asosiyYuqori: l(asosiyYuqori, other.asosiyYuqori),
+      asosiyPast: l(asosiyPast, other.asosiyPast),
+      asosiySoya: l(asosiySoya, other.asosiySoya),
     );
   }
 }

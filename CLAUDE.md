@@ -5,7 +5,9 @@ Birinchi reliz Android (Google Play). Interfeys tili: o'zbek lotin.
 
 Dizayn manbai: Figma fayl `tzJanNy81VnQGnhdcMZ6dd`, "Ekranlar" sahifasi
 ("Yorugʻ rejim" va "Qorongʻu rejim" bo'limlari, ekranlar 01–16) va "Komponentlar" sahifasi.
-Ekranni qurishdan oldin uni Figma MCP orqali o'qi; o'lcham, oraliq va matnlar Figma'dan olinadi.
+Ekranni qurishdan oldin uni Figma MCP orqali o'qi; o'lcham, oraliq va interfeys matnlari
+Figma'dan olinadi. Zikr matnlari (nomi, talaffuz, arabcha, ma'no) faqat seed'dan olinadi:
+Figma'dagi zikr matnlari joy uchun qisqartirilgan namunalar, ularga tayanma.
 
 ## Stack
 
@@ -13,7 +15,7 @@ Ekranni qurishdan oldin uni Figma MCP orqali o'qi; o'lcham, oraliq va matnlar Fi
 - Holat: Riverpod
 - Navigatsiya: go_router
 - Lokal baza: Drift (SQLite), `drift_flutter` (bazani ochish), `drift_dev` + `build_runner` (kod generatsiyasi)
-- Oddiy sozlamalar: shared_preferences
+- Sozlamalar: faqat Drift'dagi `sozlama` jadvali (alohida key-value paketi yo'q)
 - Rasmlar: flutter_svg
 - Eslatmalar: flutter_local_notifications
 - Lokalizatsiya: flutter_localizations, ARB, `intl`
@@ -68,13 +70,17 @@ Ular uchun oldindan abstraksiya yoki bo'sh interfeys yozma. Ular alohida topshir
   tabrik modali. Maqsad ∞ bo'lsa aylana bo'lmaydi.
 - **Kun hisoblanadi**, agar o'sha kalendar kunida kamida 1 ta aylana tugagan bo'lsa yoki
   jami son kunlik maqsadga yetgan bo'lsa. Kun chegarasi: qurilma mahalliy vaqtidagi yarim tun.
+- **Yarim tun:** yangi kunda birinchi bosish yangi kun qatorini ochadi. Tugallanmagan `son`
+  yangi qatorga ko'chadi, `jami` va `aylanalar` har kun uchun alohida sanaladi.
 - **Streak:** bugundan orqaga uzluksiz hisoblangan kunlar soni. Bugun hali hisoblanmagan
   bo'lsa, streak kechagi kun bilan tugaydi.
 - **Rekord:** barcha davrdagi eng uzun streak.
 - **Tasbehot yo'li:** to'plam qadamlari ketma-ket o'tiladi; qadam tugaganda "Keyingisi"
   keyingi zikrni ochadi.
-- **Nollash** faqat joriy aylanani o'chiradi va tasdiq so'raydi. Tarixni o'chirish faqat
-  Sozlamalar orqali, ikki marta tasdiq bilan.
+- **Nollash** faqat joriy aylanani o'chiradi (`jami -= son`, `son = 0`) va tasdiq so'raydi.
+  Tarixni o'chirish faqat Sozlamalar orqali, ikki marta tasdiq bilan.
+- **Maqsadni almashtirish:** `son > 0` bo'lsa tasdiq so'raladi va joriy aylana nollanadi.
+  Tanlangan maqsad shu zikrning `zikr.maqsad` iga yoziladi.
 
 Streak va statistika saqlanmaydi, sessiyalardan hisoblanadi.
 
@@ -82,10 +88,23 @@ Streak va statistika saqlanmaydi, sessiyalardan hisoblanadi.
 
 | Jadval | Maydonlar |
 | --- | --- |
-| `zikr` | id, nomi, talaffuz?, arabcha, manosi, maqsad, rasm, turkum, oz_zikri, tartib |
+| `zikr` | id, nomi, talaffuz?, arabcha, manosi, maqsad? (`null` = ∞), rasm?, turkum, oz_zikri, tartib |
 | `toplam` | id, nomi, qadamlar (zikr_id, maqsad) |
-| `sessiya` | id, zikr_id, toplam_id?, son, aylanalar, boshlandi, yangilandi, sana |
+| `sessiya` | id, zikr_id, toplam_id?, son, aylanalar, jami, boshlandi, yangilandi, sana; (zikr_id, sana) unikal |
 | `sozlama` | kalit, qiymat |
+
+`sessiya` — har zikr uchun har kalendar kunga bitta qator. `son` joriy aylanadagi son,
+`aylanalar` o'sha kuni tugagan aylanalar, `jami` o'sha kuni shu zikr bo'yicha barcha bosishlar.
+`sana` mahalliy kun, `YYYY-MM-DD`. Sxema versiyasi: 2 (`drift_schemas/` da har versiya saqlanadi).
+
+`sozlama` kalitlari:
+
+| Kalit | Standart | Ma'nosi |
+| --- | --- | --- |
+| `joriy_zikr_id` | eng kichik `tartib` li zikr (SubhanAllah) | sanagichdagi joriy zikr |
+| `haptik` | `1` | tebranish yoqilgan (`0` — o'chiq) |
+| `kunlik_maqsad` | `100` | kun hisoblanishi uchun jami bosishlar |
+| `seed_versiya` | — | seed yuklanganini belgilaydi |
 
 Standart zikrlar `assets/seed/zikrlar.json` dan yuklanadi. Diniy matnlar (arabcha, talaffuz,
 ma'no) faqat shu faylda turadi, kodda takrorlanmaydi: ular relizdan oldin mutaxassis
@@ -119,6 +138,13 @@ tomonidan tekshiriladi va tuzatiladi.
 | shisha | #FFFFFF 72% | #1A2438 72% |
 | shishaFaol | #000000 6% | #FFFFFF 10% |
 | shishaChiziq | #FFFFFF 90% | #FFFFFF 8% |
+| chuqurlik | #D5E3F1 | #16304D |
+| tugmaYuqori | #FFFFFF | #1B2A44 |
+| tugmaPast | #F1F7FD | #142033 |
+| bortiq | #E5EAF1 | #0A1220 |
+| asosiyYuqori | #62BDFF | #62BDFF |
+| asosiyPast | #2E9BF2 | #2E9BF2 |
+| asosiySoya | #1B7FD0 | #14548C |
 
 `AppText` — Inter (interfeys) va Amiri (arabcha), ikkalasi ham ilova ichiga joylanadi.
 
@@ -139,9 +165,11 @@ Shakl va effektlar:
 
 - Karta radiusi 18–20, asosiy tugma 27 (pill), illyustratsiya plitkasi 14.
 - Bo'rtiq (3D) effekt: xiralashmagan soya, `BoxShadow(blurRadius: 0, offset: Offset(0, 4))`.
-- Asosiy tugma: yuqoridan pastga gradient #62BDFF → #2E9BF2, ostida #1B7FD0 bo'rtiq soya
-  (tunda #14548C).
+- Asosiy tugma: yuqoridan pastga gradient `asosiyYuqori` → `asosiyPast`, ostida `asosiySoya`
+  bo'rtiq soya. Matn `fon` rangida.
 - Karta soyasi: rgba(15, 41, 82, 0.06), y 3, blur 12.
+- Pill soyasi: rgba(15, 41, 82, 0.08), y 2, blur 8. Doira ikonka tugma: rgba(15, 41, 82, 0.1), y 3, blur 10.
+- Oq tugmalar (maqsad, nollash): `fon`, 1.5 `chiziq` chegara, ostida `bortiq` bo'rtiq soya.
 - Tab bar kapsulasi soyasi: rgba(10, 26, 51, 0.14), y 8, blur 28.
 
 Osmon (`SkyHeader`, 390×230, to'rt variant):

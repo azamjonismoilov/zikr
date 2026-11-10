@@ -27,10 +27,17 @@ const _kutilgan = <String, (int, int)>{
   'shisha': (0xB8FFFFFF, 0xB81A2438),
   'shishaFaol': (0x0F000000, 0x1AFFFFFF),
   'shishaChiziq': (0xE6FFFFFF, 0x14FFFFFF),
+  'chuqurlik': (0xFFD5E3F1, 0xFF16304D),
+  'tugmaYuqori': (0xFFFFFFFF, 0xFF1B2A44),
+  'tugmaPast': (0xFFF1F7FD, 0xFF142033),
+  'bortiq': (0xFFE5EAF1, 0xFF0A1220),
+  'asosiyYuqori': (0xFF62BDFF, 0xFF62BDFF),
+  'asosiyPast': (0xFF2E9BF2, 0xFF2E9BF2),
+  'asosiySoya': (0xFF1B7FD0, 0xFF14548C),
 };
 
 void main() {
-  test('AppColors 22 ta tokenni ikkala rejimda qaytaradi', () {
+  test('AppColors barcha tokenlarni ikkala rejimda qaytaradi', () {
     expect(AppColors.yorug.tokens.keys, _kutilgan.keys);
     expect(AppColors.tun.tokens.keys, _kutilgan.keys);
 

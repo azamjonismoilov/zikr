@@ -141,6 +141,150 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Sozlamalar'**
   String get sarlavhaSozlamalar;
+
+  /// Markaziy tugmadagi teg: bugungi aylana raqami
+  ///
+  /// In uz, this message translates to:
+  /// **'{raqam}-aylana'**
+  String aylanaTeg(String raqam);
+
+  /// Sonning ostidagi maqsad
+  ///
+  /// In uz, this message translates to:
+  /// **'/ {maqsad}'**
+  String maqsadKasr(String maqsad);
+
+  /// Halqa ostidagi ishora
+  ///
+  /// In uz, this message translates to:
+  /// **'Ekranning istalgan joyini bosing'**
+  String get sanashIshora;
+
+  /// Cheksiz maqsad tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'∞'**
+  String get maqsadCheksiz;
+
+  /// Maxsus maqsad tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Maxsus'**
+  String get maqsadMaxsus;
+
+  /// To'plamdagi keyingi zikrga o'tish tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Keyingisi: {nomi}'**
+  String keyingisi(String nomi);
+
+  /// Tasdiq dialogidagi bekor qilish
+  ///
+  /// In uz, this message translates to:
+  /// **'Bekor qilish'**
+  String get bekorQilish;
+
+  /// Maqsad almashtirish tasdig'i sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Maqsadni almashtirish'**
+  String get maqsadTasdiqSarlavha;
+
+  /// Maqsad almashtirish tasdig'i matni
+  ///
+  /// In uz, this message translates to:
+  /// **'Joriy aylana nollanadi'**
+  String get maqsadTasdiqMatn;
+
+  /// Maqsad almashtirishni tasdiqlash
+  ///
+  /// In uz, this message translates to:
+  /// **'Almashtirish'**
+  String get maqsadTasdiqTugma;
+
+  /// Nollash tasdig'i sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Aylanani nollash'**
+  String get nollashSarlavha;
+
+  /// Nollash tasdig'i matni
+  ///
+  /// In uz, this message translates to:
+  /// **'Joriy aylanadagi {son} ta bosish oʻchiriladi. Tugagan aylanalar saqlanib qoladi.'**
+  String nollashMatn(String son);
+
+  /// Nollashni tasdiqlash
+  ///
+  /// In uz, this message translates to:
+  /// **'Nollash'**
+  String get nollashTugma;
+
+  /// Maxsus maqsad paneli sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Maxsus maqsad'**
+  String get maxsusSarlavha;
+
+  /// Maxsus maqsad maydoni yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Bir aylanadagi son'**
+  String get maxsusYorliq;
+
+  /// Maxsus maqsad chegarasi
+  ///
+  /// In uz, this message translates to:
+  /// **'1 dan {eng_kop} gacha son kiriting'**
+  String maxsusXato(String eng_kop);
+
+  /// Saqlash tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Saqlash'**
+  String get saqlash;
+
+  /// Panelni yopish (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Yopish'**
+  String get yopish;
+
+  /// Olov pill'i (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Ketma-ket kunlar: {kun}'**
+  String streakIzoh(String kun);
+
+  /// Tasbeh pill'i (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun tugagan aylanalar: {soni}'**
+  String aylanalarIzoh(String soni);
+
+  /// Tebranish tugmasi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Tebranish yoqilgan'**
+  String get haptikYoqilgan;
+
+  /// Tebranish tugmasi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Tebranish oʻchirilgan'**
+  String get haptikOchirilgan;
+
+  /// Nollash tugmasi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Joriy aylanani nollash'**
+  String get nollashIzoh;
+
+  /// Markaziy tugma (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Sanash, joriy son {son}'**
+  String sanashIzoh(String son);
 }
 
 class _AppLocalizationsDelegate
