@@ -88,14 +88,29 @@ Streak va statistika saqlanmaydi, sessiyalardan hisoblanadi.
 
 | Jadval | Maydonlar |
 | --- | --- |
-| `zikr` | id, nomi, talaffuz?, arabcha, manosi, maqsad? (`null` = ∞), rasm?, turkum, oz_zikri, tartib |
+| `zikr` | id, nomi, talaffuz?, arabcha, manosi, maqsad? (`null` = ∞), rasm?, turkum, oz_zikri, tartib, ochirilgan |
 | `toplam` | id, nomi, qadamlar (zikr_id, maqsad) |
 | `sessiya` | id, zikr_id, toplam_id?, son, aylanalar, jami, boshlandi, yangilandi, sana; (zikr_id, sana) unikal |
 | `sozlama` | kalit, qiymat |
 
 `sessiya` — har zikr uchun har kalendar kunga bitta qator. `son` joriy aylanadagi son,
 `aylanalar` o'sha kuni tugagan aylanalar, `jami` o'sha kuni shu zikr bo'yicha barcha bosishlar.
-`sana` mahalliy kun, `YYYY-MM-DD`. Sxema versiyasi: 2 (`drift_schemas/` da har versiya saqlanadi).
+`sana` mahalliy kun, `YYYY-MM-DD`. Sxema versiyasi: 3 (`drift_schemas/` da har versiya saqlanadi).
+
+`zikr.ochirilgan = true` — zikr ro'yxatlarda ko'rinmaydi, `sessiya` qatorlari saqlanadi
+(statistika buzilmaydi). O'z zikri (`oz_zikri = true`) talaffuzi `nomi` ga yoziladi.
+
+Turkumlar (nomi va rasmi faqat `features/library/ui/turkum.dart` da):
+
+| Turkum | Nomi | Rasm |
+| --- | --- | --- |
+| `namozdan_keyin` | Namozdan keyin | namoz |
+| `kun_davomida` | Kun davomida | tasbeh |
+| `ertalabki` | Ertalabki | tong |
+| `kechki` | Kechki | tun |
+| (o'z zikrlari) | Mening | yurak |
+
+O'z zikrlari turkumidan qat'i nazar "Mening" bo'limida ko'rsatiladi.
 
 `sozlama` kalitlari:
 
@@ -145,6 +160,10 @@ tomonidan tekshiriladi va tuzatiladi.
 | asosiyYuqori | #62BDFF | #62BDFF |
 | asosiyPast | #2E9BF2 | #2E9BF2 |
 | asosiySoya | #1B7FD0 | #14548C |
+| qoplama | #171A21 42% | #000000 55% |
+| ijroYangiFon | #EEF2F6 | #24334C |
+| ijroYangiBelgi | #A3ACB8 | #8796AD |
+| belgiOq | #FFFFFF | #FFFFFF |
 
 `AppText` — Inter (interfeys) va Amiri (arabcha), ikkalasi ham ilova ichiga joylanadi.
 
@@ -160,6 +179,8 @@ tomonidan tekshiriladi va tuzatiladi.
 | tugma | Inter SemiBold | 16 / 20 | -0.5% |
 | arab | Amiri Regular | 34 / 56 | 0 |
 | tabYorliq | Inter SemiBold | 10 / 12 | 0 |
+| arabKichik | Amiri Regular | 19 / 30 | 0 |
+| arabMaydon | Amiri Regular | 21 / 30 | -0.5% |
 
 Shakl va effektlar:
 
@@ -169,6 +190,7 @@ Shakl va effektlar:
   bo'rtiq soya. Matn `fon` rangida.
 - Karta soyasi: rgba(15, 41, 82, 0.06), y 3, blur 12.
 - Pill soyasi: rgba(15, 41, 82, 0.08), y 2, blur 8. Doira ikonka tugma: rgba(15, 41, 82, 0.1), y 3, blur 10.
+- Zikr kartasi (`DarsKarta`): rgba(15, 41, 82, 0.06), y 3, blur 5. Turkumlar kartasi: rgba(15, 41, 82, 0.1), y 6, blur 9.
 - Oq tugmalar (maqsad, nollash): `fon`, 1.5 `chiziq` chegara, ostida `bortiq` bo'rtiq soya.
 - Tab bar kapsulasi soyasi: rgba(10, 26, 51, 0.14), y 8, blur 28.
 

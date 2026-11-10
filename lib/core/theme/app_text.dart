@@ -33,6 +33,13 @@ abstract final class AppText {
   static final tugma = _stil(family: _inter, weight: FontWeight.w600, size: 16, lineHeight: 20, trackingPct: -0.5);
   static final arab = _stil(family: _amiri, weight: FontWeight.w400, size: 34, lineHeight: 56);
 
+  /// Ro'yxat qatoridagi arabcha matn (Figma `TanlashQator`).
+  static final arabKichik = _stil(family: _amiri, weight: FontWeight.w400, size: 19, lineHeight: 30);
+
+  /// Arabcha matn kiritish maydoni (Figma 08 · O'z zikringiz).
+  static final arabMaydon =
+      _stil(family: _amiri, weight: FontWeight.w400, size: 21, lineHeight: 30, trackingPct: -0.5);
+
   /// Tab bar yorlig'i. `CLAUDE.md` jadvalida yo'q, Figma'dagi `OsmonTabBar` dan olingan.
   static final tabYorliq = _stil(family: _inter, weight: FontWeight.w600, size: 10, lineHeight: 12);
 }

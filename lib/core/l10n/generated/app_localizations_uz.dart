@@ -120,4 +120,153 @@ class AppLocalizationsUz extends AppLocalizations {
   String sanashIzoh(String son) {
     return 'Sanash, joriy son $son';
   }
+
+  @override
+  String get turkumNamozdanKeyin => 'Namozdan keyin';
+
+  @override
+  String get turkumKunDavomida => 'Kun davomida';
+
+  @override
+  String get turkumErtalabki => 'Ertalabki';
+
+  @override
+  String get turkumKechki => 'Kechki';
+
+  @override
+  String get turkumMening => 'Mening';
+
+  @override
+  String get izohNamozdanKeyin => 'Har farz namozidan soʻng';
+
+  @override
+  String get izohKunDavomida => 'Istalgan vaqtda';
+
+  @override
+  String get izohErtalabki => 'Ertalab';
+
+  @override
+  String get izohKechki => 'Kechqurun';
+
+  @override
+  String get izohMening => 'Oʻzingiz qoʻshgan';
+
+  @override
+  String bolimIzohi(String izoh, String soni) {
+    return '$izoh · $soni ta zikr';
+  }
+
+  @override
+  String kartaBajarildi(String maqsad) {
+    return '$maqsad / $maqsad';
+  }
+
+  @override
+  String kartaMarta(String maqsad) {
+    return '$maqsad marta';
+  }
+
+  @override
+  String get kartaCheksiz => 'Cheksiz';
+
+  @override
+  String kartaIzoh(String maqsad, String manosi) {
+    return '$maqsad · $manosi';
+  }
+
+  @override
+  String kartaProgress(String son, String maqsad) {
+    return '$son/$maqsad';
+  }
+
+  @override
+  String get bolimniYigish => 'Boʻlimni yigʻish';
+
+  @override
+  String get bolimniOchish => 'Boʻlimni ochish';
+
+  @override
+  String get qidirish => 'Qidirish';
+
+  @override
+  String get ozZikringizYoq => 'Oʻz zikringiz hali yoʻq';
+
+  @override
+  String get ozZikringizniQoshish => 'Oʻz zikringizni qoʻshish';
+
+  @override
+  String get zikrniTanlang => 'Zikrni tanlang';
+
+  @override
+  String get qidiruvMaslahat => 'Zikr nomi yoki maʼnosi';
+
+  @override
+  String get hammasi => 'Hammasi';
+
+  @override
+  String get hechNarsaTopilmadi => 'Hech narsa topilmadi';
+
+  @override
+  String get yangiZikr => 'Yangi zikr';
+
+  @override
+  String get zikrniTahrirlash => 'Zikrni tahrirlash';
+
+  @override
+  String get rasm => 'Rasm';
+
+  @override
+  String get talaffuzi => 'Talaffuzi';
+
+  @override
+  String get arabchaMatn => 'Arabcha matn (ixtiyoriy)';
+
+  @override
+  String get manosi => 'Maʼnosi';
+
+  @override
+  String get maqsad => 'Maqsad';
+
+  @override
+  String get ochirish => 'Oʻchirish';
+
+  @override
+  String get ochirishSarlavha => 'Zikrni oʻchirish';
+
+  @override
+  String get ochirishMatn =>
+      'Zikr roʻyxatlardan olib tashlanadi. Statistikadagi hisob saqlanib qoladi.';
+
+  @override
+  String get chiqishSarlavha => 'Oʻzgarishlar saqlanmaydi';
+
+  @override
+  String get chiqishMatn => 'Yozganlaringiz oʻchib ketadi.';
+
+  @override
+  String get chiqish => 'Chiqish';
+
+  @override
+  String get tanlangan => 'Tanlangan';
+
+  @override
+  String get rasmTasbeh => 'Tasbeh';
+
+  @override
+  String get rasmYurak => 'Yurak';
+
+  @override
+  String get rasmYulduz => 'Yulduz';
+
+  @override
+  String get rasmNamoz => 'Masjid';
+
+  @override
+  String get rasmTun => 'Tun';
+
+  @override
+  String get rasmTong => 'Tong';
+
+  @override
+  String get rasmKitob => 'Kitob';
 }

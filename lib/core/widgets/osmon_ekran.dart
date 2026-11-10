@@ -13,6 +13,7 @@ class OsmonEkran extends StatelessWidget {
     this.sarlavha,
     this.yuqori,
     this.fon,
+    this.oysiz = false,
     this.yuqoriBalandlik = 44,
     this.child = const SizedBox.shrink(),
   });
@@ -27,6 +28,9 @@ class OsmonEkran extends StatelessWidget {
 
   /// Osmon ortidagi fon qatlami (ekran o'lchamida).
   final Widget? fon;
+
+  /// Tunda osmondagi oy yashiriladi (osmon markazida sarlavha turgan ekranlar).
+  final bool oysiz;
 
   /// Status bar ostidagi "Yuqori" qatorining balandligi (Figma).
   final double yuqoriBalandlik;
@@ -44,7 +48,7 @@ class OsmonEkran extends StatelessWidget {
         child: Stack(
           children: [
             if (fon != null) Positioned.fill(child: fon!),
-            Positioned(top: 0, left: 0, right: 0, child: SkyHeader(vaqt: vaqt)),
+            Positioned(top: 0, left: 0, right: 0, child: SkyHeader(vaqt: vaqt, oysiz: oysiz)),
             SafeArea(
               bottom: false,
               child: Column(

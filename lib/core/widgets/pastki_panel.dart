@@ -19,6 +19,7 @@ Future<T?> pastkiPanelOch<T>(
     // Tab bar kapsulasi bo'lim navigatoridan yuqorida turadi; panel uni ham yopishi kerak.
     useRootNavigator: true,
     backgroundColor: c.fon,
+    barrierColor: c.qoplama,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
     ),
@@ -34,8 +35,6 @@ class _PastkiPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = context.colors;
-    final l = AppLocalizations.of(context);
     final mq = MediaQuery.of(context);
     final pastki = mq.viewInsets.bottom > 0 ? mq.viewInsets.bottom + 16 : 34.0;
 
@@ -45,46 +44,65 @@ class _PastkiPanel extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Center(
-            child: Container(
-              width: 40,
-              height: 5,
-              decoration: BoxDecoration(color: c.chiziq, borderRadius: BorderRadius.circular(3)),
-            ),
-          ),
-          const SizedBox(height: 14),
-          Row(
-            children: [
-              Expanded(child: Text(sarlavha, style: AppText.h2.copyWith(color: c.matn))),
-              Semantics(
-                button: true,
-                label: l.yopish,
-                excludeSemantics: true,
-                child: GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Container(
-                    width: 34,
-                    height: 34,
-                    decoration: BoxDecoration(color: c.fon2, borderRadius: BorderRadius.circular(17)),
-                    alignment: Alignment.center,
-                    child: Transform.rotate(
-                      angle: -0.785398, // -45°: plus → yopish belgisi
-                      child: SvgPicture.asset(
-                        'assets/svg/icon_plus.svg',
-                        width: 20,
-                        height: 20,
-                        colorFilter: ColorFilter.mode(c.matn, BlendMode.srcIn),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          PanelSarlavhasi(sarlavha: sarlavha),
           const SizedBox(height: 14),
           child,
         ],
       ),
+    );
+  }
+}
+
+/// Panel tepasi: tutqich, sarlavha (`h2`) va yopish tugmasi (Figma "Panel").
+class PanelSarlavhasi extends StatelessWidget {
+  const PanelSarlavhasi({super.key, required this.sarlavha});
+
+  final String sarlavha;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    final l = AppLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Center(
+          child: Container(
+            width: 40,
+            height: 5,
+            decoration: BoxDecoration(color: c.chiziq, borderRadius: BorderRadius.circular(3)),
+          ),
+        ),
+        const SizedBox(height: 14),
+        Row(
+          children: [
+            Expanded(child: Text(sarlavha, style: AppText.h2.copyWith(color: c.matn))),
+            Semantics(
+              button: true,
+              label: l.yopish,
+              excludeSemantics: true,
+              child: GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Container(
+                  width: 34,
+                  height: 34,
+                  decoration: BoxDecoration(color: c.fon2, borderRadius: BorderRadius.circular(17)),
+                  alignment: Alignment.center,
+                  child: Transform.rotate(
+                    angle: -0.785398, // -45°: plus → yopish belgisi
+                    child: SvgPicture.asset(
+                      'assets/svg/icon_plus.svg',
+                      width: 20,
+                      height: 20,
+                      colorFilter: ColorFilter.mode(c.matn, BlendMode.srcIn),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

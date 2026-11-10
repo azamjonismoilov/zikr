@@ -47,6 +47,9 @@ class Zikr extends Table {
   TextColumn get turkum => text()();
   BoolColumn get ozZikri => boolean().named('oz_zikri').withDefault(const Constant(false))();
   IntColumn get tartib => integer()();
+
+  /// O'chirilgan zikr ro'yxatlarda ko'rinmaydi, sessiyalari saqlanadi (v3).
+  BoolColumn get ochirilgan => boolean().withDefault(const Constant(false))();
 }
 
 @DataClassName('ToplamQator')

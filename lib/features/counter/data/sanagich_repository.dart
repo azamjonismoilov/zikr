@@ -1,6 +1,8 @@
 import 'package:drift/drift.dart';
 
 import '../../../core/db/database.dart';
+import '../../library/domain/bolimlar.dart';
+import '../../library/domain/oz_zikr.dart';
 import '../domain/kun.dart';
 import '../domain/kun_hisobi.dart';
 import '../domain/kun_qatori.dart';
@@ -20,8 +22,46 @@ class SanagichRepository {
 
   final AppDatabase _db;
 
-  Future<List<ZikrQator>> zikrlar() =>
-      (_db.select(_db.zikr)..orderBy([(z) => OrderingTerm(expression: z.tartib)])).get();
+  /// O'chirilmagan zikrlar, `tartib` bo'yicha.
+  Future<List<ZikrQator>> zikrlar() => (_db.select(_db.zikr)
+        ..where((z) => z.ochirilgan.equals(false))
+        ..orderBy([(z) => OrderingTerm(expression: z.tartib)]))
+      .get();
+
+  /// Yangi o'z zikri. Ro'yxat oxiriga qo'yiladi.
+  Future<ZikrQator> ozZikrQosh(OzZikr z) async {
+    final engKatta = _db.zikr.tartib.max();
+    final tartib = await (_db.selectOnly(_db.zikr)..addColumns([engKatta]))
+        .map((r) => r.read(engKatta) ?? 0)
+        .getSingle();
+    return _db.into(_db.zikr).insertReturning(ZikrCompanion.insert(
+          nomi: z.nomi.trim(),
+          arabcha: z.arabcha.trim(),
+          manosi: z.manosi.trim(),
+          maqsad: Value(z.maqsad),
+          rasm: Value(z.rasm),
+          turkum: ozZikriTurkumi,
+          ozZikri: const Value(true),
+          tartib: tartib + 1,
+        ));
+  }
+
+  Future<ZikrQator> zikrniYangila(int id, OzZikr z) async {
+    final yangi = await (_db.update(_db.zikr)..where((r) => r.id.equals(id))).writeReturning(
+      ZikrCompanion(
+        nomi: Value(z.nomi.trim()),
+        arabcha: Value(z.arabcha.trim()),
+        manosi: Value(z.manosi.trim()),
+        maqsad: Value(z.maqsad),
+        rasm: Value(z.rasm),
+      ),
+    );
+    return yangi.single;
+  }
+
+  /// Zikrni ro'yxatlardan yashiradi; `sessiya` qatorlari o'zgarmaydi.
+  Future<void> zikrniOchir(int id) => (_db.update(_db.zikr)..where((z) => z.id.equals(id)))
+      .write(const ZikrCompanion(ochirilgan: Value(true)));
 
   Future<List<ToplamQator>> toplamlar() =>
       (_db.select(_db.toplam)..orderBy([(t) => OrderingTerm(expression: t.id)])).get();

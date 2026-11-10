@@ -285,6 +285,282 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Sanash, joriy son {son}'**
   String sanashIzoh(String son);
+
+  /// Turkum nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Namozdan keyin'**
+  String get turkumNamozdanKeyin;
+
+  /// Turkum nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Kun davomida'**
+  String get turkumKunDavomida;
+
+  /// Turkum nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Ertalabki'**
+  String get turkumErtalabki;
+
+  /// Turkum nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Kechki'**
+  String get turkumKechki;
+
+  /// O'z zikrlari bo'limi nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Mening'**
+  String get turkumMening;
+
+  /// Bo'lim izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Har farz namozidan soʻng'**
+  String get izohNamozdanKeyin;
+
+  /// Bo'lim izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Istalgan vaqtda'**
+  String get izohKunDavomida;
+
+  /// Bo'lim izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Ertalab'**
+  String get izohErtalabki;
+
+  /// Bo'lim izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Kechqurun'**
+  String get izohKechki;
+
+  /// Bo'lim izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Oʻzingiz qoʻshgan'**
+  String get izohMening;
+
+  /// Bo'lim sarlavhasi ostidagi izoh va zikrlar soni
+  ///
+  /// In uz, this message translates to:
+  /// **'{izoh} · {soni} ta zikr'**
+  String bolimIzohi(String izoh, String soni);
+
+  /// Bajarilgan zikr kartasi: maqsad / maqsad
+  ///
+  /// In uz, this message translates to:
+  /// **'{maqsad} / {maqsad}'**
+  String kartaBajarildi(String maqsad);
+
+  /// Zikr kartasi: maqsad
+  ///
+  /// In uz, this message translates to:
+  /// **'{maqsad} marta'**
+  String kartaMarta(String maqsad);
+
+  /// Zikr kartasi: ∞ maqsad
+  ///
+  /// In uz, this message translates to:
+  /// **'Cheksiz'**
+  String get kartaCheksiz;
+
+  /// Zikr kartasi: maqsad va ma'no
+  ///
+  /// In uz, this message translates to:
+  /// **'{maqsad} · {manosi}'**
+  String kartaIzoh(String maqsad, String manosi);
+
+  /// Zikr kartasidagi progress yozuvi
+  ///
+  /// In uz, this message translates to:
+  /// **'{son}/{maqsad}'**
+  String kartaProgress(String son, String maqsad);
+
+  /// Yig'ish tugmasi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Boʻlimni yigʻish'**
+  String get bolimniYigish;
+
+  /// Yig'ish tugmasi yopiq holatda (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Boʻlimni ochish'**
+  String get bolimniOchish;
+
+  /// Qidiruv tugmasi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Qidirish'**
+  String get qidirish;
+
+  /// Mening bo'limi bo'sh holati
+  ///
+  /// In uz, this message translates to:
+  /// **'Oʻz zikringiz hali yoʻq'**
+  String get ozZikringizYoq;
+
+  /// O'z zikrini qo'shish tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Oʻz zikringizni qoʻshish'**
+  String get ozZikringizniQoshish;
+
+  /// Zikr tanlash paneli sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Zikrni tanlang'**
+  String get zikrniTanlang;
+
+  /// Qidiruv maydoni placeholder'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Zikr nomi yoki maʼnosi'**
+  String get qidiruvMaslahat;
+
+  /// Barcha turkumlar chipi
+  ///
+  /// In uz, this message translates to:
+  /// **'Hammasi'**
+  String get hammasi;
+
+  /// Qidiruv natijasi bo'sh
+  ///
+  /// In uz, this message translates to:
+  /// **'Hech narsa topilmadi'**
+  String get hechNarsaTopilmadi;
+
+  /// O'z zikri ekrani sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi zikr'**
+  String get yangiZikr;
+
+  /// Tahrirlash ekrani sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Zikrni tahrirlash'**
+  String get zikrniTahrirlash;
+
+  /// Rasm tanlovi yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Rasm'**
+  String get rasm;
+
+  /// Talaffuz maydoni yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Talaffuzi'**
+  String get talaffuzi;
+
+  /// Arabcha maydon yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Arabcha matn (ixtiyoriy)'**
+  String get arabchaMatn;
+
+  /// Ma'no maydoni yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Maʼnosi'**
+  String get manosi;
+
+  /// Maqsad tanlovi yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Maqsad'**
+  String get maqsad;
+
+  /// O'chirish tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Oʻchirish'**
+  String get ochirish;
+
+  /// O'chirish tasdig'i sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Zikrni oʻchirish'**
+  String get ochirishSarlavha;
+
+  /// O'chirish tasdig'i matni
+  ///
+  /// In uz, this message translates to:
+  /// **'Zikr roʻyxatlardan olib tashlanadi. Statistikadagi hisob saqlanib qoladi.'**
+  String get ochirishMatn;
+
+  /// Saqlamasdan chiqish tasdig'i sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Oʻzgarishlar saqlanmaydi'**
+  String get chiqishSarlavha;
+
+  /// Saqlamasdan chiqish tasdig'i matni
+  ///
+  /// In uz, this message translates to:
+  /// **'Yozganlaringiz oʻchib ketadi.'**
+  String get chiqishMatn;
+
+  /// Saqlamasdan chiqishni tasdiqlash
+  ///
+  /// In uz, this message translates to:
+  /// **'Chiqish'**
+  String get chiqish;
+
+  /// Tanlangan holat (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Tanlangan'**
+  String get tanlangan;
+
+  /// Rasm plitkasi nomi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Tasbeh'**
+  String get rasmTasbeh;
+
+  /// Rasm plitkasi nomi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Yurak'**
+  String get rasmYurak;
+
+  /// Rasm plitkasi nomi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Yulduz'**
+  String get rasmYulduz;
+
+  /// Rasm plitkasi nomi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Masjid'**
+  String get rasmNamoz;
+
+  /// Rasm plitkasi nomi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Tun'**
+  String get rasmTun;
+
+  /// Rasm plitkasi nomi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Tong'**
+  String get rasmTong;
+
+  /// Rasm plitkasi nomi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Kitob'**
+  String get rasmKitob;
 }
 
 class _AppLocalizationsDelegate

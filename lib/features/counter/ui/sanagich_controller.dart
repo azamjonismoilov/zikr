@@ -9,6 +9,8 @@ import '../domain/kun_hisobi.dart';
 import '../domain/kun_qatori.dart';
 import '../domain/sanash.dart';
 import '../domain/soat.dart';
+import '../../library/domain/oz_zikr.dart';
+import '../../library/domain/zikr_holati.dart';
 
 final soatProvider = Provider<Soat>((ref) => const TizimSoati());
 
@@ -61,6 +63,10 @@ class SanagichHolati {
         KunHisobi.hisoblanganKunlar(yigindilar.values, kunlikMaqsad),
         bugun,
       );
+
+  /// [zikrId] ning bugungi holati (Zikrlar ekranidagi kartalar uchun).
+  ZikrHolatMalumoti holat(ZikrQator z) =>
+      ZikrHolatHisobi.hisobla(oxirgiQatorlar[z.id], z.maqsad, bugun);
 
   /// Joriy zikr to'plamda bo'lsa, to'plamdagi keyingi zikr (oxirgisidan keyin birinchisi).
   ZikrQator? get keyingiZikr {
@@ -134,14 +140,15 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     return natija.aylanaTugadi;
   }
 
-  /// Joriy aylanani nollaydi. `son == 0` bo'lsa hech narsa qilmaydi.
-  void nolla() {
+  /// Joriy (yoki [zikrId]) zikrning aylanasini nollaydi. `son == 0` bo'lsa hech narsa qilmaydi.
+  void nolla([int? zikrId]) {
     final h = _h;
-    if (h.son == 0) return;
+    final id = zikrId ?? h.joriyZikrId;
+    final eski = h.oxirgiQatorlar[id];
+    if (Sanash.joriySon(eski) == 0) return;
     final vaqt = _soat.hozir();
     final bugun = Kun.dan(vaqt);
-    final eski = h.oxirgiQatorlar[h.joriyZikrId];
-    _qatorniOrnat(h, eski, Sanash.nolla(eski, h.joriyZikrId, bugun), bugun, vaqt);
+    _qatorniOrnat(h, eski, Sanash.nolla(eski, id, bugun), bugun, vaqt);
   }
 
   /// Maqsadni o'rnatadi (`null` — ∞). `son > 0` bo'lsa avval nollaydi;
@@ -163,6 +170,45 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     final yangi = !_h.haptik;
     state = AsyncData(_h.copyWith(haptik: yangi));
     navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.haptik, yangi ? '1' : '0'));
+  }
+
+  /// Joriy zikrni almashtiradi. Har zikrning tugallanmagan soni o'z qatorida qoladi.
+  void zikrniTanla(int id) {
+    final h = _h;
+    if (h.joriyZikrId == id || !h.zikrlar.any((z) => z.id == id)) return;
+    state = AsyncData(h.copyWith(joriyZikrId: id));
+    navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.joriyZikrId, '$id'));
+  }
+
+  /// Yangi o'z zikrini qo'shadi va uni joriy qiladi.
+  Future<ZikrQator> ozZikrQosh(OzZikr z) async {
+    final yangi = await navbat.bajar(() => _repo.ozZikrQosh(z));
+    state = AsyncData(_h.copyWith(zikrlar: [..._h.zikrlar, yangi]));
+    zikrniTanla(yangi.id);
+    return yangi;
+  }
+
+  /// O'z zikrini yangilaydi. Maqsad o'zgarsa, joriy aylana nollanadi
+  /// (tasdiqni UI so'raydi, [Sanash.maqsadUchunTasdiqKerak]).
+  Future<void> zikrniTahrirla(int id, OzZikr z) async {
+    final eski = _h.zikrlar.firstWhere((r) => r.id == id);
+    if (eski.maqsad != z.maqsad) nolla(id);
+    final yangi = await navbat.bajar(() => _repo.zikrniYangila(id, z));
+    state = AsyncData(_h.copyWith(
+      zikrlar: [for (final r in _h.zikrlar) r.id == id ? yangi : r],
+    ));
+  }
+
+  /// Zikrni o'chiradi (sessiyalari qoladi). Joriy bo'lsa, birinchi zikrga (SubhanAllah) qaytadi.
+  Future<void> zikrniOchir(int id) async {
+    await navbat.bajar(() => _repo.zikrniOchir(id));
+    final h = _h;
+    final qolgan = [for (final z in h.zikrlar) if (z.id != id) z];
+    final joriy = h.joriyZikrId == id ? qolgan.first.id : h.joriyZikrId;
+    state = AsyncData(h.copyWith(zikrlar: qolgan, joriyZikrId: joriy));
+    if (joriy != h.joriyZikrId) {
+      navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.joriyZikrId, '$joriy'));
+    }
   }
 
   /// To'plamdagi keyingi zikrga o'tadi.
@@ -189,7 +235,7 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     DateTime vaqt,
   ) {
     // Kun yig'indisi o'zgarishi: bugungi qatorning eski va yangi qiymatlari farqi.
-    final oldingi = Sanash.bugungiQator(eski, h.joriyZikrId, bugun);
+    final oldingi = Sanash.bugungiQator(eski, yangi.zikrId, bugun);
     final yigindi = (h.yigindilar[bugun] ?? KunYigindisi(sana: bugun)).qosh(
       aylanalar: yangi.aylanalar - oldingi.aylanalar,
       jami: yangi.jami - oldingi.jami,

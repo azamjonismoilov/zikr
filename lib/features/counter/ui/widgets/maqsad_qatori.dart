@@ -24,6 +24,7 @@ class MaqsadQatori extends StatelessWidget {
     required this.onTanlash,
     required this.onMaxsus,
     this.oxiridagi,
+    this.tayyorlar = tayyorMaqsadlar,
   });
 
   final int? maqsad;
@@ -33,17 +34,20 @@ class MaqsadQatori extends StatelessWidget {
   /// Qator oxiridagi qo'shimcha tugma (masalan, "Keyingisi" yo'q bo'lganda nollash).
   final Widget? oxiridagi;
 
+  /// "Maxsus" dan oldingi tayyor variantlar (`null` — ∞).
+  final List<int?> tayyorlar;
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final maxsusFaol = !tayyorMaqsadlar.contains(maqsad);
+    final maxsusFaol = !tayyorlar.contains(maqsad);
 
     Widget tugma(String matn, bool faol, VoidCallback onTap) =>
         Expanded(child: _MaqsadTugma(matn: matn, faol: faol, onTap: onTap));
 
     return Row(
       children: [
-        for (final m in tayyorMaqsadlar) ...[
+        for (final m in tayyorlar) ...[
           tugma(m == null ? l.maqsadCheksiz : sonFormat(m), maqsad == m, () => onTanlash(m)),
           const SizedBox(width: 8),
         ],

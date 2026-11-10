@@ -34,6 +34,10 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.asosiyYuqori,
     required this.asosiyPast,
     required this.asosiySoya,
+    required this.qoplama,
+    required this.ijroYangiFon,
+    required this.ijroYangiBelgi,
+    required this.belgiOq,
   });
 
   final Color fon;
@@ -74,6 +78,18 @@ class AppColors extends ThemeExtension<AppColors> {
   /// Asosiy tugma ostidagi bo'rtiq soya.
   final Color asosiySoya;
 
+  /// Panel va dialog ortidagi xiralik (yorug': matn 42%, tun: qora 55%).
+  final Color qoplama;
+
+  /// "Yangi" holatidagi ijro tugmasi foni.
+  final Color ijroYangiFon;
+
+  /// "Yangi" holatidagi ijro tugmasi belgisi.
+  final Color ijroYangiBelgi;
+
+  /// Rangli doiralar ustidagi oq belgi (ikkala rejimda oq).
+  final Color belgiOq;
+
   static const yorug = AppColors(
     fon: Color(0xFFFFFFFF),
     fon2: Color(0xFFF4F9FE),
@@ -104,6 +120,10 @@ class AppColors extends ThemeExtension<AppColors> {
     asosiyYuqori: Color(0xFF62BDFF),
     asosiyPast: Color(0xFF2E9BF2),
     asosiySoya: Color(0xFF1B7FD0),
+    qoplama: Color(0x6B171A21),
+    ijroYangiFon: Color(0xFFEEF2F6),
+    ijroYangiBelgi: Color(0xFFA3ACB8),
+    belgiOq: Color(0xFFFFFFFF),
   );
 
   static const tun = AppColors(
@@ -136,6 +156,10 @@ class AppColors extends ThemeExtension<AppColors> {
     asosiyYuqori: Color(0xFF62BDFF),
     asosiyPast: Color(0xFF2E9BF2),
     asosiySoya: Color(0xFF14548C),
+    qoplama: Color(0x8C000000),
+    ijroYangiFon: Color(0xFF24334C),
+    ijroYangiBelgi: Color(0xFF8796AD),
+    belgiOq: Color(0xFFFFFFFF),
   );
 
   /// Barcha tokenlar nomi bilan, `CLAUDE.md` jadvali tartibida.
@@ -169,6 +193,10 @@ class AppColors extends ThemeExtension<AppColors> {
         'asosiyYuqori': asosiyYuqori,
         'asosiyPast': asosiyPast,
         'asosiySoya': asosiySoya,
+        'qoplama': qoplama,
+        'ijroYangiFon': ijroYangiFon,
+        'ijroYangiBelgi': ijroYangiBelgi,
+        'belgiOq': belgiOq,
       };
 
   @override
@@ -202,6 +230,10 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? asosiyYuqori,
     Color? asosiyPast,
     Color? asosiySoya,
+    Color? qoplama,
+    Color? ijroYangiFon,
+    Color? ijroYangiBelgi,
+    Color? belgiOq,
   }) {
     return AppColors(
       fon: fon ?? this.fon,
@@ -233,6 +265,10 @@ class AppColors extends ThemeExtension<AppColors> {
       asosiyYuqori: asosiyYuqori ?? this.asosiyYuqori,
       asosiyPast: asosiyPast ?? this.asosiyPast,
       asosiySoya: asosiySoya ?? this.asosiySoya,
+      qoplama: qoplama ?? this.qoplama,
+      ijroYangiFon: ijroYangiFon ?? this.ijroYangiFon,
+      ijroYangiBelgi: ijroYangiBelgi ?? this.ijroYangiBelgi,
+      belgiOq: belgiOq ?? this.belgiOq,
     );
   }
 
@@ -270,6 +306,10 @@ class AppColors extends ThemeExtension<AppColors> {
       asosiyYuqori: l(asosiyYuqori, other.asosiyYuqori),
       asosiyPast: l(asosiyPast, other.asosiyPast),
       asosiySoya: l(asosiySoya, other.asosiySoya),
+      qoplama: l(qoplama, other.qoplama),
+      ijroYangiFon: l(ijroYangiFon, other.ijroYangiFon),
+      ijroYangiBelgi: l(ijroYangiBelgi, other.ijroYangiBelgi),
+      belgiOq: l(belgiOq, other.belgiOq),
     );
   }
 }

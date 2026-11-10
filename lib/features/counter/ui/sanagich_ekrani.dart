@@ -9,12 +9,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/format/son_format.dart';
 import '../../../core/l10n/generated/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_shadows.dart';
 import '../../../core/theme/app_text.dart';
 import '../../../core/widgets/bortiq_tugma.dart';
+import '../../../core/widgets/korsatkich.dart';
 import '../../../core/widgets/osmon_ekran.dart';
 import '../../../core/widgets/sky_header.dart';
 import '../../../core/widgets/tasdiq_dialog.dart';
+import '../../library/ui/turkum.dart';
+import '../../library/ui/zikr_tanlash_paneli.dart';
 import '../domain/sanash.dart';
 import 'sanagich_controller.dart';
 import 'widgets/halqa.dart';
@@ -148,8 +150,9 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
       children: [
         _ZikrBloki(
           arabcha: zikr.arabcha,
-          nomi: zikr.talaffuz ?? zikr.nomi,
+          nomi: zikr.korinishNomi,
           manosi: zikr.manosi,
+          onNomi: () => zikrTanlashPaneliniOch(context),
         ),
         Column(
           children: [
@@ -180,7 +183,7 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
         if (keyingi != null)
           _HarakatQatori(
             nollash: nollash,
-            keyingiNomi: keyingi.talaffuz ?? keyingi.nomi,
+            keyingiNomi: keyingi.korinishNomi,
             onKeyingisi: _ctrl.keyingisiga,
           ),
       ],
@@ -275,45 +278,26 @@ class _YuqoriQator extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: Row(
         children: [
-          _Pill(
+          KorsatkichPill(
             ikonka: 'assets/svg/icon_olov.svg',
             rang: c.olov,
             qiymat: streak,
             izoh: l.streakIzoh(sonFormat(streak)),
           ),
           const SizedBox(width: 8),
-          _Pill(
+          KorsatkichPill(
             ikonka: 'assets/svg/icon_tasbeh_kichik.svg',
             rang: c.yashil,
             qiymat: aylanalar,
             izoh: l.aylanalarIzoh(sonFormat(aylanalar)),
           ),
           const Spacer(),
-          Semantics(
-            button: true,
+          IkonkaTugma(
+            ikonka: 'assets/svg/icon_tebranish.svg',
+            onTap: onHaptik,
             toggled: haptik,
-            label: haptik ? l.haptikYoqilgan : l.haptikOchirilgan,
-            excludeSemantics: true,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: onHaptik,
-              child: Container(
-                width: 40,
-                height: 40,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: c.fon,
-                  shape: BoxShape.circle,
-                  boxShadow: AppShadows.ikonkaTugma,
-                ),
-                child: SvgPicture.asset(
-                  'assets/svg/icon_tebranish.svg',
-                  width: 20,
-                  height: 20,
-                  colorFilter: ColorFilter.mode(haptik ? c.matn : c.matn3, BlendMode.srcIn),
-                ),
-              ),
-            ),
+            izoh: haptik ? l.haptikYoqilgan : l.haptikOchirilgan,
+            rang: haptik ? c.matn : c.matn3,
           ),
         ],
       ),
@@ -321,51 +305,20 @@ class _YuqoriQator extends StatelessWidget {
   }
 }
 
-class _Pill extends StatelessWidget {
-  const _Pill({required this.ikonka, required this.rang, required this.qiymat, required this.izoh});
-
-  final String ikonka;
-  final Color rang;
-  final int qiymat;
-  final String izoh;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.colors;
-    return Semantics(
-      label: izoh,
-      excludeSemantics: true,
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(10, 7, 12, 7),
-        decoration: BoxDecoration(
-          color: c.fon,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: AppShadows.pill,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgPicture.asset(
-              ikonka,
-              width: 16,
-              height: 16,
-              colorFilter: ColorFilter.mode(rang, BlendMode.srcIn),
-            ),
-            const SizedBox(width: 6),
-            Text(sonFormat(qiymat), style: AppText.teg.copyWith(color: c.matn)),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class _ZikrBloki extends StatelessWidget {
-  const _ZikrBloki({required this.arabcha, required this.nomi, required this.manosi});
+  const _ZikrBloki({
+    required this.arabcha,
+    required this.nomi,
+    required this.manosi,
+    required this.onNomi,
+  });
 
   final String arabcha;
   final String nomi;
   final String manosi;
+
+  /// Nom qatori bosilganda (zikr tanlash paneli). Bu bosish sanalmaydi.
+  final VoidCallback onNomi;
 
   @override
   Widget build(BuildContext context) {
@@ -382,26 +335,33 @@ class _ZikrBloki extends StatelessWidget {
             style: AppText.arab.copyWith(color: c.matn),
           ),
         ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: Text(
-                nomi,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppText.h1.copyWith(color: c.matn),
-              ),
+        Semantics(
+          button: true,
+          hint: AppLocalizations.of(context).zikrniTanlang,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onNomi,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: Text(
+                    nomi,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppText.h1.copyWith(color: c.matn),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                SvgPicture.asset(
+                  'assets/svg/icon_pastga.svg',
+                  width: 22,
+                  height: 22,
+                  colorFilter: ColorFilter.mode(c.matn2, BlendMode.srcIn),
+                ),
+              ],
             ),
-            const SizedBox(width: 4),
-            // Zikr tanlash paneli keyingi topshiriqda; hozircha faqat belgi.
-            SvgPicture.asset(
-              'assets/svg/icon_pastga.svg',
-              width: 22,
-              height: 22,
-              colorFilter: ColorFilter.mode(c.matn2, BlendMode.srcIn),
-            ),
-          ],
+          ),
         ),
         Text(
           manosi,

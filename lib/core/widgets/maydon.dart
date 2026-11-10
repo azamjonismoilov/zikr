@@ -15,6 +15,9 @@ class Maydon extends StatefulWidget {
     this.avtoFokus = false,
     this.xato,
     this.onSubmitted,
+    this.uslub,
+    this.yonalish,
+    this.onChanged,
   });
 
   final String yorliq;
@@ -26,6 +29,13 @@ class Maydon extends StatefulWidget {
   /// Maydon ostidagi xato matni.
   final String? xato;
   final ValueChanged<String>? onSubmitted;
+  final ValueChanged<String>? onChanged;
+
+  /// Matn stili; standart — `AppText.matn`.
+  final TextStyle? uslub;
+
+  /// Masalan, arabcha matn uchun `TextDirection.rtl`.
+  final TextDirection? yonalish;
 
   @override
   State<Maydon> createState() => _MaydonState();
@@ -75,8 +85,11 @@ class _MaydonState extends State<Maydon> {
             keyboardType: widget.klaviatura,
             inputFormatters: widget.formatlar,
             onSubmitted: widget.onSubmitted,
+            onChanged: widget.onChanged,
             cursorColor: c.kok,
-            style: AppText.matn.copyWith(color: c.matn),
+            textDirection: widget.yonalish,
+            textAlign: widget.yonalish == TextDirection.rtl ? TextAlign.right : TextAlign.start,
+            style: (widget.uslub ?? AppText.matn).copyWith(color: c.matn),
             decoration: const InputDecoration.collapsed(hintText: null),
           ),
         ),

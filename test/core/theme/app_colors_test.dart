@@ -34,6 +34,10 @@ const _kutilgan = <String, (int, int)>{
   'asosiyYuqori': (0xFF62BDFF, 0xFF62BDFF),
   'asosiyPast': (0xFF2E9BF2, 0xFF2E9BF2),
   'asosiySoya': (0xFF1B7FD0, 0xFF14548C),
+  'qoplama': (0x6B171A21, 0x8C000000),
+  'ijroYangiFon': (0xFFEEF2F6, 0xFF24334C),
+  'ijroYangiBelgi': (0xFFA3ACB8, 0xFF8796AD),
+  'belgiOq': (0xFFFFFFFF, 0xFFFFFFFF),
 };
 
 void main() {

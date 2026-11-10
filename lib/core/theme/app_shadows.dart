@@ -21,6 +21,16 @@ abstract final class AppShadows {
     BoxShadow(color: Color(0x1A0F2952), offset: Offset(0, 3), blurRadius: 10),
   ];
 
+  /// Zikr kartasi (`DarsKarta`): rgba(15, 41, 82, 0.06), y 3, blur 5.
+  static const darsKarta = [
+    BoxShadow(color: Color(0x0F0F2952), offset: Offset(0, 3), blurRadius: 5),
+  ];
+
+  /// Zikrlar ekranidagi turkumlar kartasi: rgba(15, 41, 82, 0.1), y 6, blur 9.
+  static const turkumKarta = [
+    BoxShadow(color: Color(0x1A0F2952), offset: Offset(0, 6), blurRadius: 9),
+  ];
+
   /// Bo'rtiq (3D) effekt: xiralashmagan, pastga surilgan soya.
   static List<BoxShadow> bortiq(Color rang, {double balandlik = 4}) => [
         BoxShadow(color: rang, offset: Offset(0, balandlik), blurRadius: 0),

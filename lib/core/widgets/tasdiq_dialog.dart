@@ -14,6 +14,7 @@ Future<bool> tasdiqSora(
 }) async {
   final natija = await showDialog<bool>(
     context: context,
+    barrierColor: context.colors.qoplama,
     builder: (context) => _TasdiqDialog(sarlavha: sarlavha, matn: matn, tasdiqMatni: tasdiqMatni),
   );
   return natija ?? false;

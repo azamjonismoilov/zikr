@@ -13,7 +13,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? driftDatabase(name: 'zikr'));
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -21,6 +21,9 @@ class AppDatabase extends _$AppDatabase {
           if (from < 2) {
             await m.addColumn(sessiya, sessiya.jami);
             await m.create(sessiyaZikrSana);
+          }
+          if (from < 3) {
+            await m.addColumn(zikr, zikr.ochirilgan);
           }
         },
         beforeOpen: (details) async {

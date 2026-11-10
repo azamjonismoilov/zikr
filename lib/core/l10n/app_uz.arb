@@ -167,5 +167,223 @@
         "type": "String"
       }
     }
+  },
+  "turkumNamozdanKeyin": "Namozdan keyin",
+  "@turkumNamozdanKeyin": {
+    "description": "Turkum nomi"
+  },
+  "turkumKunDavomida": "Kun davomida",
+  "@turkumKunDavomida": {
+    "description": "Turkum nomi"
+  },
+  "turkumErtalabki": "Ertalabki",
+  "@turkumErtalabki": {
+    "description": "Turkum nomi"
+  },
+  "turkumKechki": "Kechki",
+  "@turkumKechki": {
+    "description": "Turkum nomi"
+  },
+  "turkumMening": "Mening",
+  "@turkumMening": {
+    "description": "O'z zikrlari bo'limi nomi"
+  },
+  "izohNamozdanKeyin": "Har farz namozidan soʻng",
+  "@izohNamozdanKeyin": {
+    "description": "Bo'lim izohi"
+  },
+  "izohKunDavomida": "Istalgan vaqtda",
+  "@izohKunDavomida": {
+    "description": "Bo'lim izohi"
+  },
+  "izohErtalabki": "Ertalab",
+  "@izohErtalabki": {
+    "description": "Bo'lim izohi"
+  },
+  "izohKechki": "Kechqurun",
+  "@izohKechki": {
+    "description": "Bo'lim izohi"
+  },
+  "izohMening": "Oʻzingiz qoʻshgan",
+  "@izohMening": {
+    "description": "Bo'lim izohi"
+  },
+  "bolimIzohi": "{izoh} · {soni} ta zikr",
+  "@bolimIzohi": {
+    "description": "Bo'lim sarlavhasi ostidagi izoh va zikrlar soni",
+    "placeholders": {
+      "izoh": {
+        "type": "String"
+      },
+      "soni": {
+        "type": "String"
+      }
+    }
+  },
+  "kartaBajarildi": "{maqsad} / {maqsad}",
+  "@kartaBajarildi": {
+    "description": "Bajarilgan zikr kartasi: maqsad / maqsad",
+    "placeholders": {
+      "maqsad": {
+        "type": "String"
+      }
+    }
+  },
+  "kartaMarta": "{maqsad} marta",
+  "@kartaMarta": {
+    "description": "Zikr kartasi: maqsad",
+    "placeholders": {
+      "maqsad": {
+        "type": "String"
+      }
+    }
+  },
+  "kartaCheksiz": "Cheksiz",
+  "@kartaCheksiz": {
+    "description": "Zikr kartasi: ∞ maqsad"
+  },
+  "kartaIzoh": "{maqsad} · {manosi}",
+  "@kartaIzoh": {
+    "description": "Zikr kartasi: maqsad va ma'no",
+    "placeholders": {
+      "maqsad": {
+        "type": "String"
+      },
+      "manosi": {
+        "type": "String"
+      }
+    }
+  },
+  "kartaProgress": "{son}/{maqsad}",
+  "@kartaProgress": {
+    "description": "Zikr kartasidagi progress yozuvi",
+    "placeholders": {
+      "son": {
+        "type": "String"
+      },
+      "maqsad": {
+        "type": "String"
+      }
+    }
+  },
+  "bolimniYigish": "Boʻlimni yigʻish",
+  "@bolimniYigish": {
+    "description": "Yig'ish tugmasi (ekran o'quvchi uchun)"
+  },
+  "bolimniOchish": "Boʻlimni ochish",
+  "@bolimniOchish": {
+    "description": "Yig'ish tugmasi yopiq holatda (ekran o'quvchi uchun)"
+  },
+  "qidirish": "Qidirish",
+  "@qidirish": {
+    "description": "Qidiruv tugmasi (ekran o'quvchi uchun)"
+  },
+  "ozZikringizYoq": "Oʻz zikringiz hali yoʻq",
+  "@ozZikringizYoq": {
+    "description": "Mening bo'limi bo'sh holati"
+  },
+  "ozZikringizniQoshish": "Oʻz zikringizni qoʻshish",
+  "@ozZikringizniQoshish": {
+    "description": "O'z zikrini qo'shish tugmasi"
+  },
+  "zikrniTanlang": "Zikrni tanlang",
+  "@zikrniTanlang": {
+    "description": "Zikr tanlash paneli sarlavhasi"
+  },
+  "qidiruvMaslahat": "Zikr nomi yoki maʼnosi",
+  "@qidiruvMaslahat": {
+    "description": "Qidiruv maydoni placeholder'i"
+  },
+  "hammasi": "Hammasi",
+  "@hammasi": {
+    "description": "Barcha turkumlar chipi"
+  },
+  "hechNarsaTopilmadi": "Hech narsa topilmadi",
+  "@hechNarsaTopilmadi": {
+    "description": "Qidiruv natijasi bo'sh"
+  },
+  "yangiZikr": "Yangi zikr",
+  "@yangiZikr": {
+    "description": "O'z zikri ekrani sarlavhasi"
+  },
+  "zikrniTahrirlash": "Zikrni tahrirlash",
+  "@zikrniTahrirlash": {
+    "description": "Tahrirlash ekrani sarlavhasi"
+  },
+  "rasm": "Rasm",
+  "@rasm": {
+    "description": "Rasm tanlovi yorlig'i"
+  },
+  "talaffuzi": "Talaffuzi",
+  "@talaffuzi": {
+    "description": "Talaffuz maydoni yorlig'i"
+  },
+  "arabchaMatn": "Arabcha matn (ixtiyoriy)",
+  "@arabchaMatn": {
+    "description": "Arabcha maydon yorlig'i"
+  },
+  "manosi": "Maʼnosi",
+  "@manosi": {
+    "description": "Ma'no maydoni yorlig'i"
+  },
+  "maqsad": "Maqsad",
+  "@maqsad": {
+    "description": "Maqsad tanlovi yorlig'i"
+  },
+  "ochirish": "Oʻchirish",
+  "@ochirish": {
+    "description": "O'chirish tugmasi"
+  },
+  "ochirishSarlavha": "Zikrni oʻchirish",
+  "@ochirishSarlavha": {
+    "description": "O'chirish tasdig'i sarlavhasi"
+  },
+  "ochirishMatn": "Zikr roʻyxatlardan olib tashlanadi. Statistikadagi hisob saqlanib qoladi.",
+  "@ochirishMatn": {
+    "description": "O'chirish tasdig'i matni"
+  },
+  "chiqishSarlavha": "Oʻzgarishlar saqlanmaydi",
+  "@chiqishSarlavha": {
+    "description": "Saqlamasdan chiqish tasdig'i sarlavhasi"
+  },
+  "chiqishMatn": "Yozganlaringiz oʻchib ketadi.",
+  "@chiqishMatn": {
+    "description": "Saqlamasdan chiqish tasdig'i matni"
+  },
+  "chiqish": "Chiqish",
+  "@chiqish": {
+    "description": "Saqlamasdan chiqishni tasdiqlash"
+  },
+  "tanlangan": "Tanlangan",
+  "@tanlangan": {
+    "description": "Tanlangan holat (ekran o'quvchi uchun)"
+  },
+  "rasmTasbeh": "Tasbeh",
+  "@rasmTasbeh": {
+    "description": "Rasm plitkasi nomi (ekran o'quvchi uchun)"
+  },
+  "rasmYurak": "Yurak",
+  "@rasmYurak": {
+    "description": "Rasm plitkasi nomi (ekran o'quvchi uchun)"
+  },
+  "rasmYulduz": "Yulduz",
+  "@rasmYulduz": {
+    "description": "Rasm plitkasi nomi (ekran o'quvchi uchun)"
+  },
+  "rasmNamoz": "Masjid",
+  "@rasmNamoz": {
+    "description": "Rasm plitkasi nomi (ekran o'quvchi uchun)"
+  },
+  "rasmTun": "Tun",
+  "@rasmTun": {
+    "description": "Rasm plitkasi nomi (ekran o'quvchi uchun)"
+  },
+  "rasmTong": "Tong",
+  "@rasmTong": {
+    "description": "Rasm plitkasi nomi (ekran o'quvchi uchun)"
+  },
+  "rasmKitob": "Kitob",
+  "@rasmKitob": {
+    "description": "Rasm plitkasi nomi (ekran o'quvchi uchun)"
   }
 }

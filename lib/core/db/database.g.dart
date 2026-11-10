@@ -112,6 +112,21 @@ class $ZikrTable extends Zikr with TableInfo<$ZikrTable, ZikrQator> {
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _ochirilganMeta = const VerificationMeta(
+    'ochirilgan',
+  );
+  @override
+  late final GeneratedColumn<bool> ochirilgan = GeneratedColumn<bool>(
+    'ochirilgan',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("ochirilgan" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -124,6 +139,7 @@ class $ZikrTable extends Zikr with TableInfo<$ZikrTable, ZikrQator> {
     turkum,
     ozZikri,
     tartib,
+    ochirilgan,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -204,6 +220,12 @@ class $ZikrTable extends Zikr with TableInfo<$ZikrTable, ZikrQator> {
     } else if (isInserting) {
       context.missing(_tartibMeta);
     }
+    if (data.containsKey('ochirilgan')) {
+      context.handle(
+        _ochirilganMeta,
+        ochirilgan.isAcceptableOrUnknown(data['ochirilgan']!, _ochirilganMeta),
+      );
+    }
     return context;
   }
 
@@ -253,6 +275,10 @@ class $ZikrTable extends Zikr with TableInfo<$ZikrTable, ZikrQator> {
         DriftSqlType.int,
         data['${effectivePrefix}tartib'],
       )!,
+      ochirilgan: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}ochirilgan'],
+      )!,
     );
   }
 
@@ -279,6 +305,9 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
   final String turkum;
   final bool ozZikri;
   final int tartib;
+
+  /// O'chirilgan zikr ro'yxatlarda ko'rinmaydi, sessiyalari saqlanadi (v3).
+  final bool ochirilgan;
   const ZikrQator({
     required this.id,
     required this.nomi,
@@ -290,6 +319,7 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
     required this.turkum,
     required this.ozZikri,
     required this.tartib,
+    required this.ochirilgan,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -310,6 +340,7 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
     map['turkum'] = Variable<String>(turkum);
     map['oz_zikri'] = Variable<bool>(ozZikri);
     map['tartib'] = Variable<int>(tartib);
+    map['ochirilgan'] = Variable<bool>(ochirilgan);
     return map;
   }
 
@@ -329,6 +360,7 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
       turkum: Value(turkum),
       ozZikri: Value(ozZikri),
       tartib: Value(tartib),
+      ochirilgan: Value(ochirilgan),
     );
   }
 
@@ -348,6 +380,7 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
       turkum: serializer.fromJson<String>(json['turkum']),
       ozZikri: serializer.fromJson<bool>(json['ozZikri']),
       tartib: serializer.fromJson<int>(json['tartib']),
+      ochirilgan: serializer.fromJson<bool>(json['ochirilgan']),
     );
   }
   @override
@@ -364,6 +397,7 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
       'turkum': serializer.toJson<String>(turkum),
       'ozZikri': serializer.toJson<bool>(ozZikri),
       'tartib': serializer.toJson<int>(tartib),
+      'ochirilgan': serializer.toJson<bool>(ochirilgan),
     };
   }
 
@@ -378,6 +412,7 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
     String? turkum,
     bool? ozZikri,
     int? tartib,
+    bool? ochirilgan,
   }) => ZikrQator(
     id: id ?? this.id,
     nomi: nomi ?? this.nomi,
@@ -389,6 +424,7 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
     turkum: turkum ?? this.turkum,
     ozZikri: ozZikri ?? this.ozZikri,
     tartib: tartib ?? this.tartib,
+    ochirilgan: ochirilgan ?? this.ochirilgan,
   );
   ZikrQator copyWithCompanion(ZikrCompanion data) {
     return ZikrQator(
@@ -402,6 +438,9 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
       turkum: data.turkum.present ? data.turkum.value : this.turkum,
       ozZikri: data.ozZikri.present ? data.ozZikri.value : this.ozZikri,
       tartib: data.tartib.present ? data.tartib.value : this.tartib,
+      ochirilgan: data.ochirilgan.present
+          ? data.ochirilgan.value
+          : this.ochirilgan,
     );
   }
 
@@ -417,7 +456,8 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
           ..write('rasm: $rasm, ')
           ..write('turkum: $turkum, ')
           ..write('ozZikri: $ozZikri, ')
-          ..write('tartib: $tartib')
+          ..write('tartib: $tartib, ')
+          ..write('ochirilgan: $ochirilgan')
           ..write(')'))
         .toString();
   }
@@ -434,6 +474,7 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
     turkum,
     ozZikri,
     tartib,
+    ochirilgan,
   );
   @override
   bool operator ==(Object other) =>
@@ -448,7 +489,8 @@ class ZikrQator extends DataClass implements Insertable<ZikrQator> {
           other.rasm == this.rasm &&
           other.turkum == this.turkum &&
           other.ozZikri == this.ozZikri &&
-          other.tartib == this.tartib);
+          other.tartib == this.tartib &&
+          other.ochirilgan == this.ochirilgan);
 }
 
 class ZikrCompanion extends UpdateCompanion<ZikrQator> {
@@ -462,6 +504,7 @@ class ZikrCompanion extends UpdateCompanion<ZikrQator> {
   final Value<String> turkum;
   final Value<bool> ozZikri;
   final Value<int> tartib;
+  final Value<bool> ochirilgan;
   const ZikrCompanion({
     this.id = const Value.absent(),
     this.nomi = const Value.absent(),
@@ -473,6 +516,7 @@ class ZikrCompanion extends UpdateCompanion<ZikrQator> {
     this.turkum = const Value.absent(),
     this.ozZikri = const Value.absent(),
     this.tartib = const Value.absent(),
+    this.ochirilgan = const Value.absent(),
   });
   ZikrCompanion.insert({
     this.id = const Value.absent(),
@@ -485,6 +529,7 @@ class ZikrCompanion extends UpdateCompanion<ZikrQator> {
     required String turkum,
     this.ozZikri = const Value.absent(),
     required int tartib,
+    this.ochirilgan = const Value.absent(),
   }) : nomi = Value(nomi),
        arabcha = Value(arabcha),
        manosi = Value(manosi),
@@ -501,6 +546,7 @@ class ZikrCompanion extends UpdateCompanion<ZikrQator> {
     Expression<String>? turkum,
     Expression<bool>? ozZikri,
     Expression<int>? tartib,
+    Expression<bool>? ochirilgan,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -513,6 +559,7 @@ class ZikrCompanion extends UpdateCompanion<ZikrQator> {
       if (turkum != null) 'turkum': turkum,
       if (ozZikri != null) 'oz_zikri': ozZikri,
       if (tartib != null) 'tartib': tartib,
+      if (ochirilgan != null) 'ochirilgan': ochirilgan,
     });
   }
 
@@ -527,6 +574,7 @@ class ZikrCompanion extends UpdateCompanion<ZikrQator> {
     Value<String>? turkum,
     Value<bool>? ozZikri,
     Value<int>? tartib,
+    Value<bool>? ochirilgan,
   }) {
     return ZikrCompanion(
       id: id ?? this.id,
@@ -539,6 +587,7 @@ class ZikrCompanion extends UpdateCompanion<ZikrQator> {
       turkum: turkum ?? this.turkum,
       ozZikri: ozZikri ?? this.ozZikri,
       tartib: tartib ?? this.tartib,
+      ochirilgan: ochirilgan ?? this.ochirilgan,
     );
   }
 
@@ -575,6 +624,9 @@ class ZikrCompanion extends UpdateCompanion<ZikrQator> {
     if (tartib.present) {
       map['tartib'] = Variable<int>(tartib.value);
     }
+    if (ochirilgan.present) {
+      map['ochirilgan'] = Variable<bool>(ochirilgan.value);
+    }
     return map;
   }
 
@@ -590,7 +642,8 @@ class ZikrCompanion extends UpdateCompanion<ZikrQator> {
           ..write('rasm: $rasm, ')
           ..write('turkum: $turkum, ')
           ..write('ozZikri: $ozZikri, ')
-          ..write('tartib: $tartib')
+          ..write('tartib: $tartib, ')
+          ..write('ochirilgan: $ochirilgan')
           ..write(')'))
         .toString();
   }
@@ -1641,6 +1694,7 @@ typedef $$ZikrTableCreateCompanionBuilder = ZikrCompanion Function({
   required String turkum,
   Value<bool> ozZikri,
   required int tartib,
+  Value<bool> ochirilgan,
 });
 typedef $$ZikrTableUpdateCompanionBuilder = ZikrCompanion Function({
   Value<int> id,
@@ -1653,6 +1707,7 @@ typedef $$ZikrTableUpdateCompanionBuilder = ZikrCompanion Function({
   Value<String> turkum,
   Value<bool> ozZikri,
   Value<int> tartib,
+  Value<bool> ochirilgan,
 });
 
 final class $$ZikrTableReferences
@@ -1733,6 +1788,11 @@ class $$ZikrTableFilterComposer extends Composer<_$AppDatabase, $ZikrTable> {
 
   ColumnFilters<int> get tartib => $composableBuilder(
     column: $table.tartib,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get ochirilgan => $composableBuilder(
+    column: $table.ochirilgan,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1819,6 +1879,11 @@ class $$ZikrTableOrderingComposer extends Composer<_$AppDatabase, $ZikrTable> {
     column: $table.tartib,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<bool> get ochirilgan => $composableBuilder(
+    column: $table.ochirilgan,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$ZikrTableAnnotationComposer
@@ -1859,6 +1924,11 @@ class $$ZikrTableAnnotationComposer
 
   GeneratedColumn<int> get tartib =>
       $composableBuilder(column: $table.tartib, builder: (column) => column);
+
+  GeneratedColumn<bool> get ochirilgan => $composableBuilder(
+    column: $table.ochirilgan,
+    builder: (column) => column,
+  );
 
   Expression<T> sessiyaRefs<T extends Object>(
     Expression<T> Function($$SessiyaTableAnnotationComposer a) f,
@@ -1924,6 +1994,7 @@ class $$ZikrTableTableManager
                 Value<String> turkum = const Value.absent(),
                 Value<bool> ozZikri = const Value.absent(),
                 Value<int> tartib = const Value.absent(),
+                Value<bool> ochirilgan = const Value.absent(),
               }) => ZikrCompanion(
                 id: id,
                 nomi: nomi,
@@ -1935,6 +2006,7 @@ class $$ZikrTableTableManager
                 turkum: turkum,
                 ozZikri: ozZikri,
                 tartib: tartib,
+                ochirilgan: ochirilgan,
               ),
           createCompanionCallback:
               ({
@@ -1948,6 +2020,7 @@ class $$ZikrTableTableManager
                 required String turkum,
                 Value<bool> ozZikri = const Value.absent(),
                 required int tartib,
+                Value<bool> ochirilgan = const Value.absent(),
               }) => ZikrCompanion.insert(
                 id: id,
                 nomi: nomi,
@@ -1959,6 +2032,7 @@ class $$ZikrTableTableManager
                 turkum: turkum,
                 ozZikri: ozZikri,
                 tartib: tartib,
+                ochirilgan: ochirilgan,
               ),
           withReferenceMapper: (p0) => p0
               .map(

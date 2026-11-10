@@ -25,6 +25,20 @@ class YozuvNavbati {
     });
   }
 
+  /// Yozuvni navbatga qo'yadi va uning natijasini qaytaradi (masalan, yangi qator id'si).
+  /// Xato chaqiruvchiga qaytariladi, navbat to'xtamaydi.
+  Future<T> bajar<T>(Future<T> Function() yozuv) {
+    final natija = Completer<T>();
+    qosh(() async {
+      try {
+        natija.complete(await yozuv());
+      } catch (e, st) {
+        natija.completeError(e, st);
+      }
+    });
+    return natija.future;
+  }
+
   /// Hozirgacha qo'yilgan barcha yozuvlar tugashini kutadi.
   Future<void> tugashiniKut() => _oxirgi;
 }
