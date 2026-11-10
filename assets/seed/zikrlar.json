@@ -1,0 +1,90 @@
+{
+  "zikrlar": [
+    {
+      "id": 1,
+      "nomi": "SubhanAllah",
+      "talaffuz": null,
+      "arabcha": "سُبْحَانَ ٱللَّٰهِ",
+      "manosi": "Alloh pokdir",
+      "maqsad": 33,
+      "rasm": "tasbeh",
+      "turkum": "namozdan_keyin",
+      "tartib": 1
+    },
+    {
+      "id": 2,
+      "nomi": "Alhamdulillah",
+      "talaffuz": null,
+      "arabcha": "ٱلْحَمْدُ لِلَّٰهِ",
+      "manosi": "Allohga hamd boʻlsin",
+      "maqsad": 33,
+      "rasm": "yurak",
+      "turkum": "namozdan_keyin",
+      "tartib": 2
+    },
+    {
+      "id": 3,
+      "nomi": "Allohu Akbar",
+      "talaffuz": null,
+      "arabcha": "ٱللَّٰهُ أَكْبَرُ",
+      "manosi": "Alloh buyukdir",
+      "maqsad": 34,
+      "rasm": "yulduz",
+      "turkum": "namozdan_keyin",
+      "tartib": 3
+    },
+    {
+      "id": 4,
+      "nomi": "La ilaha illalloh",
+      "talaffuz": null,
+      "arabcha": "لَا إِلَٰهَ إِلَّا ٱللَّٰهُ",
+      "manosi": "Allohdan oʻzga iloh yoʻq",
+      "maqsad": 100,
+      "rasm": "namoz",
+      "turkum": "kun_davomida",
+      "tartib": 4
+    },
+    {
+      "id": 5,
+      "nomi": "Astagʻfirulloh",
+      "talaffuz": null,
+      "arabcha": "أَسْتَغْفِرُ ٱللَّٰهَ",
+      "manosi": "Allohdan magʻfirat soʻrayman",
+      "maqsad": 100,
+      "rasm": "tun",
+      "turkum": "kun_davomida",
+      "tartib": 5
+    },
+    {
+      "id": 6,
+      "nomi": "Salavot",
+      "talaffuz": null,
+      "arabcha": "ٱللَّٰهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ",
+      "manosi": "Paygʻambarimizga salovat",
+      "maqsad": 10,
+      "rasm": "kitob",
+      "turkum": "kun_davomida",
+      "tartib": 6
+    }
+  ],
+  "toplamlar": [
+    {
+      "id": 1,
+      "nomi": "Namozdan keyingi tasbehot",
+      "qadamlar": [
+        {
+          "zikr_id": 1,
+          "maqsad": 33
+        },
+        {
+          "zikr_id": 2,
+          "maqsad": 33
+        },
+        {
+          "zikr_id": 3,
+          "maqsad": 34
+        }
+      ]
+    }
+  ]
+}

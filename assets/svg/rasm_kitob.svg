@@ -1,0 +1,25 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Rasm/kitob">
+<g clip-path="url(#clip0_31_3166)">
+<path id="Vector" d="M56 0H0V56H56V0Z" fill="url(#paint0_linear_31_3166)"/>
+<path id="Vector_2" opacity="0.2" d="M28 50.5C39.598 50.5 49 49.3807 49 48C49 46.6193 39.598 45.5 28 45.5C16.402 45.5 7 46.6193 7 48C7 49.3807 16.402 50.5 28 50.5Z" fill="#E86A0C"/>
+<path id="Vector_3" d="M5 19C13 17 20.6667 17.6667 28 21C35.3333 17.6667 43 17 51 19V44C43 42 35.3333 42.6667 28 46C20.6667 42.6667 13 42 5 44V19Z" fill="url(#paint1_linear_31_3166)"/>
+<path id="Vector_4" d="M8 16C14.6667 14 21 14.6667 27 18V42C21 39.3333 14.6667 38.6667 8 40V16Z" fill="white"/>
+<path id="Vector_5" d="M48 16C41.3333 14 35 14.6667 29 18V42C35 39.3333 41.3333 38.6667 48 40V16Z" fill="#FFF3E2"/>
+<path id="Vector_6" d="M38 14.6V27L41 24.5L44 27V14.4L38 14.6Z" fill="#F5455C"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_31_3166" x1="0" y1="0" x2="0" y2="56" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFF0DD"/>
+<stop offset="1" stop-color="#FFD6A8"/>
+</linearGradient>
+<linearGradient id="paint1_linear_31_3166" x1="5" y1="17.875" x2="5" y2="46" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF9F45"/>
+<stop offset="1" stop-color="#E5680A"/>
+</linearGradient>
+<clipPath id="clip0_31_3166">
+<rect width="56" height="56" rx="14" fill="white"/>
+</clipPath>
+</defs>
+</svg>

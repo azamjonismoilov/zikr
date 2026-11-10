@@ -1,0 +1,25 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Rasm/yulduz">
+<g clip-path="url(#clip0_31_3166)">
+<path id="Vector" d="M56 0H0V56H56V0Z" fill="url(#paint0_linear_31_3166)"/>
+<path id="Vector_2" opacity="0.22" d="M28 51.8C35.1797 51.8 41 50.7703 41 49.5C41 48.2298 35.1797 47.2 28 47.2C20.8203 47.2 15 48.2298 15 49.5C15 50.7703 20.8203 51.8 28 51.8Z" fill="#8E63FF"/>
+<path id="Vector_3" d="M28 11L32.6 21.7L44.2 22.7L35.4 30.4L38 41.8L28 35.8L18 41.8L20.6 30.4L11.8 22.7L23.4 21.7L28 11Z" fill="url(#paint1_linear_31_3166)" stroke="#9670FF" stroke-width="3.5" stroke-linejoin="round"/>
+<path id="Vector_4" opacity="0.5" d="M20.4289 26.0642C21.5288 26.9872 23.5717 26.3636 24.9917 24.6713C26.4117 22.979 26.6711 20.8588 25.5712 19.9358C24.4712 19.0128 22.4283 19.6365 21.0083 21.3288C19.5883 23.0211 19.3289 25.1412 20.4289 26.0642Z" fill="white"/>
+<path id="Vector_5" d="M46 7.5C46 10.5 47.5 12 50.5 12C47.5 12 46 13.5 46 16.5C46 13.5 44.5 12 41.5 12C44.5 12 46 10.5 46 7.5Z" fill="white" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+<path id="Vector_6" opacity="0.9" d="M11 41.5C11 43.8333 12.1667 45 14.5 45C12.1667 45 11 46.1667 11 48.5C11 46.1667 9.83333 45 7.5 45C9.83333 45 11 43.8333 11 41.5Z" fill="white" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_31_3166" x1="0" y1="0" x2="0" y2="56" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F2EAFF"/>
+<stop offset="1" stop-color="#D9C6FF"/>
+</linearGradient>
+<linearGradient id="paint1_linear_31_3166" x1="11.8" y1="11" x2="11.8" y2="41.8" gradientUnits="userSpaceOnUse">
+<stop stop-color="#C4A8FF"/>
+<stop offset="1" stop-color="#7F4FF2"/>
+</linearGradient>
+<clipPath id="clip0_31_3166">
+<rect width="56" height="56" rx="14" fill="white"/>
+</clipPath>
+</defs>
+</svg>

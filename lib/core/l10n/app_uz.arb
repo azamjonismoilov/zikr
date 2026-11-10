@@ -1,0 +1,19 @@
+{
+  "@@locale": "uz",
+  "ilovaNomi": "Zikr",
+  "@ilovaNomi": { "description": "Ilova nomi" },
+  "tabSanagich": "Sanagich",
+  "@tabSanagich": { "description": "Tab bar: sanagich bo'limi" },
+  "tabZikrlar": "Zikrlar",
+  "@tabZikrlar": { "description": "Tab bar: zikrlar kutubxonasi" },
+  "tabStatistika": "Statistika",
+  "@tabStatistika": { "description": "Tab bar: statistika bo'limi" },
+  "tabSozlamalar": "Sozlamalar",
+  "@tabSozlamalar": { "description": "Tab bar: sozlamalar bo'limi" },
+  "sarlavhaZikrlar": "Zikrlar",
+  "@sarlavhaZikrlar": { "description": "Zikrlar ekrani sarlavhasi" },
+  "sarlavhaStatistika": "Statistika",
+  "@sarlavhaStatistika": { "description": "Statistika ekrani sarlavhasi" },
+  "sarlavhaSozlamalar": "Sozlamalar",
+  "@sarlavhaSozlamalar": { "description": "Sozlamalar ekrani sarlavhasi" }
+}
