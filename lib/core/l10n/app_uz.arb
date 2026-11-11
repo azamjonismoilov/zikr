@@ -385,5 +385,144 @@
   "rasmKitob": "Kitob",
   "@rasmKitob": {
     "description": "Rasm plitkasi nomi (ekran o'quvchi uchun)"
+  },
+  "toplamTeg": "{qadam} / {jami}",
+  "@toplamTeg": {
+    "description": "To'plam rejimida markaziy tugmadagi teg: qadam / qadamlar soni",
+    "placeholders": {
+      "qadam": {
+        "type": "String"
+      },
+      "jami": {
+        "type": "String"
+      }
+    }
+  },
+  "tugatish": "Tugatish",
+  "@tugatish": {
+    "description": "To'plamning oxirgi qadamida o'tkazib yuborish tugmasi"
+  },
+  "tabrikNatija": "{qiymat} / {qiymat}",
+  "@tabrikNatija": {
+    "description": "Tabrik modalidagi yashil belgi",
+    "placeholders": {
+      "qiymat": {
+        "type": "String"
+      }
+    }
+  },
+  "tasbehotTugadi": "Tasbehot tugadi",
+  "@tasbehotTugadi": {
+    "description": "Tabrik sarlavhasi: to'plam tugadi"
+  },
+  "aylanaTugadi": "Aylana tugadi",
+  "@aylanaTugadi": {
+    "description": "Tabrik sarlavhasi: kun hisobga olindi"
+  },
+  "bugunMarta": "Bugun {n}-marta",
+  "@bugunMarta": {
+    "description": "Bugun nechanchi marta (to'plam)",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "tabrikIzoh": "{nomi} · {maqsad} marta",
+  "@tabrikIzoh": {
+    "description": "Tabrik izohi: zikr va maqsad",
+    "placeholders": {
+      "nomi": {
+        "type": "String"
+      },
+      "maqsad": {
+        "type": "String"
+      }
+    }
+  },
+  "dalda": "{n} kun ketma-ket. Davom eting!",
+  "@dalda": {
+    "description": "Tabrikdagi dalda qatori",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "tayyor": "Tayyor",
+  "@tayyor": {
+    "description": "Tabrik asosiy tugmasi (to'plam tugadi)"
+  },
+  "davomEtish": "Davom etish",
+  "@davomEtish": {
+    "description": "Davom etish tugmasi"
+  },
+  "yanaBirMarta": "Yana bir marta",
+  "@yanaBirMarta": {
+    "description": "Tabrik ikkinchi tugmasi: yangi yurish"
+  },
+  "boshqaZikrTanlash": "Boshqa zikr tanlash",
+  "@boshqaZikrTanlash": {
+    "description": "Tabrik ikkinchi tugmasi: panelni ochish"
+  },
+  "boshlash": "Boshlash",
+  "@boshlash": {
+    "description": "Tasbehot yo'lini boshlash tugmasi"
+  },
+  "yolHolati": "{tugagan} / {jami}",
+  "@yolHolati": {
+    "description": "Yo'l ekranidagi tugagan qadamlar belgisi",
+    "placeholders": {
+      "tugagan": {
+        "type": "String"
+      },
+      "jami": {
+        "type": "String"
+      }
+    }
+  },
+  "tasbehotZikr": "Tasbehot · {jami} zikr",
+  "@tasbehotZikr": {
+    "description": "Yo'l ekranidagi bosqich kartasi sarlavhasi",
+    "placeholders": {
+      "jami": {
+        "type": "String"
+      }
+    }
+  },
+  "tugunYorliq": "{nomi} · {maqsad}",
+  "@tugunYorliq": {
+    "description": "Yo'l tuguni yozuvi",
+    "placeholders": {
+      "nomi": {
+        "type": "String"
+      },
+      "maqsad": {
+        "type": "String"
+      }
+    }
+  },
+  "tugunJoriy": "{nomi} · {son}/{maqsad}",
+  "@tugunJoriy": {
+    "description": "Joriy yo'l tuguni yozuvi",
+    "placeholders": {
+      "nomi": {
+        "type": "String"
+      },
+      "son": {
+        "type": "String"
+      },
+      "maqsad": {
+        "type": "String"
+      }
+    }
+  },
+  "maslahatTasbehot": "Namozdan soʻng 33 tasbeh, 33 tahmid va 34 takbir aytiladi.",
+  "@maslahatTasbehot": {
+    "description": "Yo'l ekranidagi maslahat kartasi"
+  },
+  "tasbehotYolini": "Tasbehot yoʻlini ochish",
+  "@tasbehotYolini": {
+    "description": "Bo'lim sarlavhasi (ekran o'quvchi uchun)"
   }
 }

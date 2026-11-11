@@ -36,6 +36,9 @@ abstract final class AppText {
   /// Ro'yxat qatoridagi arabcha matn (Figma `TanlashQator`).
   static final arabKichik = _stil(family: _amiri, weight: FontWeight.w400, size: 19, lineHeight: 30);
 
+  /// Tabrik modalidagi arabcha matn (Figma 07).
+  static final arabOrta = _stil(family: _amiri, weight: FontWeight.w400, size: 28, lineHeight: 46);
+
   /// Arabcha matn kiritish maydoni (Figma 08 · O'z zikringiz).
   static final arabMaydon =
       _stil(family: _amiri, weight: FontWeight.w400, size: 21, lineHeight: 30, trackingPct: -0.5);

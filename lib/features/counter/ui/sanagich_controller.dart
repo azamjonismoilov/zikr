@@ -11,14 +11,68 @@ import '../domain/sanash.dart';
 import '../domain/soat.dart';
 import '../../library/domain/oz_zikr.dart';
 import '../../library/domain/zikr_holati.dart';
+import '../../path/data/yurish_repository.dart';
+import '../../path/domain/tabrik.dart';
+import '../../path/domain/toplam_sanash.dart';
+import '../../path/domain/yurish.dart';
 
 final soatProvider = Provider<Soat>((ref) => const TizimSoati());
 
 final sanagichRepositoryProvider =
     Provider<SanagichRepository>((ref) => SanagichRepository(ref.watch(databaseProvider)));
 
+final yurishRepositoryProvider =
+    Provider<YurishRepository>((ref) => YurishRepository(ref.watch(databaseProvider)));
+
 final sanagichProvider =
     AsyncNotifierProvider<SanagichController, SanagichHolati>(SanagichController.new);
+
+/// Tabrik modali uchun ma'lumot.
+class Tabrik {
+  const Tabrik({
+    required this.turi,
+    required this.zikrId,
+    required this.maqsad,
+    this.toplamId,
+    this.jami = 0,
+    this.marta = 0,
+    this.streak,
+  });
+
+  final TabrikTuri turi;
+
+  /// "Kun hisobga olindi": aylanasi tugagan zikr. "To'plam tugadi": oxirgi qadam zikri.
+  final int zikrId;
+
+  /// "{maqsad} / {maqsad}" va "{nomi} · {maqsad} marta" uchun.
+  final int maqsad;
+  final int? toplamId;
+
+  /// To'plam qadamlari maqsadlari yig'indisi ("100 / 100").
+  final int jami;
+
+  /// Bugun to'plam nechanchi marta tugadi.
+  final int marta;
+
+  /// Dalda qatori: streak oshgan bo'lsa yangi qiymati, aks holda `null`.
+  final int? streak;
+}
+
+/// Bosishning UI uchun natijasi.
+class BosishHodisasi {
+  const BosishHodisasi({this.aylanaTugadi = false, this.tabrik});
+
+  /// Aylana (alohida) yoki qadam (to'plam) tugadi: kuchli haptik, halqa yonadi.
+  final bool aylanaTugadi;
+
+  /// `null` — modal chiqmaydi.
+  final Tabrik? tabrik;
+}
+
+/// To'plam ichida kechiktirilgan "kun hisobga olindi" holati.
+typedef KechiktirilganTabrik = ({int zikrId, int maqsad});
+
+const _yoq = Object();
 
 /// Sanagich ekranining to'liq holati. O'zgarmas; har amal yangisini yaratadi.
 class SanagichHolati {
@@ -31,6 +85,10 @@ class SanagichHolati {
     required this.yigindilar,
     required this.haptik,
     required this.kunlikMaqsad,
+    this.joriyToplamId,
+    this.yurishlar = const {},
+    this.tugaganYurishlar = const [],
+    this.kechiktirilgan,
   });
 
   final Kun bugun;
@@ -46,12 +104,70 @@ class SanagichHolati {
   final bool haptik;
   final int kunlikMaqsad;
 
-  ZikrQator get zikr => zikrlar.firstWhere((z) => z.id == joriyZikrId);
+  /// Bo'sh bo'lmasa, sanagich shu to'plam rejimida (tugallanmagan yurishi bo'lsa).
+  final int? joriyToplamId;
+
+  /// Har to'plamning tugallanmagan yurishi.
+  final Map<int, Yurish> yurishlar;
+  final List<TugaganYurish> tugaganYurishlar;
+  final KechiktirilganTabrik? kechiktirilgan;
+
+  ToplamQator? toplamById(int id) {
+    for (final t in toplamlar) {
+      if (t.id == id) return t;
+    }
+    return null;
+  }
+
+  ZikrQator? zikrById(int id) {
+    for (final z in zikrlar) {
+      if (z.id == id) return z;
+    }
+    return null;
+  }
+
+  static List<YolQadami> qadamlariniOl(ToplamQator t) =>
+      [for (final q in t.qadamlar) YolQadami(zikrId: q.zikrId, maqsad: q.maqsad)];
+
+  /// To'plam rejimidagi to'plam (rejim faol bo'lmasa `null`).
+  ToplamQator? get toplam {
+    final id = joriyToplamId;
+    if (id == null || !yurishlar.containsKey(id)) return null;
+    return toplamById(id);
+  }
+
+  bool get toplamRejimi => toplam != null;
+  Yurish? get yurish => toplamRejimi ? yurishlar[joriyToplamId] : null;
+  YolQadami? get joriyQadam {
+    final t = toplam, y = yurish;
+    if (t == null || y == null) return null;
+    return qadamlariniOl(t)[y.qadam];
+  }
+
+  /// Ekrandagi zikr: to'plam rejimida joriy qadam zikri.
+  ZikrQator get zikr {
+    final q = joriyQadam;
+    return (q == null ? null : zikrById(q.zikrId)) ?? zikrById(joriyZikrId) ?? zikrlar.first;
+  }
+
   KunQatori? get _qator => oxirgiQatorlar[joriyZikrId];
 
-  /// `null` — cheksiz (∞).
-  int? get maqsad => zikr.maqsad;
-  int get son => Sanash.joriySon(_qator);
+  /// `null` — cheksiz (∞). To'plam rejimida qadam maqsadi.
+  int? get maqsad => joriyQadam?.maqsad ?? zikr.maqsad;
+
+  /// Ekrandagi son: to'plam rejimida joriy qadamdagi son.
+  int get son => yurish?.son ?? Sanash.joriySon(_qator);
+
+  /// To'plam rejimida keyingi qadam zikri; oxirgi qadamda `null` ("Tugatish").
+  ZikrQator? get keyingiQadamZikri {
+    final t = toplam, y = yurish;
+    if (t == null || y == null || y.qadam + 1 >= t.qadamlar.length) return null;
+    return zikrById(t.qadamlar[y.qadam + 1].zikrId);
+  }
+
+  /// Bugun shu to'plam necha marta tugadi.
+  int bugunTugaganlar(int toplamId) =>
+      tugaganYurishlar.where((y) => y.toplamId == toplamId && y.kun == bugun).length;
 
   /// Teg uchun: bugungi aylanalar + 1.
   int get aylanaRaqami => Sanash.bugungiAylanalar(_qator, bugun) + 1;
@@ -68,19 +184,6 @@ class SanagichHolati {
   ZikrHolatMalumoti holat(ZikrQator z) =>
       ZikrHolatHisobi.hisobla(oxirgiQatorlar[z.id], z.maqsad, bugun);
 
-  /// Joriy zikr to'plamda bo'lsa, to'plamdagi keyingi zikr (oxirgisidan keyin birinchisi).
-  ZikrQator? get keyingiZikr {
-    for (final t in toplamlar) {
-      final i = t.qadamlar.indexWhere((q) => q.zikrId == joriyZikrId);
-      if (i < 0) continue;
-      final keyingiId = t.qadamlar[(i + 1) % t.qadamlar.length].zikrId;
-      for (final z in zikrlar) {
-        if (z.id == keyingiId) return z;
-      }
-    }
-    return null;
-  }
-
   SanagichHolati copyWith({
     Kun? bugun,
     List<ZikrQator>? zikrlar,
@@ -88,6 +191,10 @@ class SanagichHolati {
     Map<int, KunQatori>? oxirgiQatorlar,
     Map<Kun, KunYigindisi>? yigindilar,
     bool? haptik,
+    Object? joriyToplamId = _yoq,
+    Map<int, Yurish>? yurishlar,
+    List<TugaganYurish>? tugaganYurishlar,
+    Object? kechiktirilgan = _yoq,
   }) {
     return SanagichHolati(
       bugun: bugun ?? this.bugun,
@@ -98,6 +205,12 @@ class SanagichHolati {
       yigindilar: yigindilar ?? this.yigindilar,
       haptik: haptik ?? this.haptik,
       kunlikMaqsad: kunlikMaqsad,
+      joriyToplamId: identical(joriyToplamId, _yoq) ? this.joriyToplamId : joriyToplamId as int?,
+      yurishlar: yurishlar ?? this.yurishlar,
+      tugaganYurishlar: tugaganYurishlar ?? this.tugaganYurishlar,
+      kechiktirilgan: identical(kechiktirilgan, _yoq)
+          ? this.kechiktirilgan
+          : kechiktirilgan as KechiktirilganTabrik?,
     );
   }
 }
@@ -106,6 +219,7 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
   final navbat = YozuvNavbati();
 
   SanagichRepository get _repo => ref.read(sanagichRepositoryProvider);
+  YurishRepository get _yurishRepo => ref.read(yurishRepositoryProvider);
   Soat get _soat => ref.read(soatProvider);
   SanagichHolati get _h => state.requireValue;
 
@@ -116,6 +230,7 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     final saqlanganId = int.tryParse(await repo.sozlama(SozlamaKalit.joriyZikrId) ?? '');
     final joriyId = zikrlar.any((z) => z.id == saqlanganId) ? saqlanganId! : zikrlar.first.id;
     final kunlik = int.tryParse(await repo.sozlama(SozlamaKalit.kunlikMaqsad) ?? '');
+    final toplamId = int.tryParse(await repo.sozlama(SozlamaKalit.joriyToplamId) ?? '');
 
     return SanagichHolati(
       bugun: Kun.dan(_soat.hozir()),
@@ -126,29 +241,157 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
       yigindilar: {for (final y in await repo.kunlikYigindilar()) y.sana: y},
       haptik: await repo.sozlama(SozlamaKalit.haptik) != '0',
       kunlikMaqsad: kunlik ?? SozlamaKalit.standartKunlikMaqsad,
+      joriyToplamId: toplamId,
+      yurishlar: await _yurishRepo.tugallanmaganlar(),
+      tugaganYurishlar: await _yurishRepo.tugaganlar(),
     );
   }
 
-  /// Bitta bosish. Natijada aylana tugaganmi.
-  bool bos() {
+  /// Bitta bosish (alohida yoki to'plam rejimida).
+  BosishHodisasi bos() {
     final h = _h;
     final vaqt = _soat.hozir();
     final bugun = Kun.dan(vaqt);
+    final oldinHisoblangan = _kunHisoblanadimi(h, bugun);
+    if (h.toplamRejimi) return _toplamdaBos(h, vaqt, bugun, oldinHisoblangan);
+
     final eski = h.oxirgiQatorlar[h.joriyZikrId];
     final natija = Sanash.bos(eski, h.joriyZikrId, h.maqsad, bugun);
     _qatorniOrnat(h, eski, natija.qator, bugun, vaqt);
-    return natija.aylanaTugadi;
+
+    final qaror = TabrikHisobi.qaror(
+      toplamRejimi: false,
+      aylanaKunniHisoblatdi:
+          natija.aylanaTugadi && !oldinHisoblangan && _kunHisoblanadimi(_h, bugun),
+      toplamTugadi: false,
+      kechiktirilgan: false,
+    );
+    Tabrik? tabrik;
+    if (qaror.turi == TabrikTuri.kunHisoblandi) {
+      tabrik = Tabrik(
+        turi: TabrikTuri.kunHisoblandi,
+        zikrId: h.joriyZikrId,
+        maqsad: h.maqsad!, // aylana tugagan: maqsad ∞ emas
+        streak: _h.streak.joriy,
+      );
+    }
+    return BosishHodisasi(aylanaTugadi: natija.aylanaTugadi, tabrik: tabrik);
+  }
+
+  BosishHodisasi _toplamdaBos(SanagichHolati h, DateTime vaqt, Kun bugun, bool oldinHisoblangan) {
+    final t = h.toplam!;
+    final qadamlar = SanagichHolati.qadamlariniOl(t);
+    final qadam = qadamlar[h.yurish!.qadam];
+    final eski = h.oxirgiQatorlar[qadam.zikrId];
+    final r = ToplamSanash.bos(h.yurish!, qadamlar, eski, bugun);
+    _qatorniOrnat(h, eski, r.sessiya, bugun, vaqt);
+    _yurishniOrnat(r.yurish, vaqt);
+
+    final kunYangi = r.qadamTugadi && !oldinHisoblangan && _kunHisoblanadimi(_h, bugun);
+    final qaror = TabrikHisobi.qaror(
+      toplamRejimi: true,
+      aylanaKunniHisoblatdi: kunYangi,
+      toplamTugadi: r.toplamTugadi,
+      kechiktirilgan: h.kechiktirilgan != null,
+    );
+    state = AsyncData(_h.copyWith(
+      kechiktirilgan: qaror.kechiktirilgan
+          ? (h.kechiktirilgan ?? (zikrId: qadam.zikrId, maqsad: qadam.maqsad))
+          : null,
+    ));
+
+    Tabrik? tabrik;
+    if (qaror.turi == TabrikTuri.toplamTugadi) {
+      tabrik = Tabrik(
+        turi: TabrikTuri.toplamTugadi,
+        zikrId: qadam.zikrId,
+        maqsad: qadam.maqsad,
+        toplamId: t.id,
+        jami: qadamlar.fold(0, (s, q) => s + q.maqsad),
+        marta: _h.bugunTugaganlar(t.id),
+        streak: qaror.dalda ? _h.streak.joriy : null,
+      );
+      // To'plam tugadi: rejimdan chiqib, birinchi zikrga qaytadi (modal ustida turadi).
+      _toplamdanChiq(qadamlar.first.zikrId);
+    }
+    return BosishHodisasi(aylanaTugadi: r.qadamTugadi, tabrik: tabrik);
+  }
+
+  /// To'plam rejimida joriy qadamni o'tkazib yuboradi. Oxirgi qadamda yurish tugallanmagan
+  /// holda yopiladi; kechiktirilgan "kun hisobga olindi" bo'lsa, shu tabrik qaytadi.
+  Tabrik? qadamniOtkaz() {
+    final h = _h;
+    final t = h.toplam, y = h.yurish;
+    if (t == null || y == null) return null;
+    final vaqt = _soat.hozir();
+    final keyingi = ToplamSanash.otkazibYubor(y, t.qadamlar.length);
+    if (keyingi != null) {
+      _yurishniOrnat(keyingi, vaqt);
+      return null;
+    }
+
+    navbat.qosh(() => _yurishRepo.ochir(y.id!));
+    state = AsyncData(h.copyWith(yurishlar: {...h.yurishlar}..remove(t.id)));
+    _toplamdanChiq(t.qadamlar.first.zikrId);
+
+    final kech = h.kechiktirilgan;
+    final qaror = TabrikHisobi.qaror(
+      toplamRejimi: true,
+      aylanaKunniHisoblatdi: false,
+      toplamTugadi: false,
+      yurishYopildi: true,
+      kechiktirilgan: kech != null,
+    );
+    if (qaror.turi != TabrikTuri.kunHisoblandi || kech == null) return null;
+    return Tabrik(
+      turi: TabrikTuri.kunHisoblandi,
+      zikrId: kech.zikrId,
+      maqsad: kech.maqsad,
+      streak: _h.streak.joriy,
+    );
+  }
+
+  /// To'plam rejimini boshlaydi yoki tugallanmagan yurishni davom ettiradi.
+  Future<void> toplamniBoshla(int toplamId) async {
+    if (_h.toplamById(toplamId) == null) return;
+    final vaqt = _soat.hozir();
+    final Yurish y = _h.yurishlar[toplamId] ??
+        await navbat.bajar<Yurish>(
+          () => _yurishRepo.qosh(ToplamSanash.yangi(toplamId, Kun.dan(vaqt)), vaqt),
+        );
+    state = AsyncData(_h.copyWith(
+      yurishlar: {..._h.yurishlar, toplamId: y},
+      joriyToplamId: toplamId,
+      kechiktirilgan: null,
+    ));
+    navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.joriyToplamId, '$toplamId'));
   }
 
   /// Joriy (yoki [zikrId]) zikrning aylanasini nollaydi. `son == 0` bo'lsa hech narsa qilmaydi.
   void nolla([int? zikrId]) {
     final h = _h;
+    if (zikrId == null && h.toplamRejimi) {
+      _toplamdaNolla(h);
+      return;
+    }
     final id = zikrId ?? h.joriyZikrId;
     final eski = h.oxirgiQatorlar[id];
     if (Sanash.joriySon(eski) == 0) return;
     final vaqt = _soat.hozir();
     final bugun = Kun.dan(vaqt);
     _qatorniOrnat(h, eski, Sanash.nolla(eski, id, bugun), bugun, vaqt);
+  }
+
+  void _toplamdaNolla(SanagichHolati h) {
+    final y = h.yurish!;
+    if (y.son == 0) return;
+    final vaqt = _soat.hozir();
+    final bugun = Kun.dan(vaqt);
+    final zikrId = h.joriyQadam!.zikrId;
+    final eski = h.oxirgiQatorlar[zikrId];
+    final (yurish, sessiya) = ToplamSanash.nolla(y, zikrId, eski, bugun);
+    _qatorniOrnat(h, eski, sessiya, bugun, vaqt);
+    _yurishniOrnat(yurish, vaqt);
   }
 
   /// Maqsadni o'rnatadi (`null` — ∞). `son > 0` bo'lsa avval nollaydi;
@@ -173,11 +416,27 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
   }
 
   /// Joriy zikrni almashtiradi. Har zikrning tugallanmagan soni o'z qatorida qoladi.
+  ///
+  /// To'plam rejimidan chiqadi; yurish saqlanib qoladi va yo'ldan davom ettiriladi.
   void zikrniTanla(int id) {
     final h = _h;
-    if (h.joriyZikrId == id || !h.zikrlar.any((z) => z.id == id)) return;
+    if (!h.zikrlar.any((z) => z.id == id)) return;
+    if (h.joriyToplamId != null) {
+      _toplamdanChiq(id);
+      return;
+    }
+    if (h.joriyZikrId == id) return;
     state = AsyncData(h.copyWith(joriyZikrId: id));
     navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.joriyZikrId, '$id'));
+  }
+
+  /// To'plam rejimidan chiqib, [zikrId] ni joriy qiladi.
+  void _toplamdanChiq(int zikrId) {
+    state = AsyncData(_h.copyWith(joriyToplamId: null, joriyZikrId: zikrId, kechiktirilgan: null));
+    navbat.qosh(() async {
+      await _repo.sozlamaniOchir(SozlamaKalit.joriyToplamId);
+      await _repo.sozlamaniYoz(SozlamaKalit.joriyZikrId, '$zikrId');
+    });
   }
 
   /// Yangi o'z zikrini qo'shadi va uni joriy qiladi.
@@ -211,14 +470,6 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     }
   }
 
-  /// To'plamdagi keyingi zikrga o'tadi.
-  void keyingisiga() {
-    final keyingi = _h.keyingiZikr;
-    if (keyingi == null) return;
-    state = AsyncData(_h.copyWith(joriyZikrId: keyingi.id));
-    navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.joriyZikrId, '${keyingi.id}'));
-  }
-
   /// Ilova qayta ochilganda (masalan, yarim tundan keyin) bugungi kunni yangilaydi.
   void kunniYangila() {
     final h = state.value;
@@ -248,4 +499,21 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     ));
     navbat.qosh(() => _repo.qatorniYoz(yangi, vaqt));
   }
+
+  /// Yurishni holatga qo'yadi va yozadi. Tugagan bo'lsa tugaganlar ro'yxatiga o'tadi.
+  void _yurishniOrnat(Yurish y, DateTime vaqt) {
+    final h = _h;
+    state = AsyncData(h.copyWith(
+      yurishlar: y.tugadi ? ({...h.yurishlar}..remove(y.toplamId)) : {...h.yurishlar, y.toplamId: y},
+      tugaganYurishlar: y.tugadi
+          ? [...h.tugaganYurishlar, (toplamId: y.toplamId, kun: Kun.dan(vaqt))]
+          : null,
+    ));
+    navbat.qosh(() => _yurishRepo.yoz(y, vaqt));
+  }
+
+  bool _kunHisoblanadimi(SanagichHolati h, Kun bugun) => KunHisobi.hisoblanadimi(
+        h.yigindilar[bugun] ?? KunYigindisi(sana: bugun),
+        h.kunlikMaqsad,
+      );
 }

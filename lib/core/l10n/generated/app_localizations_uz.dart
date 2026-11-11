@@ -269,4 +269,80 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get rasmKitob => 'Kitob';
+
+  @override
+  String toplamTeg(String qadam, String jami) {
+    return '$qadam / $jami';
+  }
+
+  @override
+  String get tugatish => 'Tugatish';
+
+  @override
+  String tabrikNatija(String qiymat) {
+    return '$qiymat / $qiymat';
+  }
+
+  @override
+  String get tasbehotTugadi => 'Tasbehot tugadi';
+
+  @override
+  String get aylanaTugadi => 'Aylana tugadi';
+
+  @override
+  String bugunMarta(String n) {
+    return 'Bugun $n-marta';
+  }
+
+  @override
+  String tabrikIzoh(String nomi, String maqsad) {
+    return '$nomi · $maqsad marta';
+  }
+
+  @override
+  String dalda(String n) {
+    return '$n kun ketma-ket. Davom eting!';
+  }
+
+  @override
+  String get tayyor => 'Tayyor';
+
+  @override
+  String get davomEtish => 'Davom etish';
+
+  @override
+  String get yanaBirMarta => 'Yana bir marta';
+
+  @override
+  String get boshqaZikrTanlash => 'Boshqa zikr tanlash';
+
+  @override
+  String get boshlash => 'Boshlash';
+
+  @override
+  String yolHolati(String tugagan, String jami) {
+    return '$tugagan / $jami';
+  }
+
+  @override
+  String tasbehotZikr(String jami) {
+    return 'Tasbehot · $jami zikr';
+  }
+
+  @override
+  String tugunYorliq(String nomi, String maqsad) {
+    return '$nomi · $maqsad';
+  }
+
+  @override
+  String tugunJoriy(String nomi, String son, String maqsad) {
+    return '$nomi · $son/$maqsad';
+  }
+
+  @override
+  String get maslahatTasbehot =>
+      'Namozdan soʻng 33 tasbeh, 33 tahmid va 34 takbir aytiladi.';
+
+  @override
+  String get tasbehotYolini => 'Tasbehot yoʻlini ochish';
 }

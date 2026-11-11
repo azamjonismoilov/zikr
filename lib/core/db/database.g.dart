@@ -1659,6 +1659,508 @@ class SozlamaCompanion extends UpdateCompanion<SozlamaQator> {
   }
 }
 
+class $ToplamYurishTable extends ToplamYurish
+    with TableInfo<$ToplamYurishTable, YurishQator> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ToplamYurishTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _toplamIdMeta = const VerificationMeta(
+    'toplamId',
+  );
+  @override
+  late final GeneratedColumn<int> toplamId = GeneratedColumn<int>(
+    'toplam_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES toplam (id)',
+    ),
+  );
+  static const VerificationMeta _sanaMeta = const VerificationMeta('sana');
+  @override
+  late final GeneratedColumn<String> sana = GeneratedColumn<String>(
+    'sana',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _qadamMeta = const VerificationMeta('qadam');
+  @override
+  late final GeneratedColumn<int> qadam = GeneratedColumn<int>(
+    'qadam',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _sonMeta = const VerificationMeta('son');
+  @override
+  late final GeneratedColumn<int> son = GeneratedColumn<int>(
+    'son',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _tugadiMeta = const VerificationMeta('tugadi');
+  @override
+  late final GeneratedColumn<bool> tugadi = GeneratedColumn<bool>(
+    'tugadi',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("tugadi" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _boshlandiMeta = const VerificationMeta(
+    'boshlandi',
+  );
+  @override
+  late final GeneratedColumn<DateTime> boshlandi = GeneratedColumn<DateTime>(
+    'boshlandi',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _yangilandiMeta = const VerificationMeta(
+    'yangilandi',
+  );
+  @override
+  late final GeneratedColumn<DateTime> yangilandi = GeneratedColumn<DateTime>(
+    'yangilandi',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    toplamId,
+    sana,
+    qadam,
+    son,
+    tugadi,
+    boshlandi,
+    yangilandi,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'toplam_yurish';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<YurishQator> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('toplam_id')) {
+      context.handle(
+        _toplamIdMeta,
+        toplamId.isAcceptableOrUnknown(data['toplam_id']!, _toplamIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_toplamIdMeta);
+    }
+    if (data.containsKey('sana')) {
+      context.handle(
+        _sanaMeta,
+        sana.isAcceptableOrUnknown(data['sana']!, _sanaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sanaMeta);
+    }
+    if (data.containsKey('qadam')) {
+      context.handle(
+        _qadamMeta,
+        qadam.isAcceptableOrUnknown(data['qadam']!, _qadamMeta),
+      );
+    }
+    if (data.containsKey('son')) {
+      context.handle(
+        _sonMeta,
+        son.isAcceptableOrUnknown(data['son']!, _sonMeta),
+      );
+    }
+    if (data.containsKey('tugadi')) {
+      context.handle(
+        _tugadiMeta,
+        tugadi.isAcceptableOrUnknown(data['tugadi']!, _tugadiMeta),
+      );
+    }
+    if (data.containsKey('boshlandi')) {
+      context.handle(
+        _boshlandiMeta,
+        boshlandi.isAcceptableOrUnknown(data['boshlandi']!, _boshlandiMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_boshlandiMeta);
+    }
+    if (data.containsKey('yangilandi')) {
+      context.handle(
+        _yangilandiMeta,
+        yangilandi.isAcceptableOrUnknown(data['yangilandi']!, _yangilandiMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_yangilandiMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  YurishQator map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return YurishQator(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      toplamId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}toplam_id'],
+      )!,
+      sana: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sana'],
+      )!,
+      qadam: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}qadam'],
+      )!,
+      son: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}son'],
+      )!,
+      tugadi: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}tugadi'],
+      )!,
+      boshlandi: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}boshlandi'],
+      )!,
+      yangilandi: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}yangilandi'],
+      )!,
+    );
+  }
+
+  @override
+  $ToplamYurishTable createAlias(String alias) {
+    return $ToplamYurishTable(attachedDatabase, alias);
+  }
+}
+
+class YurishQator extends DataClass implements Insertable<YurishQator> {
+  final int id;
+  final int toplamId;
+
+  /// Boshlangan mahalliy kun, `YYYY-MM-DD`.
+  final String sana;
+
+  /// Joriy qadam indeksi, 0 dan.
+  final int qadam;
+
+  /// Joriy qadamdagi son.
+  final int son;
+  final bool tugadi;
+  final DateTime boshlandi;
+  final DateTime yangilandi;
+  const YurishQator({
+    required this.id,
+    required this.toplamId,
+    required this.sana,
+    required this.qadam,
+    required this.son,
+    required this.tugadi,
+    required this.boshlandi,
+    required this.yangilandi,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['toplam_id'] = Variable<int>(toplamId);
+    map['sana'] = Variable<String>(sana);
+    map['qadam'] = Variable<int>(qadam);
+    map['son'] = Variable<int>(son);
+    map['tugadi'] = Variable<bool>(tugadi);
+    map['boshlandi'] = Variable<DateTime>(boshlandi);
+    map['yangilandi'] = Variable<DateTime>(yangilandi);
+    return map;
+  }
+
+  ToplamYurishCompanion toCompanion(bool nullToAbsent) {
+    return ToplamYurishCompanion(
+      id: Value(id),
+      toplamId: Value(toplamId),
+      sana: Value(sana),
+      qadam: Value(qadam),
+      son: Value(son),
+      tugadi: Value(tugadi),
+      boshlandi: Value(boshlandi),
+      yangilandi: Value(yangilandi),
+    );
+  }
+
+  factory YurishQator.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return YurishQator(
+      id: serializer.fromJson<int>(json['id']),
+      toplamId: serializer.fromJson<int>(json['toplamId']),
+      sana: serializer.fromJson<String>(json['sana']),
+      qadam: serializer.fromJson<int>(json['qadam']),
+      son: serializer.fromJson<int>(json['son']),
+      tugadi: serializer.fromJson<bool>(json['tugadi']),
+      boshlandi: serializer.fromJson<DateTime>(json['boshlandi']),
+      yangilandi: serializer.fromJson<DateTime>(json['yangilandi']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'toplamId': serializer.toJson<int>(toplamId),
+      'sana': serializer.toJson<String>(sana),
+      'qadam': serializer.toJson<int>(qadam),
+      'son': serializer.toJson<int>(son),
+      'tugadi': serializer.toJson<bool>(tugadi),
+      'boshlandi': serializer.toJson<DateTime>(boshlandi),
+      'yangilandi': serializer.toJson<DateTime>(yangilandi),
+    };
+  }
+
+  YurishQator copyWith({
+    int? id,
+    int? toplamId,
+    String? sana,
+    int? qadam,
+    int? son,
+    bool? tugadi,
+    DateTime? boshlandi,
+    DateTime? yangilandi,
+  }) => YurishQator(
+    id: id ?? this.id,
+    toplamId: toplamId ?? this.toplamId,
+    sana: sana ?? this.sana,
+    qadam: qadam ?? this.qadam,
+    son: son ?? this.son,
+    tugadi: tugadi ?? this.tugadi,
+    boshlandi: boshlandi ?? this.boshlandi,
+    yangilandi: yangilandi ?? this.yangilandi,
+  );
+  YurishQator copyWithCompanion(ToplamYurishCompanion data) {
+    return YurishQator(
+      id: data.id.present ? data.id.value : this.id,
+      toplamId: data.toplamId.present ? data.toplamId.value : this.toplamId,
+      sana: data.sana.present ? data.sana.value : this.sana,
+      qadam: data.qadam.present ? data.qadam.value : this.qadam,
+      son: data.son.present ? data.son.value : this.son,
+      tugadi: data.tugadi.present ? data.tugadi.value : this.tugadi,
+      boshlandi: data.boshlandi.present ? data.boshlandi.value : this.boshlandi,
+      yangilandi: data.yangilandi.present
+          ? data.yangilandi.value
+          : this.yangilandi,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('YurishQator(')
+          ..write('id: $id, ')
+          ..write('toplamId: $toplamId, ')
+          ..write('sana: $sana, ')
+          ..write('qadam: $qadam, ')
+          ..write('son: $son, ')
+          ..write('tugadi: $tugadi, ')
+          ..write('boshlandi: $boshlandi, ')
+          ..write('yangilandi: $yangilandi')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    toplamId,
+    sana,
+    qadam,
+    son,
+    tugadi,
+    boshlandi,
+    yangilandi,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is YurishQator &&
+          other.id == this.id &&
+          other.toplamId == this.toplamId &&
+          other.sana == this.sana &&
+          other.qadam == this.qadam &&
+          other.son == this.son &&
+          other.tugadi == this.tugadi &&
+          other.boshlandi == this.boshlandi &&
+          other.yangilandi == this.yangilandi);
+}
+
+class ToplamYurishCompanion extends UpdateCompanion<YurishQator> {
+  final Value<int> id;
+  final Value<int> toplamId;
+  final Value<String> sana;
+  final Value<int> qadam;
+  final Value<int> son;
+  final Value<bool> tugadi;
+  final Value<DateTime> boshlandi;
+  final Value<DateTime> yangilandi;
+  const ToplamYurishCompanion({
+    this.id = const Value.absent(),
+    this.toplamId = const Value.absent(),
+    this.sana = const Value.absent(),
+    this.qadam = const Value.absent(),
+    this.son = const Value.absent(),
+    this.tugadi = const Value.absent(),
+    this.boshlandi = const Value.absent(),
+    this.yangilandi = const Value.absent(),
+  });
+  ToplamYurishCompanion.insert({
+    this.id = const Value.absent(),
+    required int toplamId,
+    required String sana,
+    this.qadam = const Value.absent(),
+    this.son = const Value.absent(),
+    this.tugadi = const Value.absent(),
+    required DateTime boshlandi,
+    required DateTime yangilandi,
+  }) : toplamId = Value(toplamId),
+       sana = Value(sana),
+       boshlandi = Value(boshlandi),
+       yangilandi = Value(yangilandi);
+  static Insertable<YurishQator> custom({
+    Expression<int>? id,
+    Expression<int>? toplamId,
+    Expression<String>? sana,
+    Expression<int>? qadam,
+    Expression<int>? son,
+    Expression<bool>? tugadi,
+    Expression<DateTime>? boshlandi,
+    Expression<DateTime>? yangilandi,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (toplamId != null) 'toplam_id': toplamId,
+      if (sana != null) 'sana': sana,
+      if (qadam != null) 'qadam': qadam,
+      if (son != null) 'son': son,
+      if (tugadi != null) 'tugadi': tugadi,
+      if (boshlandi != null) 'boshlandi': boshlandi,
+      if (yangilandi != null) 'yangilandi': yangilandi,
+    });
+  }
+
+  ToplamYurishCompanion copyWith({
+    Value<int>? id,
+    Value<int>? toplamId,
+    Value<String>? sana,
+    Value<int>? qadam,
+    Value<int>? son,
+    Value<bool>? tugadi,
+    Value<DateTime>? boshlandi,
+    Value<DateTime>? yangilandi,
+  }) {
+    return ToplamYurishCompanion(
+      id: id ?? this.id,
+      toplamId: toplamId ?? this.toplamId,
+      sana: sana ?? this.sana,
+      qadam: qadam ?? this.qadam,
+      son: son ?? this.son,
+      tugadi: tugadi ?? this.tugadi,
+      boshlandi: boshlandi ?? this.boshlandi,
+      yangilandi: yangilandi ?? this.yangilandi,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (toplamId.present) {
+      map['toplam_id'] = Variable<int>(toplamId.value);
+    }
+    if (sana.present) {
+      map['sana'] = Variable<String>(sana.value);
+    }
+    if (qadam.present) {
+      map['qadam'] = Variable<int>(qadam.value);
+    }
+    if (son.present) {
+      map['son'] = Variable<int>(son.value);
+    }
+    if (tugadi.present) {
+      map['tugadi'] = Variable<bool>(tugadi.value);
+    }
+    if (boshlandi.present) {
+      map['boshlandi'] = Variable<DateTime>(boshlandi.value);
+    }
+    if (yangilandi.present) {
+      map['yangilandi'] = Variable<DateTime>(yangilandi.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ToplamYurishCompanion(')
+          ..write('id: $id, ')
+          ..write('toplamId: $toplamId, ')
+          ..write('sana: $sana, ')
+          ..write('qadam: $qadam, ')
+          ..write('son: $son, ')
+          ..write('tugadi: $tugadi, ')
+          ..write('boshlandi: $boshlandi, ')
+          ..write('yangilandi: $yangilandi')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1666,9 +2168,14 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ToplamTable toplam = $ToplamTable(this);
   late final $SessiyaTable sessiya = $SessiyaTable(this);
   late final $SozlamaTable sozlama = $SozlamaTable(this);
+  late final $ToplamYurishTable toplamYurish = $ToplamYurishTable(this);
   late final Index sessiyaZikrSana = Index(
     'sessiya_zikr_sana',
     'CREATE UNIQUE INDEX sessiya_zikr_sana ON sessiya (zikr_id, sana)',
+  );
+  late final Index toplamYurishTugallanmagan = Index(
+    'toplam_yurish_tugallanmagan',
+    'CREATE UNIQUE INDEX toplam_yurish_tugallanmagan ON toplam_yurish (toplam_id) WHERE tugadi = 0',
   );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -1679,7 +2186,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     toplam,
     sessiya,
     sozlama,
+    toplamYurish,
     sessiyaZikrSana,
+    toplamYurishTugallanmagan,
   ];
 }
 
@@ -2120,6 +2629,24 @@ final class $$ToplamTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$ToplamYurishTable, List<YurishQator>>
+  _toplamYurishRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.toplamYurish,
+    aliasName: 'toplam__id__toplam_yurish__toplam_id',
+  );
+
+  $$ToplamYurishTableProcessedTableManager get toplamYurishRefs {
+    final manager = $$ToplamYurishTableTableManager(
+      $_db,
+      $_db.toplamYurish,
+    ).filter((f) => f.toplamId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_toplamYurishRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$ToplamTableFilterComposer
@@ -2163,6 +2690,31 @@ class $$ToplamTableFilterComposer
           }) => $$SessiyaTableFilterComposer(
             $db: $db,
             $table: $db.sessiya,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> toplamYurishRefs(
+    Expression<bool> Function($$ToplamYurishTableFilterComposer f) f,
+  ) {
+    final $$ToplamYurishTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.toplamYurish,
+      getReferencedColumn: (t) => t.toplamId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ToplamYurishTableFilterComposer(
+            $db: $db,
+            $table: $db.toplamYurish,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -2240,6 +2792,31 @@ class $$ToplamTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> toplamYurishRefs<T extends Object>(
+    Expression<T> Function($$ToplamYurishTableAnnotationComposer a) f,
+  ) {
+    final $$ToplamYurishTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.toplamYurish,
+      getReferencedColumn: (t) => t.toplamId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ToplamYurishTableAnnotationComposer(
+            $db: $db,
+            $table: $db.toplamYurish,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$ToplamTableTableManager
@@ -2255,7 +2832,7 @@ class $$ToplamTableTableManager
           $$ToplamTableUpdateCompanionBuilder,
           (ToplamQator, $$ToplamTableReferences),
           ToplamQator,
-          PrefetchHooks Function({bool sessiyaRefs})
+          PrefetchHooks Function({bool sessiyaRefs, bool toplamYurishRefs})
         > {
   $$ToplamTableTableManager(_$AppDatabase db, $ToplamTable table)
     : super(
@@ -2286,33 +2863,61 @@ class $$ToplamTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({sessiyaRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (sessiyaRefs) db.sessiya],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (sessiyaRefs)
-                    await $_getPrefetchedDataByColumns<
-                      ToplamQator,
-                      $ToplamTable,
-                      SessiyaQator,
-                      $SessiyaTable
-                    >(
-                      currentTable: table,
-                      referencedTable: $$ToplamTableReferences
-                          ._sessiyaRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $$ToplamTableReferences(db, table, p0).sessiyaRefs,
-                      currentColumn: 'id',
-                      referencedColumn: 'toplam_id',
-                      typedResults: items,
-                    ),
-                ];
+          prefetchHooksCallback:
+              ({sessiyaRefs = false, toplamYurishRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (sessiyaRefs) db.sessiya,
+                    if (toplamYurishRefs) db.toplamYurish,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (sessiyaRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ToplamQator,
+                          $ToplamTable,
+                          SessiyaQator,
+                          $SessiyaTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ToplamTableReferences
+                              ._sessiyaRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ToplamTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).sessiyaRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'toplam_id',
+                          typedResults: items,
+                        ),
+                      if (toplamYurishRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ToplamQator,
+                          $ToplamTable,
+                          YurishQator,
+                          $ToplamYurishTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ToplamTableReferences
+                              ._toplamYurishRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ToplamTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).toplamYurishRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'toplam_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -2329,7 +2934,7 @@ typedef $$ToplamTableProcessedTableManager =
       $$ToplamTableUpdateCompanionBuilder,
       (ToplamQator, $$ToplamTableReferences),
       ToplamQator,
-      PrefetchHooks Function({bool sessiyaRefs})
+      PrefetchHooks Function({bool sessiyaRefs, bool toplamYurishRefs})
     >;
 typedef $$SessiyaTableCreateCompanionBuilder = SessiyaCompanion Function({
   Value<int> id,
@@ -2946,6 +3551,374 @@ typedef $$SozlamaTableProcessedTableManager =
       SozlamaQator,
       PrefetchHooks Function()
     >;
+typedef $$ToplamYurishTableCreateCompanionBuilder =
+    ToplamYurishCompanion Function({
+      Value<int> id,
+      required int toplamId,
+      required String sana,
+      Value<int> qadam,
+      Value<int> son,
+      Value<bool> tugadi,
+      required DateTime boshlandi,
+      required DateTime yangilandi,
+    });
+typedef $$ToplamYurishTableUpdateCompanionBuilder =
+    ToplamYurishCompanion Function({
+      Value<int> id,
+      Value<int> toplamId,
+      Value<String> sana,
+      Value<int> qadam,
+      Value<int> son,
+      Value<bool> tugadi,
+      Value<DateTime> boshlandi,
+      Value<DateTime> yangilandi,
+    });
+
+final class $$ToplamYurishTableReferences
+    extends BaseReferences<_$AppDatabase, $ToplamYurishTable, YurishQator> {
+  $$ToplamYurishTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ToplamTable _toplamIdTable(_$AppDatabase db) =>
+      db.toplam.createAlias('toplam_yurish__toplam_id__toplam__id');
+
+  $$ToplamTableProcessedTableManager get toplamId {
+    final $_column = $_itemColumn<int>('toplam_id')!;
+
+    final manager = $$ToplamTableTableManager(
+      $_db,
+      $_db.toplam,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_toplamIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$ToplamYurishTableFilterComposer
+    extends Composer<_$AppDatabase, $ToplamYurishTable> {
+  $$ToplamYurishTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sana => $composableBuilder(
+    column: $table.sana,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get qadam => $composableBuilder(
+    column: $table.qadam,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get son => $composableBuilder(
+    column: $table.son,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get tugadi => $composableBuilder(
+    column: $table.tugadi,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get boshlandi => $composableBuilder(
+    column: $table.boshlandi,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get yangilandi => $composableBuilder(
+    column: $table.yangilandi,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ToplamTableFilterComposer get toplamId {
+    final $$ToplamTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.toplamId,
+      referencedTable: $db.toplam,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ToplamTableFilterComposer(
+            $db: $db,
+            $table: $db.toplam,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ToplamYurishTableOrderingComposer
+    extends Composer<_$AppDatabase, $ToplamYurishTable> {
+  $$ToplamYurishTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sana => $composableBuilder(
+    column: $table.sana,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get qadam => $composableBuilder(
+    column: $table.qadam,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get son => $composableBuilder(
+    column: $table.son,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get tugadi => $composableBuilder(
+    column: $table.tugadi,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get boshlandi => $composableBuilder(
+    column: $table.boshlandi,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get yangilandi => $composableBuilder(
+    column: $table.yangilandi,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ToplamTableOrderingComposer get toplamId {
+    final $$ToplamTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.toplamId,
+      referencedTable: $db.toplam,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ToplamTableOrderingComposer(
+            $db: $db,
+            $table: $db.toplam,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ToplamYurishTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ToplamYurishTable> {
+  $$ToplamYurishTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get sana =>
+      $composableBuilder(column: $table.sana, builder: (column) => column);
+
+  GeneratedColumn<int> get qadam =>
+      $composableBuilder(column: $table.qadam, builder: (column) => column);
+
+  GeneratedColumn<int> get son =>
+      $composableBuilder(column: $table.son, builder: (column) => column);
+
+  GeneratedColumn<bool> get tugadi =>
+      $composableBuilder(column: $table.tugadi, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get boshlandi =>
+      $composableBuilder(column: $table.boshlandi, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get yangilandi => $composableBuilder(
+    column: $table.yangilandi,
+    builder: (column) => column,
+  );
+
+  $$ToplamTableAnnotationComposer get toplamId {
+    final $$ToplamTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.toplamId,
+      referencedTable: $db.toplam,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ToplamTableAnnotationComposer(
+            $db: $db,
+            $table: $db.toplam,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ToplamYurishTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ToplamYurishTable,
+          YurishQator,
+          $$ToplamYurishTableFilterComposer,
+          $$ToplamYurishTableOrderingComposer,
+          $$ToplamYurishTableAnnotationComposer,
+          $$ToplamYurishTableCreateCompanionBuilder,
+          $$ToplamYurishTableUpdateCompanionBuilder,
+          (YurishQator, $$ToplamYurishTableReferences),
+          YurishQator,
+          PrefetchHooks Function({bool toplamId})
+        > {
+  $$ToplamYurishTableTableManager(_$AppDatabase db, $ToplamYurishTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ToplamYurishTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ToplamYurishTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ToplamYurishTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> toplamId = const Value.absent(),
+                Value<String> sana = const Value.absent(),
+                Value<int> qadam = const Value.absent(),
+                Value<int> son = const Value.absent(),
+                Value<bool> tugadi = const Value.absent(),
+                Value<DateTime> boshlandi = const Value.absent(),
+                Value<DateTime> yangilandi = const Value.absent(),
+              }) => ToplamYurishCompanion(
+                id: id,
+                toplamId: toplamId,
+                sana: sana,
+                qadam: qadam,
+                son: son,
+                tugadi: tugadi,
+                boshlandi: boshlandi,
+                yangilandi: yangilandi,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int toplamId,
+                required String sana,
+                Value<int> qadam = const Value.absent(),
+                Value<int> son = const Value.absent(),
+                Value<bool> tugadi = const Value.absent(),
+                required DateTime boshlandi,
+                required DateTime yangilandi,
+              }) => ToplamYurishCompanion.insert(
+                id: id,
+                toplamId: toplamId,
+                sana: sana,
+                qadam: qadam,
+                son: son,
+                tugadi: tugadi,
+                boshlandi: boshlandi,
+                yangilandi: yangilandi,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ToplamYurishTable, YurishQator>(table),
+                  $$ToplamYurishTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({toplamId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (toplamId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.toplamId,
+                        referencedTable: $$ToplamYurishTableReferences
+                            ._toplamIdTable(db),
+                        referencedColumn: $$ToplamYurishTableReferences
+                            ._toplamIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$ToplamYurishTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ToplamYurishTable,
+      YurishQator,
+      $$ToplamYurishTableFilterComposer,
+      $$ToplamYurishTableOrderingComposer,
+      $$ToplamYurishTableAnnotationComposer,
+      $$ToplamYurishTableCreateCompanionBuilder,
+      $$ToplamYurishTableUpdateCompanionBuilder,
+      (YurishQator, $$ToplamYurishTableReferences),
+      YurishQator,
+      PrefetchHooks Function({bool toplamId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -2957,4 +3930,6 @@ class $AppDatabaseManager {
       $$SessiyaTableTableManager(_db, _db.sessiya);
   $$SozlamaTableTableManager get sozlama =>
       $$SozlamaTableTableManager(_db, _db.sozlama);
+  $$ToplamYurishTableTableManager get toplamYurish =>
+      $$ToplamYurishTableTableManager(_db, _db.toplamYurish);
 }

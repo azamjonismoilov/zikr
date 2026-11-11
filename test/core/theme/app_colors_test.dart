@@ -38,6 +38,16 @@ const _kutilgan = <String, (int, int)>{
   'ijroYangiFon': (0xFFEEF2F6, 0xFF24334C),
   'ijroYangiBelgi': (0xFFA3ACB8, 0xFF8796AD),
   'belgiOq': (0xFFFFFFFF, 0xFFFFFFFF),
+  'tugunYashilYuqori': (0xFF5FD98A, 0xFF5FD98A),
+  'tugunYashilPast': (0xFF2BC25C, 0xFF2BC25C),
+  'tugunYashilSoya': (0xFF1E9E47, 0xFF1E9E47),
+  'tugunKokYuqori': (0xFF6CC2FF, 0xFF6CC2FF),
+  'tugunKokPast': (0xFF2E9BF2, 0xFF2E9BF2),
+  'tugunKokSoya': (0xFF1B7FD0, 0xFF1B7FD0),
+  'tugunYangiYuqori': (0xFFFFFFFF, 0xFF26385A),
+  'tugunYangiPast': (0xFFEEF2F6, 0xFF1B2A44),
+  'tugunYangiSoya': (0xFFD3DBE4, 0xFF0A1220),
+  'tugunYangiChegara': (0xFFD3DBE4, 0xFF2E4066),
 };
 
 void main() {

@@ -31,6 +31,11 @@ abstract final class AppShadows {
     BoxShadow(color: Color(0x1A0F2952), offset: Offset(0, 6), blurRadius: 9),
   ];
 
+  /// Tabrik kartasi: rgba(0, 0, 0, 0.25), y 20, blur 50.
+  static const tabrik = [
+    BoxShadow(color: Color(0x40000000), offset: Offset(0, 20), blurRadius: 50),
+  ];
+
   /// Bo'rtiq (3D) effekt: xiralashmagan, pastga surilgan soya.
   static List<BoxShadow> bortiq(Color rang, {double balandlik = 4}) => [
         BoxShadow(color: rang, offset: Offset(0, balandlik), blurRadius: 0),

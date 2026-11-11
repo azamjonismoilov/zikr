@@ -90,9 +90,10 @@ void main() {
     await _zikrlargaOt(tester);
     expect(_zikrlarda(find.text('SubhanAllah')), findsOneWidget);
 
-    await _bos(tester, _zikrlarda(find.text('Namozdan keyin')).last);
+    final yigish = _zikrlarda(find.bySemanticsLabel('Boʻlimni yigʻish')).first;
+    await _bos(tester, yigish);
     expect(_zikrlarda(find.text('SubhanAllah')), findsNothing);
-    await _bos(tester, _zikrlarda(find.text('Namozdan keyin')).last);
+    await _bos(tester, _zikrlarda(find.bySemanticsLabel('Boʻlimni ochish')).first);
     expect(_zikrlarda(find.text('SubhanAllah')), findsOneWidget);
   });
 

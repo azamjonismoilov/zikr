@@ -83,10 +83,8 @@ void main() {
     expect(find.byType(Dialog), findsNothing);
     expect(_son(tester), '0');
 
-    await _bos(tester, find.text('Keyingisi: Alhamdulillah'));
-    expect(_holat(tester).zikr.nomi, 'Alhamdulillah');
-    expect(_son(tester), '0');
-    expect(find.text('Keyingisi: Allohu Akbar'), findsOneWidget);
+    // Alohida rejimda "Keyingisi" tugmasi umuman yo'q.
+    expect(find.textContaining('Keyingisi'), findsNothing);
 
     await _bos(tester, find.text('Maxsus'));
     expect(find.text('Maxsus maqsad'), findsOneWidget);
@@ -151,7 +149,10 @@ void main() {
 
   testWidgets('nollash tasdiq bilan faqat joriy aylanani o\'chiradi', (tester) async {
     await _och(tester);
-    await _bos(tester, find.byType(HalqaTugma), 35);
+    await _bos(tester, find.byType(HalqaTugma), 33);
+    // Bugun birinchi marta kun hisobga olindi: tabrik chiqadi.
+    await _bos(tester, find.text('Davom etish'));
+    await _bos(tester, find.byType(HalqaTugma), 2);
     expect(_son(tester), '2');
 
     await _bos(tester, find.bySemanticsLabel('Joriy aylanani nollash'));
@@ -192,12 +193,12 @@ void main() {
     expect(_son(tester), '0');
   });
 
-  testWidgets('to\'plamdagi zikrda nollash pastki qatorda, "Keyingisi" yonida', (tester) async {
+  testWidgets('alohida rejimda nollash har doim maqsad qatorida (to\'plamdagi zikrda ham)', (tester) async {
     await _och(tester);
+    expect(_holat(tester).zikr.nomi, 'SubhanAllah');
+    expect(find.byType(AsosiyTugma), findsNothing);
     final nollash = tester.getRect(find.bySemanticsLabel('Joriy aylanani nollash'));
-    final keyingisi = tester.getRect(find.byType(AsosiyTugma));
-    expect(nollash.center.dy, moreOrLessEquals(keyingisi.center.dy, epsilon: 2));
-    expect(nollash.center.dy, greaterThan(tester.getCenter(find.text('33')).dy));
+    expect(nollash.center.dy, moreOrLessEquals(tester.getCenter(find.text('33')).dy, epsilon: 2));
   });
 
   for (final balandlik in [844.0, 700.0, 960.0]) {

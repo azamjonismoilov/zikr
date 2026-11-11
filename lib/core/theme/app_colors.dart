@@ -38,6 +38,16 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.ijroYangiFon,
     required this.ijroYangiBelgi,
     required this.belgiOq,
+    required this.tugunYashilYuqori,
+    required this.tugunYashilPast,
+    required this.tugunYashilSoya,
+    required this.tugunKokYuqori,
+    required this.tugunKokPast,
+    required this.tugunKokSoya,
+    required this.tugunYangiYuqori,
+    required this.tugunYangiPast,
+    required this.tugunYangiSoya,
+    required this.tugunYangiChegara,
   });
 
   final Color fon;
@@ -90,6 +100,36 @@ class AppColors extends ThemeExtension<AppColors> {
   /// Rangli doiralar ustidagi oq belgi (ikkala rejimda oq).
   final Color belgiOq;
 
+  /// Bajarilgan yo'l tuguni gradienti, yuqori.
+  final Color tugunYashilYuqori;
+
+  /// Bajarilgan yo'l tuguni gradienti, past.
+  final Color tugunYashilPast;
+
+  /// Bajarilgan yo'l tuguni bo'rtiq soyasi.
+  final Color tugunYashilSoya;
+
+  /// Joriy yo'l tuguni gradienti, yuqori.
+  final Color tugunKokYuqori;
+
+  /// Joriy yo'l tuguni gradienti, past.
+  final Color tugunKokPast;
+
+  /// Joriy yo'l tuguni bo'rtiq soyasi.
+  final Color tugunKokSoya;
+
+  /// Yangi yo'l tuguni gradienti, yuqori.
+  final Color tugunYangiYuqori;
+
+  /// Yangi yo'l tuguni gradienti, past.
+  final Color tugunYangiPast;
+
+  /// Yangi yo'l tuguni bo'rtiq soyasi.
+  final Color tugunYangiSoya;
+
+  /// Yangi yo'l tuguni chegarasi.
+  final Color tugunYangiChegara;
+
   static const yorug = AppColors(
     fon: Color(0xFFFFFFFF),
     fon2: Color(0xFFF4F9FE),
@@ -124,6 +164,16 @@ class AppColors extends ThemeExtension<AppColors> {
     ijroYangiFon: Color(0xFFEEF2F6),
     ijroYangiBelgi: Color(0xFFA3ACB8),
     belgiOq: Color(0xFFFFFFFF),
+    tugunYashilYuqori: Color(0xFF5FD98A),
+    tugunYashilPast: Color(0xFF2BC25C),
+    tugunYashilSoya: Color(0xFF1E9E47),
+    tugunKokYuqori: Color(0xFF6CC2FF),
+    tugunKokPast: Color(0xFF2E9BF2),
+    tugunKokSoya: Color(0xFF1B7FD0),
+    tugunYangiYuqori: Color(0xFFFFFFFF),
+    tugunYangiPast: Color(0xFFEEF2F6),
+    tugunYangiSoya: Color(0xFFD3DBE4),
+    tugunYangiChegara: Color(0xFFD3DBE4),
   );
 
   static const tun = AppColors(
@@ -160,6 +210,16 @@ class AppColors extends ThemeExtension<AppColors> {
     ijroYangiFon: Color(0xFF24334C),
     ijroYangiBelgi: Color(0xFF8796AD),
     belgiOq: Color(0xFFFFFFFF),
+    tugunYashilYuqori: Color(0xFF5FD98A),
+    tugunYashilPast: Color(0xFF2BC25C),
+    tugunYashilSoya: Color(0xFF1E9E47),
+    tugunKokYuqori: Color(0xFF6CC2FF),
+    tugunKokPast: Color(0xFF2E9BF2),
+    tugunKokSoya: Color(0xFF1B7FD0),
+    tugunYangiYuqori: Color(0xFF26385A),
+    tugunYangiPast: Color(0xFF1B2A44),
+    tugunYangiSoya: Color(0xFF0A1220),
+    tugunYangiChegara: Color(0xFF2E4066),
   );
 
   /// Barcha tokenlar nomi bilan, `CLAUDE.md` jadvali tartibida.
@@ -197,6 +257,16 @@ class AppColors extends ThemeExtension<AppColors> {
         'ijroYangiFon': ijroYangiFon,
         'ijroYangiBelgi': ijroYangiBelgi,
         'belgiOq': belgiOq,
+        'tugunYashilYuqori': tugunYashilYuqori,
+        'tugunYashilPast': tugunYashilPast,
+        'tugunYashilSoya': tugunYashilSoya,
+        'tugunKokYuqori': tugunKokYuqori,
+        'tugunKokPast': tugunKokPast,
+        'tugunKokSoya': tugunKokSoya,
+        'tugunYangiYuqori': tugunYangiYuqori,
+        'tugunYangiPast': tugunYangiPast,
+        'tugunYangiSoya': tugunYangiSoya,
+        'tugunYangiChegara': tugunYangiChegara,
       };
 
   @override
@@ -234,6 +304,16 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? ijroYangiFon,
     Color? ijroYangiBelgi,
     Color? belgiOq,
+    Color? tugunYashilYuqori,
+    Color? tugunYashilPast,
+    Color? tugunYashilSoya,
+    Color? tugunKokYuqori,
+    Color? tugunKokPast,
+    Color? tugunKokSoya,
+    Color? tugunYangiYuqori,
+    Color? tugunYangiPast,
+    Color? tugunYangiSoya,
+    Color? tugunYangiChegara,
   }) {
     return AppColors(
       fon: fon ?? this.fon,
@@ -269,6 +349,16 @@ class AppColors extends ThemeExtension<AppColors> {
       ijroYangiFon: ijroYangiFon ?? this.ijroYangiFon,
       ijroYangiBelgi: ijroYangiBelgi ?? this.ijroYangiBelgi,
       belgiOq: belgiOq ?? this.belgiOq,
+      tugunYashilYuqori: tugunYashilYuqori ?? this.tugunYashilYuqori,
+      tugunYashilPast: tugunYashilPast ?? this.tugunYashilPast,
+      tugunYashilSoya: tugunYashilSoya ?? this.tugunYashilSoya,
+      tugunKokYuqori: tugunKokYuqori ?? this.tugunKokYuqori,
+      tugunKokPast: tugunKokPast ?? this.tugunKokPast,
+      tugunKokSoya: tugunKokSoya ?? this.tugunKokSoya,
+      tugunYangiYuqori: tugunYangiYuqori ?? this.tugunYangiYuqori,
+      tugunYangiPast: tugunYangiPast ?? this.tugunYangiPast,
+      tugunYangiSoya: tugunYangiSoya ?? this.tugunYangiSoya,
+      tugunYangiChegara: tugunYangiChegara ?? this.tugunYangiChegara,
     );
   }
 
@@ -310,6 +400,16 @@ class AppColors extends ThemeExtension<AppColors> {
       ijroYangiFon: l(ijroYangiFon, other.ijroYangiFon),
       ijroYangiBelgi: l(ijroYangiBelgi, other.ijroYangiBelgi),
       belgiOq: l(belgiOq, other.belgiOq),
+      tugunYashilYuqori: l(tugunYashilYuqori, other.tugunYashilYuqori),
+      tugunYashilPast: l(tugunYashilPast, other.tugunYashilPast),
+      tugunYashilSoya: l(tugunYashilSoya, other.tugunYashilSoya),
+      tugunKokYuqori: l(tugunKokYuqori, other.tugunKokYuqori),
+      tugunKokPast: l(tugunKokPast, other.tugunKokPast),
+      tugunKokSoya: l(tugunKokSoya, other.tugunKokSoya),
+      tugunYangiYuqori: l(tugunYangiYuqori, other.tugunYangiYuqori),
+      tugunYangiPast: l(tugunYangiPast, other.tugunYangiPast),
+      tugunYangiSoya: l(tugunYangiSoya, other.tugunYangiSoya),
+      tugunYangiChegara: l(tugunYangiChegara, other.tugunYangiChegara),
     );
   }
 }

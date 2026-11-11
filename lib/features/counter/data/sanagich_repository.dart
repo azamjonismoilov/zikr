@@ -13,6 +13,9 @@ abstract final class SozlamaKalit {
   static const haptik = 'haptik';
   static const kunlikMaqsad = 'kunlik_maqsad';
 
+  /// Bo'sh bo'lmasa, sanagich shu to'plam rejimida.
+  static const joriyToplamId = 'joriy_toplam_id';
+
   static const standartKunlikMaqsad = 100;
 }
 
@@ -133,6 +136,9 @@ class SanagichRepository {
   Future<void> sozlamaniYoz(String kalit, String qiymat) => _db
       .into(_db.sozlama)
       .insertOnConflictUpdate(SozlamaCompanion.insert(kalit: kalit, qiymat: qiymat));
+
+  Future<void> sozlamaniOchir(String kalit) =>
+      (_db.delete(_db.sozlama)..where((s) => s.kalit.equals(kalit))).go();
 
   KunQatori _kunQatori(SessiyaQator q) => KunQatori(
         zikrId: q.zikrId,

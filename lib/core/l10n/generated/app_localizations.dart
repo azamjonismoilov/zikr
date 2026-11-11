@@ -561,6 +561,120 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Kitob'**
   String get rasmKitob;
+
+  /// To'plam rejimida markaziy tugmadagi teg: qadam / qadamlar soni
+  ///
+  /// In uz, this message translates to:
+  /// **'{qadam} / {jami}'**
+  String toplamTeg(String qadam, String jami);
+
+  /// To'plamning oxirgi qadamida o'tkazib yuborish tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Tugatish'**
+  String get tugatish;
+
+  /// Tabrik modalidagi yashil belgi
+  ///
+  /// In uz, this message translates to:
+  /// **'{qiymat} / {qiymat}'**
+  String tabrikNatija(String qiymat);
+
+  /// Tabrik sarlavhasi: to'plam tugadi
+  ///
+  /// In uz, this message translates to:
+  /// **'Tasbehot tugadi'**
+  String get tasbehotTugadi;
+
+  /// Tabrik sarlavhasi: kun hisobga olindi
+  ///
+  /// In uz, this message translates to:
+  /// **'Aylana tugadi'**
+  String get aylanaTugadi;
+
+  /// Bugun nechanchi marta (to'plam)
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun {n}-marta'**
+  String bugunMarta(String n);
+
+  /// Tabrik izohi: zikr va maqsad
+  ///
+  /// In uz, this message translates to:
+  /// **'{nomi} · {maqsad} marta'**
+  String tabrikIzoh(String nomi, String maqsad);
+
+  /// Tabrikdagi dalda qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'{n} kun ketma-ket. Davom eting!'**
+  String dalda(String n);
+
+  /// Tabrik asosiy tugmasi (to'plam tugadi)
+  ///
+  /// In uz, this message translates to:
+  /// **'Tayyor'**
+  String get tayyor;
+
+  /// Davom etish tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Davom etish'**
+  String get davomEtish;
+
+  /// Tabrik ikkinchi tugmasi: yangi yurish
+  ///
+  /// In uz, this message translates to:
+  /// **'Yana bir marta'**
+  String get yanaBirMarta;
+
+  /// Tabrik ikkinchi tugmasi: panelni ochish
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshqa zikr tanlash'**
+  String get boshqaZikrTanlash;
+
+  /// Tasbehot yo'lini boshlash tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshlash'**
+  String get boshlash;
+
+  /// Yo'l ekranidagi tugagan qadamlar belgisi
+  ///
+  /// In uz, this message translates to:
+  /// **'{tugagan} / {jami}'**
+  String yolHolati(String tugagan, String jami);
+
+  /// Yo'l ekranidagi bosqich kartasi sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Tasbehot · {jami} zikr'**
+  String tasbehotZikr(String jami);
+
+  /// Yo'l tuguni yozuvi
+  ///
+  /// In uz, this message translates to:
+  /// **'{nomi} · {maqsad}'**
+  String tugunYorliq(String nomi, String maqsad);
+
+  /// Joriy yo'l tuguni yozuvi
+  ///
+  /// In uz, this message translates to:
+  /// **'{nomi} · {son}/{maqsad}'**
+  String tugunJoriy(String nomi, String son, String maqsad);
+
+  /// Yo'l ekranidagi maslahat kartasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Namozdan soʻng 33 tasbeh, 33 tahmid va 34 takbir aytiladi.'**
+  String get maslahatTasbehot;
+
+  /// Bo'lim sarlavhasi (ekran o'quvchi uchun)
+  ///
+  /// In uz, this message translates to:
+  /// **'Tasbehot yoʻlini ochish'**
+  String get tasbehotYolini;
 }
 
 class _AppLocalizationsDelegate

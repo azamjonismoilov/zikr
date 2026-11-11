@@ -129,6 +129,7 @@ class _ZikrlarEkraniState extends ConsumerState<ZikrlarEkrani> {
               KorsatkichPill(
                 ikonka: 'assets/svg/icon_olov.svg',
                 rang: c.olov,
+                jonli: true,
                 qiymat: h.streak.joriy,
                 izoh: l.streakIzoh(sonFormat(h.streak.joriy)),
               ),
@@ -150,6 +151,15 @@ class _ZikrlarEkraniState extends ConsumerState<ZikrlarEkrani> {
     final bolimlar = zikrBolimlari(h.zikrlar);
     final faol = bolimlar.any((b) => b.kalit == _faol) ? _faol! : bolimlar.first.kalit;
     final toplamdagilar = {for (final t in h.toplamlar) for (final q in t.qadamlar) q.zikrId};
+
+    /// Bo'lim zikrlari to'liq bitta to'plamga kirsa, shu to'plam (sarlavha yo'lni ochadi).
+    int? bolimToplami(Bolim<ZikrQator> b) {
+      for (final t in h.toplamlar) {
+        final idlar = {for (final q in t.qadamlar) q.zikrId};
+        if (b.zikrlar.isNotEmpty && b.zikrlar.every((z) => idlar.contains(z.id))) return t.id;
+      }
+      return null;
+    }
     // Kapsula tab bar (62) + uning ostidagi joy + 24: oxirgi karta tab bar ostida qolmaydi.
     final pastki = 62.0 + math.max(MediaQuery.viewPaddingOf(context).bottom, 8.0) + 24;
 
@@ -184,6 +194,10 @@ class _ZikrlarEkraniState extends ConsumerState<ZikrlarEkrani> {
                     onYigish: () => setState(() {
                       if (!_yopiq.remove(b.kalit)) _yopiq.add(b.kalit);
                     }),
+                    onSarlavha: switch (bolimToplami(b)) {
+                      final id? => () => context.push(Yollar.yol(id)),
+                      null => null,
+                    },
                     onTanlash: _tanla,
                     onTahrirlash: (z) => context.push(Yollar.zikrniTahrirlash(z.id)),
                     onQoshish: () => context.push(Yollar.yangiZikr),
@@ -323,6 +337,7 @@ class _Bolim extends StatelessWidget {
     required this.yopiq,
     required this.boglangan,
     required this.onYigish,
+    this.onSarlavha,
     required this.onTanlash,
     required this.onTahrirlash,
     required this.onQoshish,
@@ -333,6 +348,9 @@ class _Bolim extends StatelessWidget {
   final bool yopiq;
   final bool boglangan;
   final VoidCallback onYigish;
+
+  /// Sarlavha bosilganda (to'plam bo'limida — Tasbehot yo'li). `null` bo'lsa sarlavha yig'adi.
+  final VoidCallback? onSarlavha;
   final ValueChanged<ZikrQator> onTanlash;
   final ValueChanged<ZikrQator> onTahrirlash;
   final VoidCallback onQoshish;
@@ -375,10 +393,10 @@ class _Bolim extends StatelessWidget {
       children: [
         Semantics(
           button: true,
-          label: yopiq ? l.bolimniOchish : l.bolimniYigish,
+          label: onSarlavha != null ? l.tasbehotYolini : (yopiq ? l.bolimniOchish : l.bolimniYigish),
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: onYigish,
+            onTap: onSarlavha ?? onYigish,
             child: Row(
               children: [
                 RasmPlitka(turkum.rasm, olcham: 32),
@@ -404,26 +422,7 @@ class _Bolim extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Container(
-                  width: 28,
-                  height: 28,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: c.fon,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: c.chiziq),
-                  ),
-                  child: AnimatedRotation(
-                    turns: yopiq ? -0.25 : 0,
-                    duration: const Duration(milliseconds: 200),
-                    child: SvgPicture.asset(
-                      'assets/svg/icon_pastga.svg',
-                      width: 16,
-                      height: 16,
-                      colorFilter: ColorFilter.mode(c.matn2, BlendMode.srcIn),
-                    ),
-                  ),
-                ),
+                _YigishTugma(yopiq: yopiq, onTap: onYigish),
               ],
             ),
           ),
@@ -440,6 +439,51 @@ class _Bolim extends StatelessWidget {
                 ),
         ),
       ],
+    );
+  }
+}
+
+/// Bo'limni yig'ish va ochish tugmasi (Figma "Yigish", 28×28).
+class _YigishTugma extends StatelessWidget {
+  const _YigishTugma({required this.yopiq, required this.onTap});
+
+  final bool yopiq;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    final l = AppLocalizations.of(context);
+    return Semantics(
+      // Sarlavha tugmasidan alohida tugun: ekran o'quvchi ikkalasini ajratib o'qiydi.
+      container: true,
+      button: true,
+      label: yopiq ? l.bolimniOchish : l.bolimniYigish,
+      excludeSemantics: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: Container(
+          width: 28,
+          height: 28,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: c.fon,
+            shape: BoxShape.circle,
+            border: Border.all(color: c.chiziq),
+          ),
+          child: AnimatedRotation(
+            turns: yopiq ? -0.25 : 0,
+            duration: const Duration(milliseconds: 200),
+            child: SvgPicture.asset(
+              'assets/svg/icon_pastga.svg',
+              width: 16,
+              height: 16,
+              colorFilter: ColorFilter.mode(c.matn2, BlendMode.srcIn),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

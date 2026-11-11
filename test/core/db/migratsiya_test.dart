@@ -6,6 +6,7 @@ import 'package:zikr/core/db/database.dart';
 import '../../generated_migrations/schema.dart';
 import '../../generated_migrations/schema_v1.dart' as v1;
 import '../../generated_migrations/schema_v2.dart' as v2;
+import '../../generated_migrations/schema_v3.dart' as v3;
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
@@ -13,16 +14,28 @@ void main() {
 
   setUpAll(() => verifier = SchemaVerifier(GeneratedHelper()));
 
-  for (final boshlash in [1, 2]) {
-    test('v$boshlash → v3 sxemasi to\'g\'ri', () async {
+  for (final boshlash in [1, 2, 3]) {
+    test('v$boshlash → v4 sxemasi to\'g\'ri', () async {
       final ulanish = await verifier.startAt(boshlash);
       final db = AppDatabase(ulanish);
       addTearDown(db.close);
-      await verifier.migrateAndValidate(db, 3);
+      await verifier.migrateAndValidate(db, 4);
     });
   }
 
-  test('v2 → v3: zikr va sessiya saqlanadi, ochirilgan false bo\'ladi', () async {
+  test('v3 → v4: toplam_yurish bo\'sh jadval sifatida qo\'shiladi, eski ma\'lumot qoladi', () async {
+    final schema = await verifier.schemaAt(3);
+    final eski = v3.DatabaseAtV3(schema.newConnection());
+    await eski.into(eski.toplam).insert(v3.ToplamCompanion.insert(nomi: 'T', qadamlar: '[]'));
+    await eski.close();
+
+    final db = AppDatabase(schema.newConnection());
+    addTearDown(db.close);
+    expect(await db.select(db.toplam).get(), hasLength(1));
+    expect(await db.select(db.toplamYurish).get(), isEmpty);
+  });
+
+  test('v2 → v4: zikr va sessiya saqlanadi, ochirilgan false bo\'ladi', () async {
     final schema = await verifier.schemaAt(2);
     final eski = v2.DatabaseAtV2(schema.newConnection());
     await eski.into(eski.zikr).insert(v2.ZikrCompanion.insert(
@@ -52,7 +65,7 @@ void main() {
     expect((q.son, q.jami, q.aylanalar), (7, 40, 1));
   });
 
-  test('v1 → v3: sessiya qatori saqlanadi, jami 0 bo\'ladi', () async {
+  test('v1 → v4: sessiya qatori saqlanadi, jami 0 bo\'ladi', () async {
     final schema = await verifier.schemaAt(1);
     final eski = v1.DatabaseAtV1(schema.newConnection());
     await eski.into(eski.zikr).insert(v1.ZikrCompanion.insert(

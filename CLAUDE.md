@@ -67,7 +67,12 @@ Ular uchun oldindan abstraksiya yoki bo'sh interfeys yozma. Ular alohida topshir
 ## Hisoblash qoidalari
 
 - **Aylana:** son maqsadga yetganda tugaydi: son 0 ga qaytadi, aylana +1, kuchli haptik,
-  tabrik modali. Maqsad ∞ bo'lsa aylana bo'lmaydi.
+  halqa to'lib qisqa yonadi. Maqsad ∞ bo'lsa aylana bo'lmaydi. Oddiy aylanada modal yo'q.
+- **Tabrik modali** faqat ikki holatda: to'plam tugadi yoki aylana (to'plamda qadam) tugashi
+  bugungi kunni birinchi marta hisoblatdi. To'plam ichida bu holat yuz bersa, modal to'plam
+  oxirigacha kechiktiriladi; rejimdan chiqilsa ko'rsatilmaydi. Kun aylana o'rtasida kunlik
+  maqsad orqali hisoblansa (∞ maqsad ham), modal yo'q: faqat streak belgisi qisqa masshtab
+  animatsiyasi bilan yangilanadi.
 - **Kun hisoblanadi**, agar o'sha kalendar kunida kamida 1 ta aylana tugagan bo'lsa yoki
   jami son kunlik maqsadga yetgan bo'lsa. Kun chegarasi: qurilma mahalliy vaqtidagi yarim tun.
 - **Yarim tun:** yangi kunda birinchi bosish yangi kun qatorini ochadi. Tugallanmagan `son`
@@ -75,8 +80,12 @@ Ular uchun oldindan abstraksiya yoki bo'sh interfeys yozma. Ular alohida topshir
 - **Streak:** bugundan orqaga uzluksiz hisoblangan kunlar soni. Bugun hali hisoblanmagan
   bo'lsa, streak kechagi kun bilan tugaydi.
 - **Rekord:** barcha davrdagi eng uzun streak.
-- **Tasbehot yo'li:** to'plam qadamlari ketma-ket o'tiladi; qadam tugaganda "Keyingisi"
-  keyingi zikrni ochadi.
+- **To'plam rejimi (Tasbehot yo'li):** qadamlar ketma-ket, to'xtovsiz o'tiladi. Bosish
+  `toplam_yurish.son` va qadam zikrining bugungi `sessiya.jami` ni oshiradi (alohida `son`
+  o'zgarmaydi). Qadam maqsadi to'plamdan olinadi. Qadam tugasa `sessiya.aylanalar + 1` va
+  darhol keyingi qadam; oxirgisida yurish tugaydi va rejimdan chiqiladi. "Keyingisi" qadamni
+  aylanasiz o'tkazadi; oxirgi qadamda ("Tugatish") yurish tugallanmagan holda o'chiriladi.
+  Zikr tanlansa rejimdan chiqiladi, yurish saqlanadi. Alohida rejimda "Keyingisi" yo'q.
 - **Nollash** faqat joriy aylanani o'chiradi (`jami -= son`, `son = 0`) va tasdiq so'raydi.
   Tarixni o'chirish faqat Sozlamalar orqali, ikki marta tasdiq bilan.
 - **Maqsadni almashtirish:** `son > 0` bo'lsa tasdiq so'raladi va joriy aylana nollanadi.
@@ -91,11 +100,15 @@ Streak va statistika saqlanmaydi, sessiyalardan hisoblanadi.
 | `zikr` | id, nomi, talaffuz?, arabcha, manosi, maqsad? (`null` = ∞), rasm?, turkum, oz_zikri, tartib, ochirilgan |
 | `toplam` | id, nomi, qadamlar (zikr_id, maqsad) |
 | `sessiya` | id, zikr_id, toplam_id?, son, aylanalar, jami, boshlandi, yangilandi, sana; (zikr_id, sana) unikal |
+| `toplam_yurish` | id, toplam_id, sana (boshlangan kun), qadam, son, tugadi, boshlandi, yangilandi; to'plamga bitta tugallanmagan |
 | `sozlama` | kalit, qiymat |
 
 `sessiya` — har zikr uchun har kalendar kunga bitta qator. `son` joriy aylanadagi son,
 `aylanalar` o'sha kuni tugagan aylanalar, `jami` o'sha kuni shu zikr bo'yicha barcha bosishlar.
-`sana` mahalliy kun, `YYYY-MM-DD`. Sxema versiyasi: 3 (`drift_schemas/` da har versiya saqlanadi).
+`sana` mahalliy kun, `YYYY-MM-DD`. Sxema versiyasi: 4 (`drift_schemas/` da har versiya saqlanadi).
+
+`toplam_yurish` — to'plam bo'yicha bitta o'tish. Tugaganlari saqlanadi ("Bugun n-marta").
+Har to'plamga bir vaqtda ko'pi bilan bitta `tugadi = 0` qator (qisman unikal indeks).
 
 `zikr.ochirilgan = true` — zikr ro'yxatlarda ko'rinmaydi, `sessiya` qatorlari saqlanadi
 (statistika buzilmaydi). O'z zikri (`oz_zikri = true`) talaffuzi `nomi` ga yoziladi.
@@ -119,6 +132,7 @@ O'z zikrlari turkumidan qat'i nazar "Mening" bo'limida ko'rsatiladi.
 | `joriy_zikr_id` | eng kichik `tartib` li zikr (SubhanAllah) | sanagichdagi joriy zikr |
 | `haptik` | `1` | tebranish yoqilgan (`0` — o'chiq) |
 | `kunlik_maqsad` | `100` | kun hisoblanishi uchun jami bosishlar |
+| `joriy_toplam_id` | yo'q | bo'lsa, sanagich shu to'plam rejimida |
 | `seed_versiya` | — | seed yuklanganini belgilaydi |
 
 Standart zikrlar `assets/seed/zikrlar.json` dan yuklanadi. Diniy matnlar (arabcha, talaffuz,
@@ -164,6 +178,10 @@ tomonidan tekshiriladi va tuzatiladi.
 | ijroYangiFon | #EEF2F6 | #24334C |
 | ijroYangiBelgi | #A3ACB8 | #8796AD |
 | belgiOq | #FFFFFF | #FFFFFF |
+| tugunYashilYuqori / Past / Soya | #5FD98A / #2BC25C / #1E9E47 | xuddi shunday |
+| tugunKokYuqori / Past / Soya | #6CC2FF / #2E9BF2 / #1B7FD0 | xuddi shunday |
+| tugunYangiYuqori / Past | #FFFFFF / #EEF2F6 | #26385A / #1B2A44 |
+| tugunYangiSoya / Chegara | #D3DBE4 / #D3DBE4 | #0A1220 / #2E4066 |
 
 `AppText` — Inter (interfeys) va Amiri (arabcha), ikkalasi ham ilova ichiga joylanadi.
 
@@ -180,6 +198,7 @@ tomonidan tekshiriladi va tuzatiladi.
 | arab | Amiri Regular | 34 / 56 | 0 |
 | tabYorliq | Inter SemiBold | 10 / 12 | 0 |
 | arabKichik | Amiri Regular | 19 / 30 | 0 |
+| arabOrta | Amiri Regular | 28 / 46 | 0 |
 | arabMaydon | Amiri Regular | 21 / 30 | -0.5% |
 
 Shakl va effektlar:
@@ -191,6 +210,8 @@ Shakl va effektlar:
 - Karta soyasi: rgba(15, 41, 82, 0.06), y 3, blur 12.
 - Pill soyasi: rgba(15, 41, 82, 0.08), y 2, blur 8. Doira ikonka tugma: rgba(15, 41, 82, 0.1), y 3, blur 10.
 - Zikr kartasi (`DarsKarta`): rgba(15, 41, 82, 0.06), y 3, blur 5. Turkumlar kartasi: rgba(15, 41, 82, 0.1), y 6, blur 9.
+- Tabrik kartasi: rgba(0, 0, 0, 0.25), y 20, blur 50. Tunda osmon zonasida markazda sarlavha yoki
+  rasm turgan joylarda (08, yo'l ekrani, tabrik) `SkyHeader(oysiz: true)`.
 - Oq tugmalar (maqsad, nollash): `fon`, 1.5 `chiziq` chegara, ostida `bortiq` bo'rtiq soya.
 - Tab bar kapsulasi soyasi: rgba(10, 26, 51, 0.14), y 8, blur 28.
 

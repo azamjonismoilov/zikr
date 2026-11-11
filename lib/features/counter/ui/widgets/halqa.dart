@@ -13,15 +13,21 @@ class HalqaTugma extends StatefulWidget {
     super.key,
     required this.son,
     required this.maqsad,
-    required this.aylanaRaqami,
+    required this.teg,
     required this.bosishlar,
+    this.aylanalar = 0,
   });
 
   final int son;
 
   /// `null` — cheksiz: halqa faqat yo'l, teg va "/ maqsad" yo'q.
   final int? maqsad;
-  final int aylanaRaqami;
+
+  /// Son ustidagi teg ("2-aylana" yoki "2 / 3"); `null` — teg yo'q (∞).
+  final String? teg;
+
+  /// Aylana (yoki qadam) tugashlari hisoblagichi: o'zgarsa halqa to'lib qisqa yonadi.
+  final int aylanalar;
 
   /// Har bosishda oshadigan hisoblagich: o'zgarsa tugma pastga tushib qaytadi.
   final int bosishlar;
@@ -39,13 +45,17 @@ class HalqaTugma extends StatefulWidget {
   State<HalqaTugma> createState() => _HalqaTugmaState();
 }
 
-class _HalqaTugmaState extends State<HalqaTugma> with SingleTickerProviderStateMixin {
+class _HalqaTugmaState extends State<HalqaTugma> with TickerProviderStateMixin {
   // 40 ms pastga + 40 ms qaytish ≈ 80 ms.
   late final _bosish = AnimationController(vsync: this, duration: const Duration(milliseconds: 40));
+
+  /// Aylana tugaganda halqa to'lib yonadi (≈ 600 ms), keyin nolga qaytadi.
+  late final _yonish = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
 
   @override
   void didUpdateWidget(HalqaTugma eski) {
     super.didUpdateWidget(eski);
+    if (widget.aylanalar != eski.aylanalar) _yonish.forward(from: 0);
     if (widget.bosishlar != eski.bosishlar) {
       _bosish.forward(from: 0).then((_) {
         if (mounted) _bosish.reverse();
@@ -56,6 +66,7 @@ class _HalqaTugmaState extends State<HalqaTugma> with SingleTickerProviderStateM
   @override
   void dispose() {
     _bosish.dispose();
+    _yonish.dispose();
     super.dispose();
   }
 
@@ -77,18 +88,27 @@ class _HalqaTugmaState extends State<HalqaTugma> with SingleTickerProviderStateM
             top: 0,
             width: HalqaTugma._olcham,
             height: HalqaTugma._olcham,
-            child: TweenAnimationBuilder<double>(
-              tween: Tween(end: progress),
-              duration: const Duration(milliseconds: 150),
-              curve: Curves.easeOut,
-              builder: (context, p, _) => CustomPaint(
-                painter: _HalqaPainter(
-                  progress: p,
-                  yol: c.chiziq,
-                  rang: c.yashil,
-                  qalinlik: HalqaTugma._qalinlik,
-                ),
-              ),
+            child: AnimatedBuilder(
+              animation: _yonish,
+              builder: (context, _) {
+                final yonmoqda = _yonish.isAnimating;
+                // 0 → 1 → 0: o'rtasida eng yorqin.
+                final yorqinlik = yonmoqda ? 1 - (_yonish.value - 0.5).abs() * 2 : 0.0;
+                return TweenAnimationBuilder<double>(
+                  tween: Tween(end: yonmoqda ? 1.0 : progress),
+                  duration: const Duration(milliseconds: 150),
+                  curve: Curves.easeOut,
+                  builder: (context, p, _) => CustomPaint(
+                    painter: _HalqaPainter(
+                      progress: p,
+                      yol: c.chiziq,
+                      rang: c.yashil,
+                      qalinlik: HalqaTugma._qalinlik,
+                      yorqinlik: yorqinlik,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           Positioned(
@@ -124,16 +144,24 @@ class _HalqaTugmaState extends State<HalqaTugma> with SingleTickerProviderStateM
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      if (maqsad != null)
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: c.yashilOch,
-                            borderRadius: BorderRadius.circular(12),
+                      if (widget.teg != null)
+                        AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 250),
+                          transitionBuilder: (child, a) => ScaleTransition(
+                            scale: CurvedAnimation(parent: a, curve: Curves.easeOutBack),
+                            child: child,
                           ),
-                          child: Text(
-                            l.aylanaTeg(sonFormat(widget.aylanaRaqami)),
-                            style: AppText.teg.copyWith(color: c.yashilChuqur),
+                          child: Container(
+                            key: ValueKey(widget.teg),
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: c.yashilOch,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              widget.teg!,
+                              style: AppText.teg.copyWith(color: c.yashilChuqur),
+                            ),
                           ),
                         ),
                       FittedBox(
@@ -167,12 +195,16 @@ class _HalqaPainter extends CustomPainter {
     required this.yol,
     required this.rang,
     required this.qalinlik,
+    this.yorqinlik = 0,
   });
 
   final double progress;
   final Color yol;
   final Color rang;
   final double qalinlik;
+
+  /// Aylana tugagandagi yonish kuchi, 0..1.
+  final double yorqinlik;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -183,6 +215,21 @@ class _HalqaPainter extends CustomPainter {
       ..strokeWidth = qalinlik;
 
     canvas.drawCircle(markaz, radius, chiziq..color = yol);
+
+    if (progress > 0 && yorqinlik > 0) {
+      canvas.drawArc(
+        Rect.fromCircle(center: markaz, radius: radius),
+        -math.pi / 2,
+        2 * math.pi * progress,
+        false,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = qalinlik * 1.6
+          ..strokeCap = StrokeCap.round
+          ..color = rang.withValues(alpha: 0.55 * yorqinlik)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
+      );
+    }
 
     if (progress > 0) {
       canvas.drawArc(
@@ -199,5 +246,8 @@ class _HalqaPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_HalqaPainter eski) =>
-      eski.progress != progress || eski.yol != yol || eski.rang != rang;
+      eski.progress != progress ||
+      eski.yol != yol ||
+      eski.rang != rang ||
+      eski.yorqinlik != yorqinlik;
 }

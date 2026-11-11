@@ -68,7 +68,7 @@ void main() {
     final db1 = await _baza(NativeDatabase(fayl));
     final c1 = _container(db1, soat);
     final ctrl1 = await _controller(c1);
-    ctrl1.keyingisiga(); // SubhanAllah → Alhamdulillah
+    ctrl1.zikrniTanla(2); // SubhanAllah → Alhamdulillah
     ctrl1.maqsadniOrnat(99);
     for (var i = 0; i < 120; i++) {
       ctrl1.bos();
@@ -103,7 +103,7 @@ void main() {
     for (var i = 0; i < 10; i++) {
       ctrl.bos();
     }
-    ctrl.keyingisiga();
+    ctrl.zikrniTanla(2);
     for (var i = 0; i < 5; i++) {
       ctrl.bos();
     }

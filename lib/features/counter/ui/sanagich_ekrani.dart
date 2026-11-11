@@ -17,11 +17,13 @@ import '../../../core/widgets/sky_header.dart';
 import '../../../core/widgets/tasdiq_dialog.dart';
 import '../../library/ui/turkum.dart';
 import '../../library/ui/zikr_tanlash_paneli.dart';
+import '../../path/domain/tabrik.dart';
 import '../domain/sanash.dart';
 import 'sanagich_controller.dart';
 import 'widgets/halqa.dart';
 import 'widgets/maqsad_qatori.dart';
 import 'widgets/maxsus_maqsad_paneli.dart';
+import 'widgets/tabrik_modali.dart';
 
 class SanagichEkrani extends ConsumerStatefulWidget {
   const SanagichEkrani({super.key});
@@ -35,6 +37,9 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
 
   /// Markaziy tugma animatsiyasi uchun bosishlar hisoblagichi.
   int _bosishlar = 0;
+
+  /// Aylana (qadam) tugashlari: halqa yonishi uchun.
+  int _aylanalar = 0;
 
   final _halqaKalit = GlobalKey();
   final _fonKalit = GlobalKey();
@@ -60,11 +65,34 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
   void _bos() {
     final h = ref.read(sanagichProvider).value;
     if (h == null) return;
-    final tugadi = _ctrl.bos();
-    setState(() => _bosishlar++);
-    if (h.haptik) {
-      tugadi ? HapticFeedback.heavyImpact() : HapticFeedback.lightImpact();
+    final hodisa = _ctrl.bos();
+    setState(() {
+      _bosishlar++;
+      if (hodisa.aylanaTugadi) _aylanalar++;
+    });
+    final tabrik = hodisa.tabrik;
+    if (tabrik != null) {
+      _tabrikniKorsat(tabrik); // kuchli haptik modal bilan birga
+    } else if (h.haptik) {
+      hodisa.aylanaTugadi ? HapticFeedback.heavyImpact() : HapticFeedback.lightImpact();
     }
+  }
+
+  Future<void> _tabrikniKorsat(Tabrik tabrik) async {
+    final h = ref.read(sanagichProvider).requireValue;
+    final zikr = h.zikrById(tabrik.zikrId) ?? h.zikr;
+    final tanlov = await tabrikModaliniOch(context, tabrik: tabrik, zikr: zikr, haptik: h.haptik);
+    if (!mounted || tanlov != TabrikTanlovi.ikkinchi) return;
+    if (tabrik.turi == TabrikTuri.toplamTugadi) {
+      await _ctrl.toplamniBoshla(tabrik.toplamId!); // "Yana bir marta"
+    } else if (mounted) {
+      await zikrTanlashPaneliniOch(context); // "Boshqa zikr tanlash"
+    }
+  }
+
+  void _qadamniOtkaz() {
+    final tabrik = _ctrl.qadamniOtkaz();
+    if (tabrik != null) _tabrikniKorsat(tabrik);
   }
 
   Future<void> _maqsadTanla(int? maqsad) async {
@@ -139,11 +167,20 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
     final l = AppLocalizations.of(context);
     final c = context.colors;
     final zikr = h.zikr;
-    final keyingi = h.keyingiZikr;
+    final toplam = h.toplam;
+    final yurish = h.yurish;
     // Tab bar kapsulasi (62) + uning ostidagi joy + 16 oraliq (Figma: 103).
     final pastki = 62.0 + math.max(MediaQuery.viewPaddingOf(context).bottom, 8.0) + 16;
 
-    final nollash = _NollashTugma(onTap: _nolla, maqsadQatorida: keyingi == null);
+    // Alohida rejimda nollash maqsad qatorida; to'plam rejimida pastki qatorda.
+    final nollash = _NollashTugma(onTap: _nolla, maqsadQatorida: toplam == null);
+    final String? teg;
+    if (toplam != null && yurish != null) {
+      teg = l.toplamTeg(sonFormat(yurish.qadam + 1), sonFormat(toplam.qadamlar.length));
+    } else {
+      teg = h.maqsad == null ? null : l.aylanaTeg(sonFormat(h.aylanaRaqami));
+    }
+    final keyingi = h.keyingiQadamZikri;
 
     final ustun = Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -165,26 +202,28 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
                 key: _halqaKalit,
                 son: h.son,
                 maqsad: h.maqsad,
-                aylanaRaqami: h.aylanaRaqami,
+                teg: teg,
                 bosishlar: _bosishlar,
+                aylanalar: _aylanalar,
               ),
             ),
             const SizedBox(height: 12),
             Text(l.sanashIshora, style: AppText.kichik.copyWith(color: c.matn3)),
           ],
         ),
-        MaqsadQatori(
-          maqsad: h.maqsad,
-          onTanlash: _maqsadTanla,
-          onMaxsus: _maxsus,
-          // "Keyingisi" yo'q bo'lsa nollash shu qatorning o'ng chetida, pastki qator yo'q.
-          oxiridagi: keyingi == null ? nollash : null,
-        ),
-        if (keyingi != null)
+        if (toplam == null)
+          MaqsadQatori(
+            maqsad: h.maqsad,
+            onTanlash: _maqsadTanla,
+            onMaxsus: _maxsus,
+            oxiridagi: nollash,
+          )
+        else
           _HarakatQatori(
             nollash: nollash,
-            keyingiNomi: keyingi.korinishNomi,
-            onKeyingisi: _ctrl.keyingisiga,
+            // Oxirgi qadamda "Tugatish".
+            matn: keyingi == null ? l.tugatish : l.keyingisi(keyingi.korinishNomi),
+            onKeyingisi: _qadamniOtkaz,
           ),
       ],
     );
@@ -281,6 +320,7 @@ class _YuqoriQator extends StatelessWidget {
           KorsatkichPill(
             ikonka: 'assets/svg/icon_olov.svg',
             rang: c.olov,
+            jonli: true,
             qiymat: streak,
             izoh: l.streakIzoh(sonFormat(streak)),
           ),
@@ -375,28 +415,28 @@ class _ZikrBloki extends StatelessWidget {
   }
 }
 
+/// To'plam rejimidagi pastki qator: nollash va qadamni o'tkazib yuborish.
 class _HarakatQatori extends StatelessWidget {
   const _HarakatQatori({
     required this.nollash,
-    required this.keyingiNomi,
+    required this.matn,
     required this.onKeyingisi,
   });
 
   final Widget nollash;
-  final String keyingiNomi;
+  final String matn;
   final VoidCallback onKeyingisi;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final l = AppLocalizations.of(context);
     return Row(
       children: [
         nollash,
         const SizedBox(width: 12),
         Expanded(
           child: AsosiyTugma(
-            matn: l.keyingisi(keyingiNomi),
+            matn: matn,
             onTap: onKeyingisi,
             oxiridagi: SvgPicture.asset(
               'assets/svg/icon_ongga.svg',

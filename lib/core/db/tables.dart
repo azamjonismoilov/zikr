@@ -88,6 +88,32 @@ class Sessiya extends Table {
   TextColumn get sana => text()();
 }
 
+/// To'plam bo'yicha bitta o'tish (Tasbehot yo'li). Tugaganlari saqlanadi (kunlik soni uchun).
+/// Har to'plamga bir vaqtda ko'pi bilan bitta tugallanmagan yurish (qisman unikal indeks).
+@DataClassName('YurishQator')
+@TableIndex.sql(
+  'CREATE UNIQUE INDEX toplam_yurish_tugallanmagan ON toplam_yurish (toplam_id) WHERE tugadi = 0',
+)
+class ToplamYurish extends Table {
+  @override
+  String get tableName => 'toplam_yurish';
+
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get toplamId => integer().named('toplam_id').references(Toplam, #id)();
+
+  /// Boshlangan mahalliy kun, `YYYY-MM-DD`.
+  TextColumn get sana => text()();
+
+  /// Joriy qadam indeksi, 0 dan.
+  IntColumn get qadam => integer().withDefault(const Constant(0))();
+
+  /// Joriy qadamdagi son.
+  IntColumn get son => integer().withDefault(const Constant(0))();
+  BoolColumn get tugadi => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get boshlandi => dateTime()();
+  DateTimeColumn get yangilandi => dateTime()();
+}
+
 @DataClassName('SozlamaQator')
 class Sozlama extends Table {
   @override
