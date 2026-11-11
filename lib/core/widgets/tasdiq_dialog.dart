@@ -6,26 +6,61 @@ import '../theme/app_text.dart';
 import 'bortiq_tugma.dart';
 
 /// Tasdiq so'rovi. Foydalanuvchi tasdiqlasa `true`, aks holda `false`.
+///
+/// [qoshimchaMatn] berilsa, asosiy tugmalar ustida yana bitta tugma chiqadi: u dialogni
+/// `false` bilan yopadi va [onQoshimcha] ni chaqiradi (masalan, "Avval zaxira olish").
+/// [xavfli] — tasdiq tugmasi qizil (qaytarib bo'lmaydigan amal).
 Future<bool> tasdiqSora(
   BuildContext context, {
   required String sarlavha,
   required String matn,
   required String tasdiqMatni,
+  String? qoshimchaMatn,
+  VoidCallback? onQoshimcha,
+  bool xavfli = false,
 }) async {
   final natija = await showDialog<bool>(
     context: context,
     barrierColor: context.colors.qoplama,
-    builder: (context) => _TasdiqDialog(sarlavha: sarlavha, matn: matn, tasdiqMatni: tasdiqMatni),
+    builder: (context) => _TasdiqDialog(
+      sarlavha: sarlavha,
+      matn: matn,
+      tasdiqMatni: tasdiqMatni,
+      qoshimchaMatn: qoshimchaMatn,
+      onQoshimcha: onQoshimcha,
+      xavfli: xavfli,
+    ),
   );
   return natija ?? false;
 }
 
+/// Bitta "Yaxshi" tugmali xabar.
+Future<void> xabarniKorsat(BuildContext context, {required String sarlavha, required String matn}) {
+  return showDialog<void>(
+    context: context,
+    barrierColor: context.colors.qoplama,
+    builder: (context) => _TasdiqDialog(sarlavha: sarlavha, matn: matn, tasdiqMatni: null),
+  );
+}
+
 class _TasdiqDialog extends StatelessWidget {
-  const _TasdiqDialog({required this.sarlavha, required this.matn, required this.tasdiqMatni});
+  const _TasdiqDialog({
+    required this.sarlavha,
+    required this.matn,
+    required this.tasdiqMatni,
+    this.qoshimchaMatn,
+    this.onQoshimcha,
+    this.xavfli = false,
+  });
 
   final String sarlavha;
   final String matn;
-  final String tasdiqMatni;
+
+  /// `null` — faqat "Yaxshi" tugmasi (xabar).
+  final String? tasdiqMatni;
+  final String? qoshimchaMatn;
+  final VoidCallback? onQoshimcha;
+  final bool xavfli;
 
   @override
   Widget build(BuildContext context) {
@@ -49,29 +84,49 @@ class _TasdiqDialog extends StatelessWidget {
             const SizedBox(height: 8),
             Text(matn, style: AppText.matn.copyWith(color: c.matn2)),
             const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: OqTugma(
-                    radius: 26,
-                    onTap: () => Navigator.of(context).pop(false),
-                    child: SizedBox(
-                      height: 52,
-                      child: Center(
-                        child: Text(l.bekorQilish, style: AppText.tugma.copyWith(color: c.matn)),
+            if (qoshimchaMatn != null) ...[
+              OqTugma(
+                radius: 26,
+                onTap: () {
+                  Navigator.of(context).pop(false);
+                  onQoshimcha?.call();
+                },
+                child: SizedBox(
+                  height: 52,
+                  child: Center(
+                    child: Text(qoshimchaMatn!, style: AppText.tugma.copyWith(color: c.kokChuqur)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+            if (tasdiqMatni == null)
+              AsosiyTugma(matn: l.yaxshi, onTap: () => Navigator.of(context).pop(true))
+            else
+              Row(
+                children: [
+                  Expanded(
+                    child: OqTugma(
+                      radius: 26,
+                      onTap: () => Navigator.of(context).pop(false),
+                      child: SizedBox(
+                        height: 52,
+                        child: Center(
+                          child: Text(l.bekorQilish, style: AppText.tugma.copyWith(color: c.matn)),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: AsosiyTugma(
-                    matn: tasdiqMatni,
-                    onTap: () => Navigator.of(context).pop(true),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: AsosiyTugma(
+                      matn: tasdiqMatni!,
+                      xavfli: xavfli,
+                      onTap: () => Navigator.of(context).pop(true),
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
           ],
         ),
       ),

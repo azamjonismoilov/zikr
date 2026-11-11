@@ -85,7 +85,8 @@ class _BortiqTugmaState extends State<BortiqTugma> {
   }
 }
 
-/// Asosiy (ko'k gradientli) tugma.
+/// Asosiy (ko'k gradientli) tugma. [xavfli] bo'lsa qizil fon, oq matn (qaytarib
+/// bo'lmaydigan amalning oxirgi tasdig'i).
 class AsosiyTugma extends StatelessWidget {
   const AsosiyTugma({
     super.key,
@@ -93,6 +94,7 @@ class AsosiyTugma extends StatelessWidget {
     required this.onTap,
     this.oxiridagi,
     this.balandlik = 52,
+    this.xavfli = false,
   });
 
   final String matn;
@@ -101,6 +103,7 @@ class AsosiyTugma extends StatelessWidget {
   /// Matndan keyingi ikonka.
   final Widget? oxiridagi;
   final double balandlik;
+  final bool xavfli;
 
   @override
   Widget build(BuildContext context) {
@@ -110,14 +113,16 @@ class AsosiyTugma extends StatelessWidget {
       child: BortiqTugma(
         onTap: onTap,
         radius: balandlik / 2,
-        soya: c.asosiySoya,
-        yuza: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [c.asosiyYuqori, c.asosiyPast],
-          ),
-        ),
+        soya: xavfli ? c.qizilSoya : c.asosiySoya,
+        yuza: xavfli
+            ? BoxDecoration(color: c.qizil)
+            : BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [c.asosiyYuqori, c.asosiyPast],
+                ),
+              ),
         child: SizedBox(
           height: balandlik,
           child: Row(
@@ -128,7 +133,7 @@ class AsosiyTugma extends StatelessWidget {
                   matn,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: AppText.tugma.copyWith(color: c.fon),
+                  style: AppText.tugma.copyWith(color: xavfli ? c.belgiOq : c.fon),
                 ),
               ),
               if (oxiridagi != null) ...[const SizedBox(width: 8), oxiridagi!],

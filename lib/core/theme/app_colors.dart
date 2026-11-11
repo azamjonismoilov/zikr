@@ -23,6 +23,7 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.olovOch,
     required this.olovChiziq,
     required this.qizil,
+    required this.qizilSoya,
     required this.binafsha,
     required this.shisha,
     required this.shishaFaol,
@@ -72,6 +73,9 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color olovOch;
   final Color olovChiziq;
   final Color qizil;
+
+  /// Xavfli (qizil) tugmaning bo'rtiq soyasi.
+  final Color qizilSoya;
   final Color binafsha;
   final Color shisha;
   final Color shishaFaol;
@@ -165,6 +169,7 @@ class AppColors extends ThemeExtension<AppColors> {
     olovOch: Color(0xFFFFF2E6),
     olovChiziq: Color(0xFFFFCFA3),
     qizil: Color(0xFFF5455C),
+    qizilSoya: Color(0xFFD0304A),
     binafsha: Color(0xFF8E63FF),
     shisha: Color(0xB8FFFFFF), // #FFFFFF 72%
     shishaFaol: Color(0x0F000000), // #000000 6%
@@ -215,6 +220,7 @@ class AppColors extends ThemeExtension<AppColors> {
     olovOch: Color(0xFF2B1E14),
     olovChiziq: Color(0xFF5A3A1E),
     qizil: Color(0xFFFF6B7C),
+    qizilSoya: Color(0xFFB83A4C),
     binafsha: Color(0xFFA68AFF),
     shisha: Color(0xB81A2438), // #1A2438 72%
     shishaFaol: Color(0x1AFFFFFF), // #FFFFFF 10%
@@ -266,6 +272,7 @@ class AppColors extends ThemeExtension<AppColors> {
         'olovOch': olovOch,
         'olovChiziq': olovChiziq,
         'qizil': qizil,
+        'qizilSoya': qizilSoya,
         'binafsha': binafsha,
         'shisha': shisha,
         'shishaFaol': shishaFaol,
@@ -317,6 +324,7 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? olovOch,
     Color? olovChiziq,
     Color? qizil,
+    Color? qizilSoya,
     Color? binafsha,
     Color? shisha,
     Color? shishaFaol,
@@ -366,6 +374,7 @@ class AppColors extends ThemeExtension<AppColors> {
       olovOch: olovOch ?? this.olovOch,
       olovChiziq: olovChiziq ?? this.olovChiziq,
       qizil: qizil ?? this.qizil,
+      qizilSoya: qizilSoya ?? this.qizilSoya,
       binafsha: binafsha ?? this.binafsha,
       shisha: shisha ?? this.shisha,
       shishaFaol: shishaFaol ?? this.shishaFaol,
@@ -421,6 +430,7 @@ class AppColors extends ThemeExtension<AppColors> {
       olovOch: l(olovOch, other.olovOch),
       olovChiziq: l(olovChiziq, other.olovChiziq),
       qizil: l(qizil, other.qizil),
+      qizilSoya: l(qizilSoya, other.qizilSoya),
       binafsha: l(binafsha, other.binafsha),
       shisha: l(shisha, other.shisha),
       shishaFaol: l(shishaFaol, other.shishaFaol),

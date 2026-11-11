@@ -236,6 +236,7 @@ void main() {
     await tester.pumpAndSettle();
     await _bos(tester, find.text('Oʻchirish'));
     expect(find.text('Zikrni oʻchirish'), findsOneWidget);
+    expect(tester.widget<AsosiyTugma>(find.widgetWithText(AsosiyTugma, 'Oʻchirish')).xavfli, isTrue);
     await _bos(tester, find.widgetWithText(AsosiyTugma, 'Oʻchirish'));
     await _yozuvniKut(tester);
 

@@ -975,6 +975,258 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'bir yil'**
   String get bosqich365;
+
+  /// Kunlik eslatma bildirishnomasi sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Zikr vaqti'**
+  String get eslatmaSarlavha;
+
+  /// Eslatma matni (streak > 1)
+  ///
+  /// In uz, this message translates to:
+  /// **'{n} kunlik ketma-ketlikni davom ettiring'**
+  String eslatmaStreak(String n);
+
+  /// Eslatma matni
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugungi zikringizni unutmang'**
+  String get eslatmaOddiy;
+
+  /// Sozlamalar guruhi
+  ///
+  /// In uz, this message translates to:
+  /// **'SANASH'**
+  String get guruhSanash;
+
+  /// Sozlamalar guruhi
+  ///
+  /// In uz, this message translates to:
+  /// **'ILOVA'**
+  String get guruhIlova;
+
+  /// Sozlamalar guruhi
+  ///
+  /// In uz, this message translates to:
+  /// **'MAʼLUMOTLAR'**
+  String get guruhMalumotlar;
+
+  /// Sozlama qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'Tebranish'**
+  String get sozTebranish;
+
+  /// Sozlama qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'Bosish tovushi'**
+  String get sozTovush;
+
+  /// Sozlama qatori (Android)
+  ///
+  /// In uz, this message translates to:
+  /// **'Ovoz tugmalari bilan sanash'**
+  String get sozOvozTugmasi;
+
+  /// Sozlama qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'Ekran oʻchmasin'**
+  String get sozEkranYoniq;
+
+  /// Sozlama qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'Kunlik maqsad'**
+  String get sozKunlikMaqsad;
+
+  /// Sozlama qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'Mavzu'**
+  String get sozMavzu;
+
+  /// Sozlama qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'Kunlik eslatma'**
+  String get sozEslatma;
+
+  /// Sozlama qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'Zaxira nusxa olish'**
+  String get sozZaxiraOlish;
+
+  /// Sozlama qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'Zaxiradan tiklash'**
+  String get sozZaxiradanTiklash;
+
+  /// Sozlama qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisobni nollash'**
+  String get sozNollash;
+
+  /// Mavzu varianti
+  ///
+  /// In uz, this message translates to:
+  /// **'Tizim'**
+  String get mavzuTizim;
+
+  /// Mavzu varianti
+  ///
+  /// In uz, this message translates to:
+  /// **'Yorugʻ'**
+  String get mavzuYorug;
+
+  /// Mavzu varianti
+  ///
+  /// In uz, this message translates to:
+  /// **'Tun'**
+  String get mavzuTun;
+
+  /// Eslatma o'chiq bo'lganda qiymat
+  ///
+  /// In uz, this message translates to:
+  /// **'Oʻchiq'**
+  String get ochiq;
+
+  /// Maxfiylik izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Maʼlumotlar faqat qurilmangizda. Akkaunt va reklama yoʻq.'**
+  String get maxfiylik;
+
+  /// Ilova versiyasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Zikr {versiya}'**
+  String ilovaVersiyasi(String versiya);
+
+  /// Kunlik maqsad panelidagi maydon yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Kunlik bosishlar soni'**
+  String get kunlikMaqsadYorliq;
+
+  /// Eslatma panelidagi vaqt qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'Vaqt'**
+  String get eslatmaVaqti;
+
+  /// Eslatma: ruxsat rad etilgan
+  ///
+  /// In uz, this message translates to:
+  /// **'Bildirishnomaga ruxsat berilmagan'**
+  String get ruxsatYoq;
+
+  /// Tizim sozlamalarini ochish tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Sozlamalarni ochish'**
+  String get sozlamalarniOchish;
+
+  /// Tiklash tasdig'i sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Zaxiradan tiklash'**
+  String get tiklashSarlavha;
+
+  /// Tiklash tasdig'i matni
+  ///
+  /// In uz, this message translates to:
+  /// **'Hozirgi maʼlumot zaxiradagi bilan almashtiriladi.'**
+  String get tiklashMatn;
+
+  /// Tiklash tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Tiklash'**
+  String get tiklash;
+
+  /// Tiklash muvaffaqiyatli
+  ///
+  /// In uz, this message translates to:
+  /// **'Maʼlumot zaxiradan tiklandi.'**
+  String get tiklandi;
+
+  /// Zaxira: noto'g'ri fayl
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu fayl Zikr zaxirasi emas. Ulashilgan .json faylni tanlang.'**
+  String get zaxiraNotogri;
+
+  /// Zaxira: yangi versiya
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu zaxira ilovaning yangiroq versiyasida olingan. Ilovani yangilang.'**
+  String get zaxiraYangi;
+
+  /// Zaxira: buzuq fayl
+  ///
+  /// In uz, this message translates to:
+  /// **'Zaxira fayli buzilgan. Maʼlumot oʻzgarmadi.'**
+  String get zaxiraBuzuq;
+
+  /// Zaxira xatosi sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Tiklab boʻlmadi'**
+  String get zaxiraXatoSarlavha;
+
+  /// Xabar dialogi tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Yaxshi'**
+  String get yaxshi;
+
+  /// Nollash: birinchi tasdiq sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisobni nollash'**
+  String get nollashBirSarlavha;
+
+  /// Nollash: birinchi tasdiq matni
+  ///
+  /// In uz, this message translates to:
+  /// **'Barcha sessiyalar va tasbehot yoʻllari oʻchadi. Zikrlar va sozlamalar qoladi.'**
+  String get nollashBirMatn;
+
+  /// Nollash: zaxira tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Avval zaxira olish'**
+  String get avvalZaxira;
+
+  /// Nollash: birinchi tasdiq tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Davom etish'**
+  String get davomEtishTugma;
+
+  /// Nollash: ikkinchi tasdiq sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Rostdan nollaysizmi?'**
+  String get nollashIkkiSarlavha;
+
+  /// Nollash: ikkinchi tasdiq matni
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu amalni qaytarib boʻlmaydi.'**
+  String get nollashIkkiMatn;
+
+  /// Nollash muvaffaqiyatli
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisob nollandi.'**
+  String get nollandi;
 }
 
 class _AppLocalizationsDelegate

@@ -9,9 +9,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:zikr/core/db/database.dart';
 import 'package:zikr/core/db/seed.dart';
 import 'package:zikr/core/l10n/generated/app_localizations.dart';
+import 'package:zikr/core/platforma/platforma.dart';
 import 'package:zikr/core/theme/app_theme.dart';
 import 'package:zikr/features/counter/domain/soat.dart';
 import 'package:zikr/features/counter/ui/sanagich_controller.dart';
+
+import 'soxta_platforma.dart';
 
 /// Seed yuklangan xotiradagi baza.
 Future<AppDatabase> testBazasi() async {
@@ -28,9 +31,10 @@ void telefonOlchami(WidgetTester tester) {
   addTearDown(tester.view.reset);
 }
 
-List<Override> testOverrides(AppDatabase db, {Soat? soat}) => [
+List<Override> testOverrides(AppDatabase db, {Soat? soat, Platforma? platforma}) => [
       databaseProvider.overrideWithValue(db),
       soatProvider.overrideWithValue(soat ?? QoldaSoat(DateTime(2026, 11, 10, 9))),
+      platformaProvider.overrideWithValue(platforma ?? SoxtaPlatforma()),
     ];
 
 /// Bitta ekranni mavzu va lokalizatsiya bilan o'raydi.

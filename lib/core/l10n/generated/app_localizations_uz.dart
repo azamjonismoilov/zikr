@@ -515,4 +515,138 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get bosqich365 => 'bir yil';
+
+  @override
+  String get eslatmaSarlavha => 'Zikr vaqti';
+
+  @override
+  String eslatmaStreak(String n) {
+    return '$n kunlik ketma-ketlikni davom ettiring';
+  }
+
+  @override
+  String get eslatmaOddiy => 'Bugungi zikringizni unutmang';
+
+  @override
+  String get guruhSanash => 'SANASH';
+
+  @override
+  String get guruhIlova => 'ILOVA';
+
+  @override
+  String get guruhMalumotlar => 'MAʼLUMOTLAR';
+
+  @override
+  String get sozTebranish => 'Tebranish';
+
+  @override
+  String get sozTovush => 'Bosish tovushi';
+
+  @override
+  String get sozOvozTugmasi => 'Ovoz tugmalari bilan sanash';
+
+  @override
+  String get sozEkranYoniq => 'Ekran oʻchmasin';
+
+  @override
+  String get sozKunlikMaqsad => 'Kunlik maqsad';
+
+  @override
+  String get sozMavzu => 'Mavzu';
+
+  @override
+  String get sozEslatma => 'Kunlik eslatma';
+
+  @override
+  String get sozZaxiraOlish => 'Zaxira nusxa olish';
+
+  @override
+  String get sozZaxiradanTiklash => 'Zaxiradan tiklash';
+
+  @override
+  String get sozNollash => 'Hisobni nollash';
+
+  @override
+  String get mavzuTizim => 'Tizim';
+
+  @override
+  String get mavzuYorug => 'Yorugʻ';
+
+  @override
+  String get mavzuTun => 'Tun';
+
+  @override
+  String get ochiq => 'Oʻchiq';
+
+  @override
+  String get maxfiylik =>
+      'Maʼlumotlar faqat qurilmangizda. Akkaunt va reklama yoʻq.';
+
+  @override
+  String ilovaVersiyasi(String versiya) {
+    return 'Zikr $versiya';
+  }
+
+  @override
+  String get kunlikMaqsadYorliq => 'Kunlik bosishlar soni';
+
+  @override
+  String get eslatmaVaqti => 'Vaqt';
+
+  @override
+  String get ruxsatYoq => 'Bildirishnomaga ruxsat berilmagan';
+
+  @override
+  String get sozlamalarniOchish => 'Sozlamalarni ochish';
+
+  @override
+  String get tiklashSarlavha => 'Zaxiradan tiklash';
+
+  @override
+  String get tiklashMatn => 'Hozirgi maʼlumot zaxiradagi bilan almashtiriladi.';
+
+  @override
+  String get tiklash => 'Tiklash';
+
+  @override
+  String get tiklandi => 'Maʼlumot zaxiradan tiklandi.';
+
+  @override
+  String get zaxiraNotogri =>
+      'Bu fayl Zikr zaxirasi emas. Ulashilgan .json faylni tanlang.';
+
+  @override
+  String get zaxiraYangi =>
+      'Bu zaxira ilovaning yangiroq versiyasida olingan. Ilovani yangilang.';
+
+  @override
+  String get zaxiraBuzuq => 'Zaxira fayli buzilgan. Maʼlumot oʻzgarmadi.';
+
+  @override
+  String get zaxiraXatoSarlavha => 'Tiklab boʻlmadi';
+
+  @override
+  String get yaxshi => 'Yaxshi';
+
+  @override
+  String get nollashBirSarlavha => 'Hisobni nollash';
+
+  @override
+  String get nollashBirMatn =>
+      'Barcha sessiyalar va tasbehot yoʻllari oʻchadi. Zikrlar va sozlamalar qoladi.';
+
+  @override
+  String get avvalZaxira => 'Avval zaxira olish';
+
+  @override
+  String get davomEtishTugma => 'Davom etish';
+
+  @override
+  String get nollashIkkiSarlavha => 'Rostdan nollaysizmi?';
+
+  @override
+  String get nollashIkkiMatn => 'Bu amalni qaytarib boʻlmaydi.';
+
+  @override
+  String get nollandi => 'Hisob nollandi.';
 }

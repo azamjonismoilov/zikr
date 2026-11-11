@@ -155,6 +155,7 @@ class _OzZikrEkraniState extends ConsumerState<OzZikrEkrani> {
       sarlavha: l.ochirishSarlavha,
       matn: l.ochirishMatn,
       tasdiqMatni: l.ochirish,
+      xavfli: true,
     );
     if (!ha || !mounted) return;
     setState(() => _saqlanmoqda = true);

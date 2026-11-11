@@ -786,5 +786,183 @@
   "bosqich365": "bir yil",
   "@bosqich365": {
     "description": "Bosqich nomi"
+  },
+  "eslatmaSarlavha": "Zikr vaqti",
+  "@eslatmaSarlavha": {
+    "description": "Kunlik eslatma bildirishnomasi sarlavhasi"
+  },
+  "eslatmaStreak": "{n} kunlik ketma-ketlikni davom ettiring",
+  "@eslatmaStreak": {
+    "description": "Eslatma matni (streak > 1)",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "eslatmaOddiy": "Bugungi zikringizni unutmang",
+  "@eslatmaOddiy": {
+    "description": "Eslatma matni"
+  },
+  "guruhSanash": "SANASH",
+  "@guruhSanash": {
+    "description": "Sozlamalar guruhi"
+  },
+  "guruhIlova": "ILOVA",
+  "@guruhIlova": {
+    "description": "Sozlamalar guruhi"
+  },
+  "guruhMalumotlar": "MAʼLUMOTLAR",
+  "@guruhMalumotlar": {
+    "description": "Sozlamalar guruhi"
+  },
+  "sozTebranish": "Tebranish",
+  "@sozTebranish": {
+    "description": "Sozlama qatori"
+  },
+  "sozTovush": "Bosish tovushi",
+  "@sozTovush": {
+    "description": "Sozlama qatori"
+  },
+  "sozOvozTugmasi": "Ovoz tugmalari bilan sanash",
+  "@sozOvozTugmasi": {
+    "description": "Sozlama qatori (Android)"
+  },
+  "sozEkranYoniq": "Ekran oʻchmasin",
+  "@sozEkranYoniq": {
+    "description": "Sozlama qatori"
+  },
+  "sozKunlikMaqsad": "Kunlik maqsad",
+  "@sozKunlikMaqsad": {
+    "description": "Sozlama qatori"
+  },
+  "sozMavzu": "Mavzu",
+  "@sozMavzu": {
+    "description": "Sozlama qatori"
+  },
+  "sozEslatma": "Kunlik eslatma",
+  "@sozEslatma": {
+    "description": "Sozlama qatori"
+  },
+  "sozZaxiraOlish": "Zaxira nusxa olish",
+  "@sozZaxiraOlish": {
+    "description": "Sozlama qatori"
+  },
+  "sozZaxiradanTiklash": "Zaxiradan tiklash",
+  "@sozZaxiradanTiklash": {
+    "description": "Sozlama qatori"
+  },
+  "sozNollash": "Hisobni nollash",
+  "@sozNollash": {
+    "description": "Sozlama qatori"
+  },
+  "mavzuTizim": "Tizim",
+  "@mavzuTizim": {
+    "description": "Mavzu varianti"
+  },
+  "mavzuYorug": "Yorugʻ",
+  "@mavzuYorug": {
+    "description": "Mavzu varianti"
+  },
+  "mavzuTun": "Tun",
+  "@mavzuTun": {
+    "description": "Mavzu varianti"
+  },
+  "ochiq": "Oʻchiq",
+  "@ochiq": {
+    "description": "Eslatma o'chiq bo'lganda qiymat"
+  },
+  "maxfiylik": "Maʼlumotlar faqat qurilmangizda. Akkaunt va reklama yoʻq.",
+  "@maxfiylik": {
+    "description": "Maxfiylik izohi"
+  },
+  "ilovaVersiyasi": "Zikr {versiya}",
+  "@ilovaVersiyasi": {
+    "description": "Ilova versiyasi",
+    "placeholders": {
+      "versiya": {
+        "type": "String"
+      }
+    }
+  },
+  "kunlikMaqsadYorliq": "Kunlik bosishlar soni",
+  "@kunlikMaqsadYorliq": {
+    "description": "Kunlik maqsad panelidagi maydon yorlig'i"
+  },
+  "eslatmaVaqti": "Vaqt",
+  "@eslatmaVaqti": {
+    "description": "Eslatma panelidagi vaqt qatori"
+  },
+  "ruxsatYoq": "Bildirishnomaga ruxsat berilmagan",
+  "@ruxsatYoq": {
+    "description": "Eslatma: ruxsat rad etilgan"
+  },
+  "sozlamalarniOchish": "Sozlamalarni ochish",
+  "@sozlamalarniOchish": {
+    "description": "Tizim sozlamalarini ochish tugmasi"
+  },
+  "tiklashSarlavha": "Zaxiradan tiklash",
+  "@tiklashSarlavha": {
+    "description": "Tiklash tasdig'i sarlavhasi"
+  },
+  "tiklashMatn": "Hozirgi maʼlumot zaxiradagi bilan almashtiriladi.",
+  "@tiklashMatn": {
+    "description": "Tiklash tasdig'i matni"
+  },
+  "tiklash": "Tiklash",
+  "@tiklash": {
+    "description": "Tiklash tugmasi"
+  },
+  "tiklandi": "Maʼlumot zaxiradan tiklandi.",
+  "@tiklandi": {
+    "description": "Tiklash muvaffaqiyatli"
+  },
+  "zaxiraNotogri": "Bu fayl Zikr zaxirasi emas. Ulashilgan .json faylni tanlang.",
+  "@zaxiraNotogri": {
+    "description": "Zaxira: noto'g'ri fayl"
+  },
+  "zaxiraYangi": "Bu zaxira ilovaning yangiroq versiyasida olingan. Ilovani yangilang.",
+  "@zaxiraYangi": {
+    "description": "Zaxira: yangi versiya"
+  },
+  "zaxiraBuzuq": "Zaxira fayli buzilgan. Maʼlumot oʻzgarmadi.",
+  "@zaxiraBuzuq": {
+    "description": "Zaxira: buzuq fayl"
+  },
+  "zaxiraXatoSarlavha": "Tiklab boʻlmadi",
+  "@zaxiraXatoSarlavha": {
+    "description": "Zaxira xatosi sarlavhasi"
+  },
+  "yaxshi": "Yaxshi",
+  "@yaxshi": {
+    "description": "Xabar dialogi tugmasi"
+  },
+  "nollashBirSarlavha": "Hisobni nollash",
+  "@nollashBirSarlavha": {
+    "description": "Nollash: birinchi tasdiq sarlavhasi"
+  },
+  "nollashBirMatn": "Barcha sessiyalar va tasbehot yoʻllari oʻchadi. Zikrlar va sozlamalar qoladi.",
+  "@nollashBirMatn": {
+    "description": "Nollash: birinchi tasdiq matni"
+  },
+  "avvalZaxira": "Avval zaxira olish",
+  "@avvalZaxira": {
+    "description": "Nollash: zaxira tugmasi"
+  },
+  "davomEtishTugma": "Davom etish",
+  "@davomEtishTugma": {
+    "description": "Nollash: birinchi tasdiq tugmasi"
+  },
+  "nollashIkkiSarlavha": "Rostdan nollaysizmi?",
+  "@nollashIkkiSarlavha": {
+    "description": "Nollash: ikkinchi tasdiq sarlavhasi"
+  },
+  "nollashIkkiMatn": "Bu amalni qaytarib boʻlmaydi.",
+  "@nollashIkkiMatn": {
+    "description": "Nollash: ikkinchi tasdiq matni"
+  },
+  "nollandi": "Hisob nollandi.",
+  "@nollandi": {
+    "description": "Nollash muvaffaqiyatli"
   }
 }

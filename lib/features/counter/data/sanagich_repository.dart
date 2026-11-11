@@ -16,7 +16,16 @@ abstract final class SozlamaKalit {
   /// Bo'sh bo'lmasa, sanagich shu to'plam rejimida.
   static const joriyToplamId = 'joriy_toplam_id';
 
-  /// Statistika davri: `7` yoki `30` kun.
+  static const tovush = 'tovush';
+  static const ovozTugmasi = 'ovoz_tugmasi';
+  static const ekranYoniq = 'ekran_yoniq';
+  static const mavzu = 'mavzu';
+  static const eslatmaYoniq = 'eslatma_yoniq';
+
+  /// "HH:MM", mahalliy vaqt.
+  static const eslatmaVaqti = 'eslatma_vaqti';
+
+    /// Statistika davri: `7` yoki `30` kun.
   static const statistikaDavri = 'statistika_davri';
   static const standartDavr = 7;
 

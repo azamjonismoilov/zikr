@@ -1,6 +1,8 @@
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router.dart';
+import '../../../app/sanagich_korinishi.dart';
+import '../../../core/platforma/platforma.dart';
 
 import '../../../core/format/son_format.dart';
 import '../../../core/l10n/generated/app_localizations.dart';
@@ -52,23 +56,65 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
 
   SanagichController get _ctrl => ref.read(sanagichProvider.notifier);
 
+  /// Ovoz balandligi tugmalari (Android, sozlama yoqilganda native ushlaydi).
+  StreamSubscription<void>? _ovozTugmasi;
+
+  /// Oxirgi bosishdan 2 daqiqa o'tgach ekran yana odatdagidek o'chadi.
+  Timer? _ekranTaymeri;
+  bool _ekranYoniq = false;
+  static const _ekranYoniqMuddati = Duration(minutes: 2);
+
+  /// `dispose` da `ref` ishlatib bo'lmaydi, shuning uchun maydonda saqlanadi.
+  late final Platforma _platforma = ref.read(platformaProvider);
+
   @override
   void initState() {
     super.initState();
-    _hayot = AppLifecycleListener(onResume: () => _ctrl.kunniYangila());
+    _hayot = AppLifecycleListener(
+      onResume: () => _ctrl.kunniYangila(),
+      onHide: _ekranniOchir,
+    );
+    _ovozTugmasi = _platforma.ovozTugmasi.listen((_) {
+      if (ref.read(sanagichKorinadiProvider)) _bos();
+    });
   }
 
   @override
   void dispose() {
     _hayot.dispose();
     _halqaMarkazi.dispose();
+    _ovozTugmasi?.cancel();
+    _ekranTaymeri?.cancel();
+    if (_ekranYoniq) _platforma.ekranYoniq(false);
     super.dispose();
+  }
+
+  /// Bosishdan keyin: "Ekran oʻchmasin" yoqilgan bo'lsa ekranni 2 daqiqaga yoqiq tutadi.
+  void _ekranniUshla(SanagichHolati h) {
+    if (!h.ekranYoniq || !ref.read(sanagichKorinadiProvider)) return;
+    _ekranTaymeri?.cancel();
+    _ekranTaymeri = Timer(_ekranYoniqMuddati, _ekranniOchir);
+    if (!_ekranYoniq) {
+      _ekranYoniq = true;
+      _platforma.ekranYoniq(true);
+    }
+  }
+
+  void _ekranniOchir() {
+    _ekranTaymeri?.cancel();
+    _ekranTaymeri = null;
+    if (_ekranYoniq) {
+      _ekranYoniq = false;
+      _platforma.ekranYoniq(false);
+    }
   }
 
   void _bos() {
     final h = ref.read(sanagichProvider).value;
     if (h == null) return;
     final hodisa = _ctrl.bos();
+    if (h.tovush) _platforma.bosishTovushi();
+    _ekranniUshla(h);
     setState(() {
       _bosishlar++;
       if (hodisa.aylanaTugadi) _aylanalar++;
@@ -147,6 +193,13 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => _markazniOlcha());
+    // Boshqa ekranga o'tilsa yoki sozlama o'chirilsa, ekran odatdagi holatga qaytadi.
+    ref.listen(sanagichKorinadiProvider, (_, korinadi) {
+      if (!korinadi) _ekranniOchir();
+    });
+    ref.listen(sanagichProvider.select((h) => h.value?.ekranYoniq ?? true), (_, yoniq) {
+      if (!yoniq) _ekranniOchir();
+    });
     final holat = ref.watch(sanagichProvider);
     final h = holat.value;
 

@@ -46,6 +46,11 @@ abstract final class AppShadows {
     BoxShadow(color: Color(0x0D0F2952), offset: Offset(0, 2), blurRadius: 3),
   ];
 
+  /// Toggle tutqichi: rgba(15, 41, 82, 0.18), y 1, blur 3 (Figma `OsmonToggle`).
+  static const toggle = [
+    BoxShadow(color: Color(0x2E0F2952), offset: Offset(0, 1), blurRadius: 3),
+  ];
+
   /// Bo'rtiq (3D) effekt: xiralashmagan, pastga surilgan soya.
   static List<BoxShadow> bortiq(Color rang, {double balandlik = 4}) => [
         BoxShadow(color: rang, offset: Offset(0, balandlik), blurRadius: 0),

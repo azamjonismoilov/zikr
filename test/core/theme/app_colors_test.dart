@@ -23,6 +23,7 @@ const _kutilgan = <String, (int, int)>{
   'olovOch': (0xFFFFF2E6, 0xFF2B1E14),
   'olovChiziq': (0xFFFFCFA3, 0xFF5A3A1E),
   'qizil': (0xFFF5455C, 0xFFFF6B7C),
+  'qizilSoya': (0xFFD0304A, 0xFFB83A4C),
   'binafsha': (0xFF8E63FF, 0xFFA68AFF),
   'shisha': (0xB8FFFFFF, 0xB81A2438),
   'shishaFaol': (0x0F000000, 0x1AFFFFFF),

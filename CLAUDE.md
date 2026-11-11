@@ -17,7 +17,12 @@ Figma'dagi zikr matnlari joy uchun qisqartirilgan namunalar, ularga tayanma.
 - Lokal baza: Drift (SQLite), `drift_flutter` (bazani ochish), `drift_dev` + `build_runner` (kod generatsiyasi)
 - Sozlamalar: faqat Drift'dagi `sozlama` jadvali (alohida key-value paketi yo'q)
 - Rasmlar: flutter_svg
-- Eslatmalar: flutter_local_notifications
+- Eslatmalar: flutter_local_notifications; `timezone` + `flutter_timezone` (eslatmani
+  qurilmaning mahalliy vaqt zonasida rejalashtirish uchun)
+- `share_plus` — zaxira faylini tizim ulashish oynasi orqali saqlash yoki yuborish
+- `file_picker` — tiklash uchun zaxira faylini tanlash
+- `wakelock_plus` — "Ekran oʻchmasin" sozlamasi
+- `package_info_plus` — Sozlamalardagi ilova versiyasi
 - Lokalizatsiya: flutter_localizations, ARB, `intl`
 
 Ro'yxatda yo'q paket kerak bo'lsa, qo'shishdan oldin sababini bir jumlada ayt.
@@ -145,6 +150,40 @@ O'z zikrlari turkumidan qat'i nazar "Mening" bo'limida ko'rsatiladi.
 | `joriy_toplam_id` | yo'q | bo'lsa, sanagich shu to'plam rejimida |
 | `statistika_davri` | `7` | statistika davri: `7` yoki `30` kun |
 | `seed_versiya` | — | seed yuklanganini belgilaydi |
+| `tovush` | `0` | bosish tovushi (tizim `SystemSound.click`) |
+| `ovoz_tugmasi` | `0` | ovoz tugmalari bilan sanash (faqat Android) |
+| `ekran_yoniq` | `1` | sanagichda oxirgi bosishdan keyin 2 daqiqa ekran o'chmaydi |
+| `mavzu` | `tizim` | `tizim`, `yorug` yoki `tun` |
+| `eslatma_yoniq` | `0` | kunlik eslatma |
+| `eslatma_vaqti` | `21:00` | eslatma vaqti, `HH:MM` |
+
+## Sozlamalar, eslatma, zaxira
+
+- **Platforma:** tizim bilan ishlash (tovush, ekran, ovoz tugmasi, bildirishnoma, ulashish,
+  fayl tanlash, versiya) faqat `core/platforma/platforma.dart` interfeysi orqali.
+  Haqiqiysi `TizimPlatformasi`, testlarda `SoxtaPlatforma` (`test/helpers/`). Native kanal
+  `uz.azam.zikr/tizim` (`MainActivity.kt`, `AppDelegate.swift`).
+- **Ovoz tugmasi:** sozlama yoqilgan va Sanagich ko'rinib turgan paytdagina tugma
+  ushlanadi (ovoz o'zgarmaydi), boshqa ekranlarda tizimga o'tadi.
+- **Eslatma:** 30 kunga bir martalik eslatmalar (id 100 dan), aniq bo'lmagan alarm
+  (`inexactAllowWhileIdle`), qayta yuklanishdan keyin ham saqlanadi. Bugun hisoblangan
+  yoki vaqt o'tgan bo'lsa ertadan boshlanadi. Takroriy eslatma ishlatilmaydi: Android'da u
+  bugunni o'tkazib yubora olmaydi. Ilova ochilganda va holat o'zgarganda qayta rejalanadi,
+  shuning uchun ilova 30 kun ochilmasa eslatma to'xtaydi. Matn streakka qarab (streak > 1).
+  Ruxsat faqat foydalanuvchi eslatmani yoqqanda so'raladi; rad etilsa "Sozlamalarni ochish".
+  Bildirishnoma bosilsa Sanagich ochiladi. Bekor qilish `cancelAll` (boshqa bildirishnoma yo'q).
+- **Zaxira:** JSON (`format: zikr-zaxira`, `formatVersiyasi: 1`, `sxemaVersiyasi`): o'z
+  zikrlari (o'chirilganlari ham), zikr maqsadlari, sessiyalar, yurishlar, sozlamalar
+  (`seed_versiya` siz). Fayl nomi `zikr-zaxira-YYYY-MM-DD.json`.
+- **Tiklash:** avval tekshiriladi (boshqa fayl, yangi versiya, buzuq — har biriga xabar),
+  keyin tasdiq, so'ng bitta tranzaksiyada almashtiriladi. Eski sxemalar: `jami` yo'q bo'lsa
+  `aylanalar × maqsad + son`, `ochirilgan` yo'q bo'lsa `false`, yurishlar ixtiyoriy.
+- **Hisobni nollash:** ikki tasdiq, birinchisida "Avval zaxira olish". Sessiyalar, yurishlar
+  va `joriy_toplam_id` o'chadi; zikrlar va sozlamalar qoladi.
+- **Android auto backup:** faqat `app_flutter/zikr.sqlite` (+ `-wal`, `-shm`),
+  `res/xml/zaxira_qoidalari.xml` va `malumot_qoidalari.xml`.
+- Vaqt zonasi ma'lumoti birinchi rejalashtirishda yuklanadi (`latest_10y`): ishga tushishda
+  yuklash asosiy oqimni bloklab ANR beradi.
 
 Standart zikrlar `assets/seed/zikrlar.json` dan yuklanadi. Diniy matnlar (arabcha, talaffuz,
 ma'no) faqat shu faylda turadi, kodda takrorlanmaydi: ular relizdan oldin mutaxassis
@@ -174,6 +213,7 @@ tomonidan tekshiriladi va tuzatiladi.
 | olovOch | #FFF2E6 | #2B1E14 |
 | olovChiziq | #FFCFA3 | #5A3A1E |
 | qizil | #F5455C | #FF6B7C |
+| qizilSoya | #D0304A | #B83A4C |
 | binafsha | #8E63FF | #A68AFF |
 | shisha | #FFFFFF 72% | #1A2438 72% |
 | shishaFaol | #000000 6% | #FFFFFF 10% |
@@ -228,8 +268,13 @@ Shakl va effektlar:
 - Odat shkalasi belgisi: rgba(15, 41, 82, 0.1), y 2, blur 6. Kun kapsulasi: rgba(15, 41, 82, 0.05), y 2, blur 3.
 - Tabrik kartasi: rgba(0, 0, 0, 0.25), y 20, blur 50. Tunda osmon zonasida markazda sarlavha yoki
   rasm turgan joylarda (08, yo'l ekrani, tabrik, Ketma-ketlik) `SkyHeader(oysiz: true)`.
+- Xavfli tugma (`AsosiyTugma(xavfli: true)`): `qizil` fon, `belgiOq` matn, ostida `qizilSoya`
+  bo'rtiq soya. Faqat qaytarib bo'lmaydigan amalning oxirgi tasdig'ida: hisobni nollashning
+  ikkinchi oynasi, o'z zikrini o'chirish. Birinchi tasdiq oynasidagi tugma oddiy.
 - Oq tugmalar (maqsad, nollash): `fon`, 1.5 `chiziq` chegara, ostida `bortiq` bo'rtiq soya.
 - Tab bar kapsulasi soyasi: rgba(10, 26, 51, 0.14), y 8, blur 28.
+- Toggle (`OsmonToggle`, 50×30, tugmacha 24): yoqilgan `kok`, o'chiq `chiziq`; tugmacha soyasi
+  rgba(15, 41, 82, 0.18), y 1, blur 3.
 
 Osmon (`SkyHeader`, 390×230, to'rt variant):
 

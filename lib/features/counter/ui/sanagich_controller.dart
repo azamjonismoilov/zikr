@@ -15,6 +15,8 @@ import '../../path/data/yurish_repository.dart';
 import '../../path/domain/tabrik.dart';
 import '../../path/domain/toplam_sanash.dart';
 import '../../path/domain/yurish.dart';
+import '../../settings/domain/eslatma.dart';
+import '../../settings/domain/mavzu.dart';
 
 final soatProvider = Provider<Soat>((ref) => const TizimSoati());
 
@@ -91,6 +93,12 @@ class SanagichHolati {
     this.kechiktirilgan,
     this.zikrKunlari = const {},
     this.statistikaDavri = SozlamaKalit.standartDavr,
+    this.tovush = false,
+    this.ovozTugmasi = false,
+    this.ekranYoniq = true,
+    this.mavzu = Mavzu.tizim,
+    this.eslatmaYoniq = false,
+    this.eslatmaDaqiqa = Eslatma.standartDaqiqa,
   });
 
   final Kun bugun;
@@ -119,6 +127,20 @@ class SanagichHolati {
 
   /// Statistika davri: 7 yoki 30 kun.
   final int statistikaDavri;
+
+  /// Har bosishda tizim "click" tovushi.
+  final bool tovush;
+
+  /// Ovoz balandligi tugmalari bilan sanash (faqat Android).
+  final bool ovozTugmasi;
+
+  /// Sanash paytida ekran o'chmasin.
+  final bool ekranYoniq;
+  final Mavzu mavzu;
+  final bool eslatmaYoniq;
+
+  /// Eslatma vaqti, kun boshidan daqiqalar.
+  final int eslatmaDaqiqa;
 
   /// Hisoblangan kunlar (kun hisobi qoidasi bo'yicha).
   Set<Kun> get hisoblanganKunlar => KunHisobi.hisoblanganKunlar(yigindilar.values, kunlikMaqsad);
@@ -205,6 +227,13 @@ class SanagichHolati {
     Object? kechiktirilgan = _yoq,
     Map<int, Map<Kun, int>>? zikrKunlari,
     int? statistikaDavri,
+    int? kunlikMaqsad,
+    bool? tovush,
+    bool? ovozTugmasi,
+    bool? ekranYoniq,
+    Mavzu? mavzu,
+    bool? eslatmaYoniq,
+    int? eslatmaDaqiqa,
   }) {
     return SanagichHolati(
       bugun: bugun ?? this.bugun,
@@ -214,7 +243,7 @@ class SanagichHolati {
       oxirgiQatorlar: oxirgiQatorlar ?? this.oxirgiQatorlar,
       yigindilar: yigindilar ?? this.yigindilar,
       haptik: haptik ?? this.haptik,
-      kunlikMaqsad: kunlikMaqsad,
+      kunlikMaqsad: kunlikMaqsad ?? this.kunlikMaqsad,
       joriyToplamId: identical(joriyToplamId, _yoq) ? this.joriyToplamId : joriyToplamId as int?,
       yurishlar: yurishlar ?? this.yurishlar,
       tugaganYurishlar: tugaganYurishlar ?? this.tugaganYurishlar,
@@ -223,6 +252,12 @@ class SanagichHolati {
           : kechiktirilgan as KechiktirilganTabrik?,
       zikrKunlari: zikrKunlari ?? this.zikrKunlari,
       statistikaDavri: statistikaDavri ?? this.statistikaDavri,
+      tovush: tovush ?? this.tovush,
+      ovozTugmasi: ovozTugmasi ?? this.ovozTugmasi,
+      ekranYoniq: ekranYoniq ?? this.ekranYoniq,
+      mavzu: mavzu ?? this.mavzu,
+      eslatmaYoniq: eslatmaYoniq ?? this.eslatmaYoniq,
+      eslatmaDaqiqa: eslatmaDaqiqa ?? this.eslatmaDaqiqa,
     );
   }
 }
@@ -259,6 +294,13 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
       tugaganYurishlar: await _yurishRepo.tugaganlar(),
       zikrKunlari: await repo.zikrKunlari(),
       statistikaDavri: davr == 30 ? 30 : SozlamaKalit.standartDavr,
+      tovush: await repo.sozlama(SozlamaKalit.tovush) == '1',
+      ovozTugmasi: await repo.sozlama(SozlamaKalit.ovozTugmasi) == '1',
+      ekranYoniq: await repo.sozlama(SozlamaKalit.ekranYoniq) != '0',
+      mavzu: Mavzu.ol(await repo.sozlama(SozlamaKalit.mavzu)),
+      eslatmaYoniq: await repo.sozlama(SozlamaKalit.eslatmaYoniq) == '1',
+      eslatmaDaqiqa: Eslatma.daqiqaga(await repo.sozlama(SozlamaKalit.eslatmaVaqti) ?? '') ??
+          Eslatma.standartDaqiqa,
     );
   }
 
@@ -429,6 +471,48 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     if (kunlar != 7 && kunlar != 30 || kunlar == _h.statistikaDavri) return;
     state = AsyncData(_h.copyWith(statistikaDavri: kunlar));
     navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.statistikaDavri, '$kunlar'));
+  }
+
+  void tovushniAlmashtir() => _bool(SozlamaKalit.tovush, !_h.tovush, (v) => _h.copyWith(tovush: v));
+
+  void ovozTugmasiniAlmashtir() =>
+      _bool(SozlamaKalit.ovozTugmasi, !_h.ovozTugmasi, (v) => _h.copyWith(ovozTugmasi: v));
+
+  void ekranYoniqniAlmashtir() =>
+      _bool(SozlamaKalit.ekranYoniq, !_h.ekranYoniq, (v) => _h.copyWith(ekranYoniq: v));
+
+  void mavzuniOrnat(Mavzu mavzu) {
+    state = AsyncData(_h.copyWith(mavzu: mavzu));
+    navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.mavzu, mavzu.kalit));
+  }
+
+  /// Eslatmani yoqadi/o'chiradi yoki vaqtini o'zgartiradi. Ruxsatni UI so'raydi.
+  void eslatmaniOrnat({bool? yoniq, int? daqiqa}) {
+    final h = _h.copyWith(eslatmaYoniq: yoniq, eslatmaDaqiqa: daqiqa);
+    state = AsyncData(h);
+    navbat.qosh(() async {
+      await _repo.sozlamaniYoz(SozlamaKalit.eslatmaYoniq, h.eslatmaYoniq ? '1' : '0');
+      await _repo.sozlamaniYoz(SozlamaKalit.eslatmaVaqti, Eslatma.matnga(h.eslatmaDaqiqa));
+    });
+  }
+
+  /// Kunlik maqsad (1–10 000). Kun hisobi va streak shu bilan qayta hisoblanadi.
+  void kunlikMaqsadniOrnat(int maqsad) {
+    if (maqsad < 1 || maqsad > 10000 || maqsad == _h.kunlikMaqsad) return;
+    state = AsyncData(_h.copyWith(kunlikMaqsad: maqsad));
+    navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.kunlikMaqsad, '$maqsad'));
+  }
+
+  /// Zaxiradan tiklash yoki nollashdan keyin: yozuvlar tugagach holat bazadan qayta o'qiladi.
+  Future<void> qaytaYukla() async {
+    await navbat.tugashiniKut();
+    ref.invalidateSelf();
+    await future;
+  }
+
+  void _bool(String kalit, bool qiymat, SanagichHolati Function(bool) yangi) {
+    state = AsyncData(yangi(qiymat));
+    navbat.qosh(() => _repo.sozlamaniYoz(kalit, qiymat ? '1' : '0'));
   }
 
   void haptikniAlmashtir() {
