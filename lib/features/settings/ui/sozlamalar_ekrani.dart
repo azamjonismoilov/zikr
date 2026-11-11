@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/db/database.dart';
 import '../../../core/format/son_format.dart';
 import '../../../core/l10n/generated/app_localizations.dart';
+import '../../../core/manzillar.dart';
 import '../../../core/platforma/platforma.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_shadows.dart';
@@ -18,6 +19,7 @@ import '../../../core/widgets/pastki_panel.dart';
 import '../../../core/widgets/sky_header.dart';
 import '../../../core/widgets/tanlov_qatori.dart';
 import '../../../core/widgets/tasdiq_dialog.dart';
+import '../../../core/widgets/vaqt_tanlash.dart';
 import '../../counter/ui/sanagich_controller.dart';
 import '../../counter/ui/widgets/maxsus_maqsad_paneli.dart';
 import '../data/zaxira.dart';
@@ -39,6 +41,7 @@ class SozlamalarEkrani extends ConsumerWidget {
     final ctrl = ref.read(sanagichProvider.notifier);
     final platforma = ref.read(platformaProvider);
     final versiya = ref.watch(_versiyaProvider).value;
+    final maxfiylikManzili = ref.watch(maxfiylikManziliProvider);
     // Kapsula tab bar (62) + uning ostidagi joy + 16: oxirgi qator tab bar ostida qolmaydi.
     final pastki = 62.0 + math.max(MediaQuery.viewPaddingOf(context).bottom, 8.0) + 16;
 
@@ -141,6 +144,22 @@ class SozlamalarEkrani extends ConsumerWidget {
                 ),
               ],
             ),
+            // Manzil hali bo'sh bo'lsa qator ko'rsatilmaydi.
+            if (maxfiylikManzili.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              _Guruh(
+                nomi: '',
+                qatorlar: [
+                  _Qator(
+                    ikonka: 'qalqon',
+                    rang: c.yashil,
+                    nomi: l.sozMaxfiylikSiyosati,
+                    strelka: true,
+                    onTap: () => ref.read(platformaProvider).havolaniOch(maxfiylikManzili),
+                  ),
+                ],
+              ),
+            ],
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.only(left: 4),
@@ -148,6 +167,7 @@ class SozlamalarEkrani extends ConsumerWidget {
                 children: [
                   SvgPicture.asset(
                     'assets/svg/sozlama_qalqon.svg',
+                    excludeFromSemantics: true,
                     width: 20,
                     height: 20,
                     colorFilter: ColorFilter.mode(c.yashil, BlendMode.srcIn),
@@ -162,7 +182,7 @@ class SozlamalarEkrani extends ConsumerWidget {
               Text(
                 l.ilovaVersiyasi(versiya),
                 textAlign: TextAlign.center,
-                style: AppText.kichik.copyWith(color: c.matn3),
+                style: AppText.kichik.copyWith(color: c.matn2),
               ),
             ],
           ],
@@ -371,6 +391,7 @@ class _Qator extends StatelessWidget {
             decoration: BoxDecoration(color: rang, borderRadius: BorderRadius.circular(10)),
             child: SvgPicture.asset(
               'assets/svg/sozlama_$ikonka.svg',
+              excludeFromSemantics: true,
               width: 18,
               height: 18,
               colorFilter: ColorFilter.mode(c.belgiOq, BlendMode.srcIn),
@@ -381,12 +402,13 @@ class _Qator extends StatelessWidget {
           ?oxiri,
           if (qiymat != null) ...[
             const SizedBox(width: 12),
-            Text(qiymat!, style: AppText.matn.copyWith(color: c.matn3)),
+            Text(qiymat!, style: AppText.matn.copyWith(color: c.matn2)),
           ],
           if (qiymat != null || strelka) ...[
             const SizedBox(width: 12),
             SvgPicture.asset(
               'assets/svg/sozlama_ongga.svg',
+              excludeFromSemantics: true,
               width: 18,
               height: 18,
               colorFilter: ColorFilter.mode(c.matn3, BlendMode.srcIn),
@@ -428,17 +450,8 @@ class _EslatmaPaneliState extends ConsumerState<_EslatmaPaneli> {
   }
 
   Future<void> _vaqtTanla(int joriy) async {
-    final tanlangan = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay(hour: joriy ~/ 60, minute: joriy % 60),
-      builder: (context, child) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-        child: child!,
-      ),
-    );
-    if (tanlangan != null) {
-      ref.read(sanagichProvider.notifier).eslatmaniOrnat(daqiqa: tanlangan.hour * 60 + tanlangan.minute);
-    }
+    final daqiqa = await vaqtSora(context, joriy);
+    if (daqiqa != null) ref.read(sanagichProvider.notifier).eslatmaniOrnat(daqiqa: daqiqa);
   }
 
   @override

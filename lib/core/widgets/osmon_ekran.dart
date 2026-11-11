@@ -5,6 +5,17 @@ import '../theme/app_colors.dart';
 import '../theme/app_text.dart';
 import 'sky_header.dart';
 
+/// Tizim panellari (edge-to-edge): status bar va pastki panel shaffof. Ikonkalar
+/// yorug' osmonda to'q, Xufton'da och.
+SystemUiOverlayStyle tizimPaneli({required bool tun}) =>
+    (tun ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark).copyWith(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
+      systemNavigationBarContrastEnforced: false,
+      systemNavigationBarIconBrightness: tun ? Brightness.light : Brightness.dark,
+    );
+
 /// Bo'lim ekranining umumiy qobig'i: tepada osmon, ustida sarlavha, ostida kontent.
 class OsmonEkran extends StatelessWidget {
   const OsmonEkran({
@@ -42,7 +53,7 @@ class OsmonEkran extends StatelessWidget {
     final tun = Theme.of(context).brightness == Brightness.dark;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: tun ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+      value: tizimPaneli(tun: tun),
       child: ColoredBox(
         color: c.fon,
         child: Stack(

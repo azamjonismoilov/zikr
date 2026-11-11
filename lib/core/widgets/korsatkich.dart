@@ -79,6 +79,7 @@ class _KorsatkichPillState extends State<KorsatkichPill> with SingleTickerProvid
               children: [
                 SvgPicture.asset(
                   widget.ikonka,
+                  excludeFromSemantics: true,
                   width: 16,
                   height: 16,
                   colorFilter: ColorFilter.mode(widget.rang, BlendMode.srcIn),
@@ -122,6 +123,7 @@ class IkonkaTugma extends StatelessWidget {
     final c = context.colors;
     Widget belgi = SvgPicture.asset(
       ikonka,
+      excludeFromSemantics: true,
       width: 20,
       height: 20,
       colorFilter: ColorFilter.mode(rang ?? c.matn, BlendMode.srcIn),

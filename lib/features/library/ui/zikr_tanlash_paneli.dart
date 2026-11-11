@@ -189,12 +189,13 @@ class _QidiruvMaydoni extends StatelessWidget {
     final c = context.colors;
     final l = AppLocalizations.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      padding: const EdgeInsets.only(left: 14),
       decoration: BoxDecoration(color: c.fon2, borderRadius: BorderRadius.circular(14)),
       child: Row(
         children: [
           SvgPicture.asset(
             'assets/svg/icon_qidiruv.svg',
+            excludeFromSemantics: true,
             width: 18,
             height: 18,
             colorFilter: ColorFilter.mode(c.matn3, BlendMode.srcIn),
@@ -207,7 +208,11 @@ class _QidiruvMaydoni extends StatelessWidget {
               cursorColor: c.kok,
               textInputAction: TextInputAction.search,
               style: AppText.matn.copyWith(color: c.matn),
-              decoration: InputDecoration.collapsed(
+              // Vertikal chekinish maydonning o'zida: bosish maydoni 48 dp.
+              decoration: InputDecoration(
+                isDense: true,
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.fromLTRB(0, 14, 14, 14),
                 hintText: l.qidiruvMaslahat,
                 hintStyle: AppText.matn.copyWith(color: c.matn3),
               ),

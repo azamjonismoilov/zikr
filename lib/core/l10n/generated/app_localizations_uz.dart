@@ -117,8 +117,13 @@ class AppLocalizationsUz extends AppLocalizations {
   String get nollashIzoh => 'Joriy aylanani nollash';
 
   @override
-  String sanashIzoh(String son) {
-    return 'Sanash, joriy son $son';
+  String sanashElon(String nomi, String son, String maqsad) {
+    return '$nomi, $son / $maqsad';
+  }
+
+  @override
+  String sanashElonCheksiz(String nomi, String son) {
+    return '$nomi, $son';
   }
 
   @override
@@ -649,4 +654,87 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get nollandi => 'Hisob nollandi.';
+
+  @override
+  String get orqaga => 'Orqaga';
+
+  @override
+  String get onbOtkazib => 'Oʻtkazib yuborish';
+
+  @override
+  String get onbSarlavha => 'Har bir zikr hisobda';
+
+  @override
+  String get onbMatn =>
+      'Oflayn ishlaydi, reklama va akkaunt yoʻq. Faqat siz va zikringiz.';
+
+  @override
+  String get onbBoshlash => 'Boshlash';
+
+  @override
+  String onbQadam(String n, String jami) {
+    return '$n-qadam, jami $jami';
+  }
+
+  @override
+  String get onbMaqsadSavol => 'Kuniga qancha zikr qilmoqchisiz?';
+
+  @override
+  String get onbMaqsadIzoh => 'Keyin sozlamalarda oʻzgartirishingiz mumkin';
+
+  @override
+  String onbSon(String son) {
+    return '$son ta';
+  }
+
+  @override
+  String get onbMaqsadIzoh100 => 'Namozdan keyingi tasbehot';
+
+  @override
+  String get onbMaqsadIzoh300 => 'Kun davomida muntazam zikr';
+
+  @override
+  String get onbMaqsadIzoh1000 => 'Koʻp zikr qiluvchilar uchun';
+
+  @override
+  String get onbOzim => 'Oʻzim belgilayman';
+
+  @override
+  String get onbOzimIzoh => 'Istalgan son, 10 000 gacha';
+
+  @override
+  String get onbDavom => 'Davom etish';
+
+  @override
+  String get onbEslatmaSavol => 'Har kuni eslatib turaymi?';
+
+  @override
+  String get onbEslatmaIzoh => 'Bugun zikr qilgan boʻlsangiz, eslatma kelmaydi';
+
+  @override
+  String onbErtalab(String vaqt) {
+    return 'Ertalab · $vaqt';
+  }
+
+  @override
+  String onbKechqurun(String vaqt) {
+    return 'Kechqurun · $vaqt';
+  }
+
+  @override
+  String get onbBoshqaVaqt => 'Boshqa vaqt';
+
+  @override
+  String onbBoshqaVaqtTanlangan(String vaqt) {
+    return 'Boshqa vaqt · $vaqt';
+  }
+
+  @override
+  String get onbKerakEmas => 'Kerak emas';
+
+  @override
+  String get onbTayyor => 'Tayyor';
+
+  @override
+  String get sozMaxfiylikSiyosati => 'Maxfiylik siyosati';
 }

@@ -300,11 +300,17 @@ class _Yol extends StatelessWidget {
   static const _qadam = 104.0;
   static const _yorliqKengligi = 180.0;
 
+  /// Joriy tugun yorlig'ining qator balandligi (`AppText.h3`).
+  static const _yorliqQatori = 21.0;
+
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
     final l = AppLocalizations.of(context);
-    final balandlik = tugunlar.isEmpty ? 0.0 : (tugunlar.length - 1) * _qadam + 98;
+    // Katta shriftda yorliq balandlashadi: tugunlar orasi va maslahat shuncha pastga suriladi.
+    final ortiqcha = MediaQuery.textScalerOf(context).scale(_yorliqQatori) - _yorliqQatori;
+    final qadam = _qadam + ortiqcha;
+    final balandlik = tugunlar.isEmpty ? 0.0 : (tugunlar.length - 1) * qadam + 98 + ortiqcha;
 
     return LayoutBuilder(
       builder: (context, chegara) {
@@ -315,10 +321,10 @@ class _Yol extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               // Figma: maslahat kartasi chap chetda, ikkinchi tugun balandligida.
-              Positioned(left: 0, top: 92, width: 150, child: _Maslahat(matn: l.maslahatTasbehot)),
+              Positioned(left: 0, top: 92 + ortiqcha, width: 150, child: _Maslahat(matn: l.maslahatTasbehot)),
               for (final (i, t) in tugunlar.indexed)
                 Positioned(
-                  top: i * _qadam,
+                  top: i * qadam,
                   left: markaz + _siljishlar[i % _siljishlar.length] - _yorliqKengligi / 2,
                   width: _yorliqKengligi,
                   child: _Tugun(
@@ -361,12 +367,15 @@ class _Tugun extends StatelessWidget {
           children: [
             YolTugun(malumot.holat),
             const SizedBox(height: 4),
-            Text(
-              malumot.yorliq,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: (joriy ? AppText.h3 : AppText.kichik).copyWith(color: rang),
+            // Katta shriftda kesilmaydi va qo'shni tugunga chiqmaydi: bir qatorda kichrayadi.
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                malumot.yorliq,
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                style: (joriy ? AppText.h3 : AppText.kichik).copyWith(color: rang),
+              ),
             ),
           ],
         ),

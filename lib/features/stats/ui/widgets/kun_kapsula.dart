@@ -41,7 +41,7 @@ class KunKapsula extends StatelessWidget {
           children: [
             Text(
               nomi,
-              style: AppText.teg.copyWith(color: hisoblangan || kun.bugun ? c.olov : c.matn3),
+              style: AppText.teg.copyWith(color: hisoblangan || kun.bugun ? c.olov : c.matn2),
             ),
             OlovBelgi(rangli: hisoblangan, raqam: tartib == null ? null : sonFormat(tartib)),
           ],

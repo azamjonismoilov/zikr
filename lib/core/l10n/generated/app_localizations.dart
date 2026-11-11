@@ -280,11 +280,17 @@ abstract class AppLocalizations {
   /// **'Joriy aylanani nollash'**
   String get nollashIzoh;
 
-  /// Markaziy tugma (ekran o'quvchi uchun)
+  /// Markaziy tugma (ekran oʻqigich): zikr nomi, son va maqsad
   ///
   /// In uz, this message translates to:
-  /// **'Sanash, joriy son {son}'**
-  String sanashIzoh(String son);
+  /// **'{nomi}, {son} / {maqsad}'**
+  String sanashElon(String nomi, String son, String maqsad);
+
+  /// Markaziy tugma (ekran oʻqigich), maqsad ∞
+  ///
+  /// In uz, this message translates to:
+  /// **'{nomi}, {son}'**
+  String sanashElonCheksiz(String nomi, String son);
 
   /// Turkum nomi
   ///
@@ -1227,6 +1233,150 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Hisob nollandi.'**
   String get nollandi;
+
+  /// Orqaga tugmasi (ekran oʻqigich)
+  ///
+  /// In uz, this message translates to:
+  /// **'Orqaga'**
+  String get orqaga;
+
+  /// Onboarding: oʻtkazib yuborish
+  ///
+  /// In uz, this message translates to:
+  /// **'Oʻtkazib yuborish'**
+  String get onbOtkazib;
+
+  /// Onboarding 1-qadam sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Har bir zikr hisobda'**
+  String get onbSarlavha;
+
+  /// Onboarding 1-qadam matni
+  ///
+  /// In uz, this message translates to:
+  /// **'Oflayn ishlaydi, reklama va akkaunt yoʻq. Faqat siz va zikringiz.'**
+  String get onbMatn;
+
+  /// Onboarding 1-qadam tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshlash'**
+  String get onbBoshlash;
+
+  /// Onboarding qadami (ekran oʻqigich)
+  ///
+  /// In uz, this message translates to:
+  /// **'{n}-qadam, jami {jami}'**
+  String onbQadam(String n, String jami);
+
+  /// Onboarding 2-qadam savoli
+  ///
+  /// In uz, this message translates to:
+  /// **'Kuniga qancha zikr qilmoqchisiz?'**
+  String get onbMaqsadSavol;
+
+  /// Onboarding 2-qadam izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Keyin sozlamalarda oʻzgartirishingiz mumkin'**
+  String get onbMaqsadIzoh;
+
+  /// Kunlik maqsad varianti
+  ///
+  /// In uz, this message translates to:
+  /// **'{son} ta'**
+  String onbSon(String son);
+
+  /// 100 ta variantining izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Namozdan keyingi tasbehot'**
+  String get onbMaqsadIzoh100;
+
+  /// 300 ta variantining izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Kun davomida muntazam zikr'**
+  String get onbMaqsadIzoh300;
+
+  /// 1 000 ta variantining izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Koʻp zikr qiluvchilar uchun'**
+  String get onbMaqsadIzoh1000;
+
+  /// Maxsus kunlik maqsad varianti
+  ///
+  /// In uz, this message translates to:
+  /// **'Oʻzim belgilayman'**
+  String get onbOzim;
+
+  /// Maxsus kunlik maqsad izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Istalgan son, 10 000 gacha'**
+  String get onbOzimIzoh;
+
+  /// Onboarding 2-qadam tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Davom etish'**
+  String get onbDavom;
+
+  /// Onboarding 3-qadam savoli
+  ///
+  /// In uz, this message translates to:
+  /// **'Har kuni eslatib turaymi?'**
+  String get onbEslatmaSavol;
+
+  /// Onboarding 3-qadam izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun zikr qilgan boʻlsangiz, eslatma kelmaydi'**
+  String get onbEslatmaIzoh;
+
+  /// Eslatma varianti
+  ///
+  /// In uz, this message translates to:
+  /// **'Ertalab · {vaqt}'**
+  String onbErtalab(String vaqt);
+
+  /// Eslatma varianti
+  ///
+  /// In uz, this message translates to:
+  /// **'Kechqurun · {vaqt}'**
+  String onbKechqurun(String vaqt);
+
+  /// Eslatma varianti: tizim vaqt tanlagichi
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshqa vaqt'**
+  String get onbBoshqaVaqt;
+
+  /// Boshqa vaqt tanlangandan keyin
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshqa vaqt · {vaqt}'**
+  String onbBoshqaVaqtTanlangan(String vaqt);
+
+  /// Eslatma varianti: eslatmasiz
+  ///
+  /// In uz, this message translates to:
+  /// **'Kerak emas'**
+  String get onbKerakEmas;
+
+  /// Onboarding 3-qadam tugmasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Tayyor'**
+  String get onbTayyor;
+
+  /// Sozlamalar: maxfiylik siyosati sahifasini ochadi
+  ///
+  /// In uz, this message translates to:
+  /// **'Maxfiylik siyosati'**
+  String get sozMaxfiylikSiyosati;
 }
 
 class _AppLocalizationsDelegate

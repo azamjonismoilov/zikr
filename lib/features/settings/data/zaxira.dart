@@ -40,8 +40,8 @@ class ZaxiraXizmati {
   static const format = 'zikr-zaxira';
   static const formatVersiyasi = 1;
 
-  /// Seed holati zaxiraga kirmaydi: tiklangan bazada o'z qiymati qoladi.
-  static const _tashqaridagiSozlamalar = {'seed_versiya'};
+  /// Seed va onboarding holati zaxiraga kirmaydi: tiklangan bazada o'z qiymati qoladi.
+  static const _tashqaridagiSozlamalar = {'seed_versiya', SozlamaKalit.onboardingKorildi};
 
   static String faylNomi(DateTime hozir) => 'zikr-zaxira-${Kun.dan(hozir).kalit}.json';
 

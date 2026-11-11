@@ -112,6 +112,7 @@ class _Qahramon extends StatelessWidget {
     // Streak 0: olov kulrang (`matn3`), Figma'dagi kulrang olovlar kabi tekis.
     final olov = SvgPicture.asset(
       'assets/svg/qahramon_olov.svg',
+      excludeFromSemantics: true,
       width: 110.4,
       height: 121.44,
       colorFilter: streak == 0 ? ColorFilter.mode(c.matn3, BlendMode.srcIn) : null,
@@ -236,7 +237,7 @@ class _ShkalaBelgisi extends StatelessWidget {
         border: Border.all(color: yetilgan ? c.fon : c.chiziq, width: 2),
         boxShadow: AppShadows.bosqichBelgi,
       ),
-      child: Text(sonFormat(son), style: AppText.teg.copyWith(color: yetilgan ? c.fon : c.matn3)),
+      child: Text(sonFormat(son), style: AppText.teg.copyWith(color: yetilgan ? c.fon : c.matn2)),
     );
   }
 }
@@ -318,6 +319,7 @@ class _BosqichQatori extends StatelessWidget {
           if (yetilgan)
             SvgPicture.asset(
               'assets/svg/icon_belgi.svg',
+              excludeFromSemantics: true,
               width: 20,
               height: 20,
               colorFilter: ColorFilter.mode(c.olov, BlendMode.srcIn),

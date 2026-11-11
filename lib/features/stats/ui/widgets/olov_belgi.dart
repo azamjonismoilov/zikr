@@ -32,9 +32,10 @@ class OlovBelgi extends StatelessWidget {
               width: 20.26,
               height: 30,
               child: rangli
-                  ? SvgPicture.asset('assets/svg/olov_rangli.svg')
+                  ? SvgPicture.asset('assets/svg/olov_rangli.svg', excludeFromSemantics: true)
                   : SvgPicture.asset(
                       'assets/svg/olov_shakl.svg',
+                      excludeFromSemantics: true,
                       colorFilter: ColorFilter.mode(c.chiziq, BlendMode.srcIn),
                     ),
             ),
@@ -48,7 +49,7 @@ class OlovBelgi extends StatelessWidget {
                   child: Text(
                     raqam!,
                     maxLines: 1,
-                    style: uslub.copyWith(color: rangli ? c.belgiOq : c.matn3),
+                    style: uslub.copyWith(color: rangli ? c.belgiOq : c.matn2),
                   ),
                 ),
               ),

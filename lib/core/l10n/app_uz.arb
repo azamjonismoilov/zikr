@@ -159,10 +159,28 @@
   "@nollashIzoh": {
     "description": "Nollash tugmasi (ekran o'quvchi uchun)"
   },
-  "sanashIzoh": "Sanash, joriy son {son}",
-  "@sanashIzoh": {
-    "description": "Markaziy tugma (ekran o'quvchi uchun)",
+  "sanashElon": "{nomi}, {son} / {maqsad}",
+  "@sanashElon": {
+    "description": "Markaziy tugma (ekran oʻqigich): zikr nomi, son va maqsad",
     "placeholders": {
+      "nomi": {
+        "type": "String"
+      },
+      "son": {
+        "type": "String"
+      },
+      "maqsad": {
+        "type": "String"
+      }
+    }
+  },
+  "sanashElonCheksiz": "{nomi}, {son}",
+  "@sanashElonCheksiz": {
+    "description": "Markaziy tugma (ekran oʻqigich), maqsad ∞",
+    "placeholders": {
+      "nomi": {
+        "type": "String"
+      },
       "son": {
         "type": "String"
       }
@@ -964,5 +982,129 @@
   "nollandi": "Hisob nollandi.",
   "@nollandi": {
     "description": "Nollash muvaffaqiyatli"
+  },
+  "orqaga": "Orqaga",
+  "@orqaga": {
+    "description": "Orqaga tugmasi (ekran oʻqigich)"
+  },
+  "onbOtkazib": "Oʻtkazib yuborish",
+  "@onbOtkazib": {
+    "description": "Onboarding: oʻtkazib yuborish"
+  },
+  "onbSarlavha": "Har bir zikr hisobda",
+  "@onbSarlavha": {
+    "description": "Onboarding 1-qadam sarlavhasi"
+  },
+  "onbMatn": "Oflayn ishlaydi, reklama va akkaunt yoʻq. Faqat siz va zikringiz.",
+  "@onbMatn": {
+    "description": "Onboarding 1-qadam matni"
+  },
+  "onbBoshlash": "Boshlash",
+  "@onbBoshlash": {
+    "description": "Onboarding 1-qadam tugmasi"
+  },
+  "onbQadam": "{n}-qadam, jami {jami}",
+  "@onbQadam": {
+    "description": "Onboarding qadami (ekran oʻqigich)",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "jami": {
+        "type": "String"
+      }
+    }
+  },
+  "onbMaqsadSavol": "Kuniga qancha zikr qilmoqchisiz?",
+  "@onbMaqsadSavol": {
+    "description": "Onboarding 2-qadam savoli"
+  },
+  "onbMaqsadIzoh": "Keyin sozlamalarda oʻzgartirishingiz mumkin",
+  "@onbMaqsadIzoh": {
+    "description": "Onboarding 2-qadam izohi"
+  },
+  "onbSon": "{son} ta",
+  "@onbSon": {
+    "description": "Kunlik maqsad varianti",
+    "placeholders": {
+      "son": {
+        "type": "String"
+      }
+    }
+  },
+  "onbMaqsadIzoh100": "Namozdan keyingi tasbehot",
+  "@onbMaqsadIzoh100": {
+    "description": "100 ta variantining izohi"
+  },
+  "onbMaqsadIzoh300": "Kun davomida muntazam zikr",
+  "@onbMaqsadIzoh300": {
+    "description": "300 ta variantining izohi"
+  },
+  "onbMaqsadIzoh1000": "Koʻp zikr qiluvchilar uchun",
+  "@onbMaqsadIzoh1000": {
+    "description": "1 000 ta variantining izohi"
+  },
+  "onbOzim": "Oʻzim belgilayman",
+  "@onbOzim": {
+    "description": "Maxsus kunlik maqsad varianti"
+  },
+  "onbOzimIzoh": "Istalgan son, 10 000 gacha",
+  "@onbOzimIzoh": {
+    "description": "Maxsus kunlik maqsad izohi"
+  },
+  "onbDavom": "Davom etish",
+  "@onbDavom": {
+    "description": "Onboarding 2-qadam tugmasi"
+  },
+  "onbEslatmaSavol": "Har kuni eslatib turaymi?",
+  "@onbEslatmaSavol": {
+    "description": "Onboarding 3-qadam savoli"
+  },
+  "onbEslatmaIzoh": "Bugun zikr qilgan boʻlsangiz, eslatma kelmaydi",
+  "@onbEslatmaIzoh": {
+    "description": "Onboarding 3-qadam izohi"
+  },
+  "onbErtalab": "Ertalab · {vaqt}",
+  "@onbErtalab": {
+    "description": "Eslatma varianti",
+    "placeholders": {
+      "vaqt": {
+        "type": "String"
+      }
+    }
+  },
+  "onbKechqurun": "Kechqurun · {vaqt}",
+  "@onbKechqurun": {
+    "description": "Eslatma varianti",
+    "placeholders": {
+      "vaqt": {
+        "type": "String"
+      }
+    }
+  },
+  "onbBoshqaVaqt": "Boshqa vaqt",
+  "@onbBoshqaVaqt": {
+    "description": "Eslatma varianti: tizim vaqt tanlagichi"
+  },
+  "onbBoshqaVaqtTanlangan": "Boshqa vaqt · {vaqt}",
+  "@onbBoshqaVaqtTanlangan": {
+    "description": "Boshqa vaqt tanlangandan keyin",
+    "placeholders": {
+      "vaqt": {
+        "type": "String"
+      }
+    }
+  },
+  "onbKerakEmas": "Kerak emas",
+  "@onbKerakEmas": {
+    "description": "Eslatma varianti: eslatmasiz"
+  },
+  "onbTayyor": "Tayyor",
+  "@onbTayyor": {
+    "description": "Onboarding 3-qadam tugmasi"
+  },
+  "sozMaxfiylikSiyosati": "Maxfiylik siyosati",
+  "@sozMaxfiylikSiyosati": {
+    "description": "Sozlamalar: maxfiylik siyosati sahifasini ochadi"
   }
 }

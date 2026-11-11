@@ -10,7 +10,7 @@ const _kutilgan = <String, (int, int)>{
   'chiziq': (0xFFE5EAF1, 0xFF233149),
   'matn': (0xFF171A21, 0xFFEEF3FA),
   'matn2': (0xFF5E6573, 0xFFA3B0C2),
-  'matn3': (0xFF9AA2AF, 0xFF6B7A90),
+  'matn3': (0xFF7C8594, 0xFF7A899F),
   'kok': (0xFF2E9BF2, 0xFF4AAEF7),
   'kokOch': (0xFFE7F4FE, 0xFF16304D),
   'kokChuqur': (0xFF1B7FD0, 0xFF7CC4FF),

@@ -12,6 +12,7 @@ import '../../../core/l10n/generated/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_shadows.dart';
 import '../../../core/theme/app_text.dart';
+import '../../../core/widgets/bosish_maydoni.dart';
 import '../../../core/widgets/korsatkich.dart';
 import '../../../core/widgets/osmon_ekran.dart';
 import '../../../core/widgets/rasm_plitka.dart';
@@ -391,39 +392,34 @@ class _Bolim extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Semantics(
-          button: true,
-          label: onSarlavha != null ? l.tasbehotYolini : (yopiq ? l.bolimniOchish : l.bolimniYigish),
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: onSarlavha ?? onYigish,
-            child: Row(
-              children: [
-                RasmPlitka(turkum.rasm, olcham: 32),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        turkum.nomi(l),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppText.h3.copyWith(color: c.matn),
-                      ),
-                      const SizedBox(height: 1),
-                      Text(
-                        l.bolimIzohi(turkum.izoh(l), sonFormat(bolim.zikrlar.length)),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppText.kichik.copyWith(color: c.matn2),
-                      ),
-                    ],
+        BosishMaydoni(
+          child: Semantics(
+            button: true,
+            label: onSarlavha != null ? l.tasbehotYolini : (yopiq ? l.bolimniOchish : l.bolimniYigish),
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: onSarlavha ?? onYigish,
+              child: Row(
+                children: [
+                  RasmPlitka(turkum.rasm, olcham: 32),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(turkum.nomi(l), style: AppText.h3.copyWith(color: c.matn)),
+                        const SizedBox(height: 1),
+                        Text(
+                          l.bolimIzohi(turkum.izoh(l), sonFormat(bolim.zikrlar.length)),
+                          style: AppText.kichik.copyWith(color: c.matn2),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 10),
-                _YigishTugma(yopiq: yopiq, onTap: onYigish),
-              ],
+                  const SizedBox(width: 10),
+                  _YigishTugma(yopiq: yopiq, onTap: onYigish),
+                ],
+              ),
             ),
           ),
         ),
@@ -477,6 +473,7 @@ class _YigishTugma extends StatelessWidget {
             duration: const Duration(milliseconds: 200),
             child: SvgPicture.asset(
               'assets/svg/icon_pastga.svg',
+              excludeFromSemantics: true,
               width: 16,
               height: 16,
               colorFilter: ColorFilter.mode(c.matn2, BlendMode.srcIn),

@@ -111,6 +111,7 @@ class _TabTugma extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 'assets/svg/$ikonka.svg',
+                excludeFromSemantics: true,
                 width: 24,
                 height: 24,
                 colorFilter: ColorFilter.mode(rang, BlendMode.srcIn),

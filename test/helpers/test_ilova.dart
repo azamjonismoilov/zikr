@@ -11,16 +11,21 @@ import 'package:zikr/core/db/seed.dart';
 import 'package:zikr/core/l10n/generated/app_localizations.dart';
 import 'package:zikr/core/platforma/platforma.dart';
 import 'package:zikr/core/theme/app_theme.dart';
+import 'package:zikr/features/counter/data/sanagich_repository.dart';
 import 'package:zikr/features/counter/domain/soat.dart';
 import 'package:zikr/features/counter/ui/sanagich_controller.dart';
 
 import 'soxta_platforma.dart';
 
-/// Seed yuklangan xotiradagi baza.
-Future<AppDatabase> testBazasi() async {
+/// Seed yuklangan xotiradagi baza. Standart holatda onboarding o'tilgan
+/// ([onboardingKorildi] `false` bo'lsa — birinchi ochilish).
+Future<AppDatabase> testBazasi({bool onboardingKorildi = true}) async {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
   final db = AppDatabase(NativeDatabase.memory());
   await seedYukla(db, File('assets/seed/zikrlar.json').readAsStringSync());
+  if (onboardingKorildi) {
+    await db.into(db.sozlama).insert(SozlamaCompanion.insert(kalit: SozlamaKalit.onboardingKorildi, qiymat: '1'));
+  }
   return db;
 }
 

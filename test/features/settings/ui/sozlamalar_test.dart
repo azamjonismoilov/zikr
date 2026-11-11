@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:zikr/app/app.dart';
 import 'package:zikr/core/db/database.dart';
+import 'package:zikr/core/manzillar.dart';
 import 'package:zikr/core/widgets/bortiq_tugma.dart';
 import 'package:zikr/core/widgets/osmon_toggle.dart';
 import 'package:zikr/features/counter/ui/sanagich_controller.dart';
@@ -17,7 +18,13 @@ import '../../../helpers/test_ilova.dart';
 late AppDatabase _db;
 late SoxtaPlatforma _platforma;
 
-Future<void> _och(WidgetTester tester, {bool android = true, bool ruxsat = true, bool yangiBaza = true}) async {
+Future<void> _och(
+  WidgetTester tester, {
+  bool android = true,
+  bool ruxsat = true,
+  bool yangiBaza = true,
+  String maxfiylikManzili = '',
+}) async {
   telefonOlchami(tester);
   if (yangiBaza) {
     _db = await testBazasi();
@@ -26,7 +33,10 @@ Future<void> _och(WidgetTester tester, {bool android = true, bool ruxsat = true,
   _platforma = SoxtaPlatforma(android: android, ruxsat: ruxsat);
   await tester.pumpWidget(ProviderScope(
     key: UniqueKey(),
-    overrides: testOverrides(_db, platforma: _platforma),
+    overrides: [
+      ...testOverrides(_db, platforma: _platforma),
+      maxfiylikManziliProvider.overrideWithValue(maxfiylikManzili),
+    ],
     child: const ZikrApp(),
   ));
   await tester.pumpAndSettle();
@@ -270,5 +280,17 @@ void main() {
     _platforma.bildirishnomaniBos();
     await tester.pumpAndSettle();
     expect(find.byType(HalqaTugma).hitTestable(), findsOneWidget);
+  });
+
+  testWidgets('maxfiylik siyosati: manzil boʻsh boʻlsa qator yoʻq, boʻlsa brauzerda ochiladi', (tester) async {
+    await _och(tester);
+    await _sozlamalargaOt(tester);
+    expect(_sozda(find.text('Maxfiylik siyosati')), findsNothing);
+
+    const manzil = 'https://example.org/maxfiylik/';
+    await _och(tester, maxfiylikManzili: manzil);
+    await _sozlamalargaOt(tester);
+    await _bos(tester, _sozda(find.text('Maxfiylik siyosati')));
+    expect(_platforma.ochilganHavolalar, [manzil]);
   });
 }

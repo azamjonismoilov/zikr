@@ -18,6 +18,7 @@ import '../../../core/l10n/generated/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text.dart';
 import '../../../core/widgets/bortiq_tugma.dart';
+import '../../../core/widgets/bosish_maydoni.dart';
 import '../../../core/widgets/korsatkich.dart';
 import '../../../core/widgets/osmon_ekran.dart';
 import '../../../core/widgets/sky_header.dart';
@@ -249,9 +250,16 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
         ),
         Column(
           children: [
+            // Ekran o'qigich son, maqsad va zikr nomini bitta e'lon qilib o'qiydi.
             Semantics(
               button: true,
-              label: l.sanashIzoh(sonFormat(h.son)),
+              label: [
+                h.maqsad == null
+                    ? l.sanashElonCheksiz(zikr.korinishNomi, sonFormat(h.son))
+                    : l.sanashElon(zikr.korinishNomi, sonFormat(h.son), sonFormat(h.maqsad!)),
+                ?teg,
+              ].join(', '),
+              hint: l.sanashIshora,
               onTap: _bos,
               excludeSemantics: true,
               child: HalqaTugma(
@@ -264,7 +272,7 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
               ),
             ),
             const SizedBox(height: 12),
-            Text(l.sanashIshora, style: AppText.kichik.copyWith(color: c.matn3)),
+            Text(l.sanashIshora, style: AppText.kichik.copyWith(color: c.matn2)),
           ],
         ),
         if (toplam == null)
@@ -284,8 +292,10 @@ class _SanagichEkraniState extends ConsumerState<SanagichEkrani> {
       ],
     );
 
+    // Butun ekran bosish maydoni; ekran o'qigich uchun shu vazifani halqa tugmasi bajaradi.
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
+      excludeFromSemantics: true,
       onTap: _bos,
       child: NotificationListener<ScrollNotification>(
         // Past ekranlarda kontent aylantirilsa, fon doiralari halqaga ergashadi.
@@ -432,31 +442,34 @@ class _ZikrBloki extends StatelessWidget {
             style: AppText.arab.copyWith(color: c.matn),
           ),
         ),
-        Semantics(
-          button: true,
-          hint: AppLocalizations.of(context).zikrniTanlang,
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: onNomi,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(
-                  child: Text(
-                    nomi,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppText.h1.copyWith(color: c.matn),
+        BosishMaydoni(
+          child: Semantics(
+            button: true,
+            hint: AppLocalizations.of(context).zikrniTanlang,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: onNomi,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      nomi,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppText.h1.copyWith(color: c.matn),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 4),
-                SvgPicture.asset(
-                  'assets/svg/icon_pastga.svg',
-                  width: 22,
-                  height: 22,
-                  colorFilter: ColorFilter.mode(c.matn2, BlendMode.srcIn),
-                ),
-              ],
+                  const SizedBox(width: 4),
+                  SvgPicture.asset(
+                    'assets/svg/icon_pastga.svg',
+                    excludeFromSemantics: true,
+                    width: 22,
+                    height: 22,
+                    colorFilter: ColorFilter.mode(c.matn2, BlendMode.srcIn),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -497,6 +510,7 @@ class _HarakatQatori extends StatelessWidget {
             onTap: onKeyingisi,
             oxiridagi: SvgPicture.asset(
               'assets/svg/icon_ongga.svg',
+              excludeFromSemantics: true,
               width: 20,
               height: 20,
               colorFilter: ColorFilter.mode(c.fon, BlendMode.srcIn),
@@ -531,6 +545,7 @@ class _NollashTugma extends StatelessWidget {
         child: Center(
           child: SvgPicture.asset(
             'assets/svg/icon_qaytarish.svg',
+            excludeFromSemantics: true,
             width: 22,
             height: 22,
             colorFilter: ColorFilter.mode(c.matn, BlendMode.srcIn),

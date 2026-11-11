@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_text.dart';
+import 'bosish_maydoni.dart';
 
 /// Bo'rtiq (3D) tugma: ostida xiralashmagan soya, bosilganda yuzasi soyaga tushadi.
 ///
@@ -46,39 +47,41 @@ class _BortiqTugmaState extends State<BortiqTugma> {
   @override
   Widget build(BuildContext context) {
     final radius = BorderRadius.circular(widget.radius);
-    return Semantics(
-      button: true,
-      enabled: widget.onTap != null,
-      label: widget.semanticLabel,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTapDown: (_) {
-          _holat(true);
-          widget.bosilganda?.call();
-        },
-        onTapUp: (_) => _holat(false),
-        onTapCancel: () => _holat(false),
-        onTap: widget.onTap,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Positioned(
-              left: 0,
-              right: 0,
-              top: widget.chuqurlik,
-              bottom: -widget.chuqurlik,
-              child: DecoratedBox(
-                decoration: BoxDecoration(color: widget.soya, borderRadius: radius),
+    return BosishMaydoni(
+      child: Semantics(
+        button: true,
+        enabled: widget.onTap != null,
+        label: widget.semanticLabel,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTapDown: (_) {
+            _holat(true);
+            widget.bosilganda?.call();
+          },
+          onTapUp: (_) => _holat(false),
+          onTapCancel: () => _holat(false),
+          onTap: widget.onTap,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Positioned(
+                left: 0,
+                right: 0,
+                top: widget.chuqurlik,
+                bottom: -widget.chuqurlik,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: widget.soya, borderRadius: radius),
+                ),
               ),
-            ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 60),
-              transform: Matrix4.translationValues(0, _bosilgan ? widget.chuqurlik : 0, 0),
-              decoration: widget.yuza.copyWith(borderRadius: radius),
-              clipBehavior: Clip.antiAlias,
-              child: widget.child,
-            ),
-          ],
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 60),
+                transform: Matrix4.translationValues(0, _bosilgan ? widget.chuqurlik : 0, 0),
+                decoration: widget.yuza.copyWith(borderRadius: radius),
+                clipBehavior: Clip.antiAlias,
+                child: widget.child,
+              ),
+            ],
+          ),
         ),
       ),
     );

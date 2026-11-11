@@ -42,6 +42,9 @@ abstract interface class Platforma {
 
   /// Faylni tanlatadi va matnini qaytaradi; bekor qilinsa `null`.
   Future<String?> faylniTanlash();
+
+  /// Havolani tizim brauzerida ochadi.
+  Future<void> havolaniOch(String manzil);
 }
 
 /// `main()` da haqiqiy platforma bilan almashtiriladi.

@@ -23,6 +23,7 @@ Figma'dagi zikr matnlari joy uchun qisqartirilgan namunalar, ularga tayanma.
 - `file_picker` — tiklash uchun zaxira faylini tanlash
 - `wakelock_plus` — "Ekran oʻchmasin" sozlamasi
 - `package_info_plus` — Sozlamalardagi ilova versiyasi
+- `url_launcher` — maxfiylik siyosati sahifasini tizim brauzerida ochish
 - Lokalizatsiya: flutter_localizations, ARB, `intl`
 
 Ro'yxatda yo'q paket kerak bo'lsa, qo'shishdan oldin sababini bir jumlada ayt.
@@ -156,11 +157,16 @@ O'z zikrlari turkumidan qat'i nazar "Mening" bo'limida ko'rsatiladi.
 | `mavzu` | `tizim` | `tizim`, `yorug` yoki `tun` |
 | `eslatma_yoniq` | `0` | kunlik eslatma |
 | `eslatma_vaqti` | `21:00` | eslatma vaqti, `HH:MM` |
+| `onboarding_korildi` | yo'q | `1` — onboarding o'tilgan; zaxiraga kirmaydi |
+
+Standart zikrlar `assets/seed/zikrlar.json` dan yuklanadi. Diniy matnlar (arabcha, talaffuz,
+ma'no) faqat shu faylda turadi, kodda takrorlanmaydi: ular relizdan oldin mutaxassis
+tomonidan tekshiriladi va tuzatiladi.
 
 ## Sozlamalar, eslatma, zaxira
 
 - **Platforma:** tizim bilan ishlash (tovush, ekran, ovoz tugmasi, bildirishnoma, ulashish,
-  fayl tanlash, versiya) faqat `core/platforma/platforma.dart` interfeysi orqali.
+  fayl tanlash, havola ochish, versiya) faqat `core/platforma/platforma.dart` interfeysi orqali.
   Haqiqiysi `TizimPlatformasi`, testlarda `SoxtaPlatforma` (`test/helpers/`). Native kanal
   `uz.azam.zikr/tizim` (`MainActivity.kt`, `AppDelegate.swift`).
 - **Ovoz tugmasi:** sozlama yoqilgan va Sanagich ko'rinib turgan paytdagina tugma
@@ -174,7 +180,7 @@ O'z zikrlari turkumidan qat'i nazar "Mening" bo'limida ko'rsatiladi.
   Bildirishnoma bosilsa Sanagich ochiladi. Bekor qilish `cancelAll` (boshqa bildirishnoma yo'q).
 - **Zaxira:** JSON (`format: zikr-zaxira`, `formatVersiyasi: 1`, `sxemaVersiyasi`): o'z
   zikrlari (o'chirilganlari ham), zikr maqsadlari, sessiyalar, yurishlar, sozlamalar
-  (`seed_versiya` siz). Fayl nomi `zikr-zaxira-YYYY-MM-DD.json`.
+  (`seed_versiya` va `onboarding_korildi` siz). Fayl nomi `zikr-zaxira-YYYY-MM-DD.json`.
 - **Tiklash:** avval tekshiriladi (boshqa fayl, yangi versiya, buzuq — har biriga xabar),
   keyin tasdiq, so'ng bitta tranzaksiyada almashtiriladi. Eski sxemalar: `jami` yo'q bo'lsa
   `aylanalar × maqsad + son`, `ochirilgan` yo'q bo'lsa `false`, yurishlar ixtiyoriy.
@@ -184,10 +190,44 @@ O'z zikrlari turkumidan qat'i nazar "Mening" bo'limida ko'rsatiladi.
   `res/xml/zaxira_qoidalari.xml` va `malumot_qoidalari.xml`.
 - Vaqt zonasi ma'lumoti birinchi rejalashtirishda yuklanadi (`latest_10y`): ishga tushishda
   yuklash asosiy oqimni bloklab ANR beradi.
+- **Maxfiylik:** sahifa `sayt/maxfiylik/index.html` (o'zbek va ingliz, tashqi resurssiz),
+  Vercel'ga joylanadi.
+  Mazmuni ilovaning haqiqiy xatti-harakatiga aynan mos bo'lishi shart: ilovada maʼlumot,
+  ruxsat yoki zaxira bilan bog'liq narsa o'zgarsa, sahifa ham yangilanadi. Aloqa emaili va
+  sahifa manzili `core/manzillar.dart` da (hozircha bo'sh). Manzil bo'sh bo'lsa Sozlamalarda
+  "Maxfiylik siyosati" qatori ko'rinmaydi; sahifada email o'rnida `ALOQA_EMAIL` belgisi turadi.
 
-Standart zikrlar `assets/seed/zikrlar.json` dan yuklanadi. Diniy matnlar (arabcha, talaffuz,
-ma'no) faqat shu faylda turadi, kodda takrorlanmaydi: ular relizdan oldin mutaxassis
-tomonidan tekshiriladi va tuzatiladi.
+## Onboarding
+
+- Faqat birinchi ochilishda: `onboarding_korildi` yo'q va bazada sessiya yo'q. Sessiyasi bor
+  bazada belgi darhol yoziladi (hisob nollansa ham qaytmaydi). Router `redirect` bilan
+  `/onboarding` ga yo'naltiradi.
+- Uch qadam: Xush kelibsiz (Figma 10), Kunlik maqsad (Figma 11; 100 / 300 standart / 1 000 /
+  "Oʻzim belgilayman"), Eslatma (11 qolipida; 06:00 / 21:00 standart / boshqa vaqt / kerak
+  emas). "Davom etish" `kunlik_maqsad` ni yozadi. "Tayyor": vaqt tanlangan bo'lsa ruxsat
+  so'raladi, rad etilsa eslatma o'chiq qoladi, onboarding baribir tugaydi.
+- "Oʻtkazib yuborish": kunlik maqsad 100, eslatma o'chiq.
+- Orqaga (tugma va tizim imo-ishorasi) tanlovlarni saqlab oldingi qadamga qaytaradi;
+  1-qadamda ilovadan chiqadi. Tunda osmon oysiz (markazda rasm turadi).
+
+## Qulaylik
+
+- **Matn rangi:** ma'lumot tashiydigan kichik matn (18 px dan kichik) `matn` yoki `matn2`.
+  `matn3` faqat placeholder, nofaol holat, ikonka va bezak uchun.
+- **Bosish maydoni:** har bir bosiladigan element kamida 48×48. Ko'rinishi kichik bo'lsa,
+  `BosishMaydoni` bilan o'raladi: layout o'zgarmaydi, bosish va ekran o'qigich chegarasi
+  kengayadi. `BortiqTugma` buni o'zi qiladi. Matn maydonlarida chekinish `contentPadding`
+  da (maydon o'zi 48 dan past bo'lmaydi).
+- **Ekran o'qigich:** ikonkali tugmalarda ARB'dagi yorliq. Barcha `SvgPicture` lar
+  `excludeFromSemantics: true` (rasmlar bezak). Sanagichda halqa tugmasi bitta e'lon
+  o'qiydi: "nomi, son / maqsad, n-aylana"; butun ekran bosish maydoni semantikadan chiqarilgan.
+- **Matn masshtabi:** tizim shrifti 1.3 gacha qo'llanadi (`engKattaMatn`, `MaterialApp.builder`),
+  undan kattasi 1.3 da cheklanadi. 1.3 da hech bir matn kesilmaydi (ellipsis yo'q) va ustma-ust
+  tushmaydi: zikr matnlari o'raladi, tor joylarda (chip, yo'l tuguni) `FittedBox(scaleDown)`.
+- `test/app/qulaylik_test.dart`: asosiy ekranlar, panellar, tabrik va onboarding — yorug' va
+  tun, 1.0 va 1.3 masshtabda: overflow, kesilgan va ustma-ust matn, 48 dp, yorliq, bezak rasm.
+- `test/core/theme/kontrast_test.dart`: `matn`, `matn2`, `qizil` `fon` va `fon2` ustida,
+  oq matn `qizilTugma` ustida — ikki rejimda kamida 4.5:1.
 
 ## Dizayn tokenlari
 
@@ -200,7 +240,7 @@ tomonidan tekshiriladi va tuzatiladi.
 | chiziq | #E5EAF1 | #233149 |
 | matn | #171A21 | #EEF3FA |
 | matn2 | #5E6573 | #A3B0C2 |
-| matn3 | #9AA2AF | #6B7A90 |
+| matn3 | #7C8594 | #7A899F |
 | kok | #2E9BF2 | #4AAEF7 |
 | kokOch | #E7F4FE | #16304D |
 | kokChuqur | #1B7FD0 | #7CC4FF |
@@ -251,6 +291,8 @@ tomonidan tekshiriladi va tuzatiladi.
 | tugma | Inter SemiBold | 16 / 20 | -0.5% |
 | arab | Amiri Regular | 34 / 56 | 0 |
 | tabYorliq | Inter SemiBold | 10 / 12 | 0 |
+| onbSarlavha | Inter Bold | 30 / 36 | -2% |
+| onbSavol | Inter Bold | 22 / 28 | -1.5% |
 | arabKichik | Amiri Regular | 19 / 30 | 0 |
 | arabOrta | Amiri Regular | 28 / 46 | 0 |
 | qahramon | Inter ExtraBold | 76 / 80 | -4% |
@@ -272,9 +314,10 @@ Shakl va effektlar:
 - Xavfli tugma (`AsosiyTugma(xavfli: true)`): `qizilTugma` fon, `belgiOq` matn, ostida `qizilSoya`
   bo'rtiq soya. Faqat qaytarib bo'lmaydigan amalning oxirgi tasdig'ida: hisobni nollashning
   ikkinchi oynasi, o'z zikrini o'chirish. Birinchi tasdiq oynasidagi tugma oddiy.
-- Kontrast (`test/core/theme/kontrast_test.dart`): `qizil` `fon` va `fon2` ustida, oq matn
-  `qizilTugma` ustida — ikki rejimda kamida 4.5:1. To'ldirilgan qizil tugmalar faqat
-  `qizilTugma` ni ishlatadi, `qizil` — matn va ikonka uchun.
+- To'ldirilgan qizil tugmalar faqat `qizilTugma` ni ishlatadi, `qizil` — matn va ikonka uchun.
+- `TanlovKarta` (onboarding varianti): radius 16, 1.5 chegara; tanlangani `kokOch` fon va `kok`
+  chegara, tanlanmagani `fon`, `chiziq` chegara va `chiziq` bo'rtiq soya (y 3). Belgi katakchasi
+  24, radius 7.
 - Oq tugmalar (maqsad, nollash): `fon`, 1.5 `chiziq` chegara, ostida `bortiq` bo'rtiq soya.
 - Tab bar kapsulasi soyasi: rgba(10, 26, 51, 0.14), y 8, blur 28.
 - Toggle (`OsmonToggle`, 50×30, tugmacha 24): yoqilgan `kok`, o'chiq `chiziq`; tugmacha soyasi
@@ -294,7 +337,8 @@ Yorug' rejimda ekranlar o'z osmonini ishlatadi (Figma'ga qara), tun rejimida ham
 ## Platformaga moslash
 
 - **Android:** edge-to-edge, tizim status bari va navigatsiya chizig'i, orqaga imo-ishorasi.
-  Tab bar kapsulasi blur'siz, yarim shaffof fon bilan.
+  Tab bar kapsulasi blur'siz, yarim shaffof fon bilan. Tizim panellari shaffof
+  (`OsmonEkran` dagi `tizimPaneli`): ikonkalar yorug' osmonda to'q, Xufton'da och.
 - **iOS:** kapsula `BackdropFilter` blur bilan, uy indikatori uchun joy.
 - Ovoz tugmasi bilan sanash faqat Android'da.
 

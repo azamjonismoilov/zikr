@@ -61,6 +61,7 @@ class YolTugun extends StatelessWidget {
                 child: Center(
                   child: SvgPicture.asset(
                     'assets/svg/$ikonka.svg',
+                    excludeFromSemantics: true,
                     width: 60,
                     height: 60,
                     colorFilter: ColorFilter.mode(belgi, BlendMode.srcIn),

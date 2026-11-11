@@ -30,6 +30,9 @@ abstract final class SozlamaKalit {
   static const standartDavr = 7;
 
   static const standartKunlikMaqsad = 100;
+
+  /// `1` — onboarding o'tilgan yoki o'tkazib yuborilgan.
+  static const onboardingKorildi = 'onboarding_korildi';
 }
 
 /// Sanagich uchun bazaga kirish. Mantiq yo'q, faqat o'qish va yozish.

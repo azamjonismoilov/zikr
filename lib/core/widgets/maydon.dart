@@ -69,7 +69,6 @@ class _MaydonState extends State<Maydon> {
         const SizedBox(height: 6),
         AnimatedContainer(
           duration: const Duration(milliseconds: 120),
-          padding: EdgeInsets.all(faol ? 13.5 : 14),
           decoration: BoxDecoration(
             color: c.fon,
             borderRadius: BorderRadius.circular(14),
@@ -90,7 +89,13 @@ class _MaydonState extends State<Maydon> {
             textDirection: widget.yonalish,
             textAlign: widget.yonalish == TextDirection.rtl ? TextAlign.right : TextAlign.start,
             style: (widget.uslub ?? AppText.matn).copyWith(color: c.matn),
-            decoration: const InputDecoration.collapsed(hintText: null),
+            // Ichki chekinish maydonning o'zida: butun quti bosiladi (48 dp dan katta).
+            decoration: InputDecoration(
+              isDense: true,
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(faol ? 13.5 : 14),
+              constraints: const BoxConstraints(minHeight: 48),
+            ),
           ),
         ),
         if (xato != null) ...[

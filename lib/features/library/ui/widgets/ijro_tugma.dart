@@ -25,6 +25,7 @@ class IjroTugma extends StatelessWidget {
         decoration: BoxDecoration(color: fon, shape: BoxShape.circle),
         child: SvgPicture.asset(
           'assets/svg/$ikonka.svg',
+          excludeFromSemantics: true,
           colorFilter: ColorFilter.mode(belgi, BlendMode.srcIn),
         ),
       ),

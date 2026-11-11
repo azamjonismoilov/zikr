@@ -102,7 +102,7 @@ class _TabrikModali extends StatelessWidget {
                     ),
                     Positioned.fill(
                       child: ExcludeSemantics(
-                        child: SvgPicture.asset('assets/svg/uchqunlar.svg', fit: BoxFit.fill),
+                        child: SvgPicture.asset('assets/svg/uchqunlar.svg', excludeFromSemantics: true, fit: BoxFit.fill),
                       ),
                     ),
                     Positioned(
@@ -157,6 +157,7 @@ class _TabrikModali extends StatelessWidget {
                       onTap: () => tanla(TabrikTanlovi.asosiy),
                       oxiridagi: SvgPicture.asset(
                         'assets/svg/icon_ongga.svg',
+                        excludeFromSemantics: true,
                         width: 20,
                         height: 20,
                         colorFilter: ColorFilter.mode(c.fon, BlendMode.srcIn),
@@ -200,6 +201,7 @@ class _Natija extends StatelessWidget {
         children: [
           SvgPicture.asset(
             'assets/svg/icon_belgi.svg',
+            excludeFromSemantics: true,
             width: 16,
             height: 16,
             colorFilter: ColorFilter.mode(c.belgiOq, BlendMode.srcIn),
@@ -257,6 +259,7 @@ class _IkkinchiTugma extends StatelessWidget {
               if (ikonka != null) ...[
                 SvgPicture.asset(
                   ikonka!,
+                  excludeFromSemantics: true,
                   width: 18,
                   height: 18,
                   colorFilter: ColorFilter.mode(c.kokChuqur, BlendMode.srcIn),

@@ -41,6 +41,7 @@ class TanlovQatori extends StatelessWidget {
               if (tanlangan)
                 SvgPicture.asset(
                   'assets/svg/icon_belgi.svg',
+                  excludeFromSemantics: true,
                   width: 20,
                   height: 20,
                   colorFilter: ColorFilter.mode(c.kok, BlendMode.srcIn),

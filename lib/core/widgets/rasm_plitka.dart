@@ -16,7 +16,7 @@ class RasmPlitka extends StatelessWidget {
   Widget build(BuildContext context) {
     final n = mavjud.contains(nom) ? nom! : _standart;
     return ExcludeSemantics(
-      child: SvgPicture.asset('assets/svg/rasm_$n.svg', width: olcham, height: olcham),
+      child: SvgPicture.asset('assets/svg/rasm_$n.svg', excludeFromSemantics: true, width: olcham, height: olcham),
     );
   }
 }

@@ -175,7 +175,7 @@ class _HalqaTugmaState extends State<HalqaTugma> with TickerProviderStateMixin {
                       if (maqsad != null)
                         Text(
                           l.maqsadKasr(sonFormat(maqsad)),
-                          style: AppText.h3.copyWith(color: c.matn3),
+                          style: AppText.h3.copyWith(color: c.matn2),
                         ),
                     ],
                   ),

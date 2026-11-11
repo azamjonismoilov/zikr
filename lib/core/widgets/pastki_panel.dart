@@ -92,6 +92,7 @@ class PanelSarlavhasi extends StatelessWidget {
                     angle: -0.785398, // -45°: plus → yopish belgisi
                     child: SvgPicture.asset(
                       'assets/svg/icon_plus.svg',
+                      excludeFromSemantics: true,
                       width: 20,
                       height: 20,
                       colorFilter: ColorFilter.mode(c.matn, BlendMode.srcIn),

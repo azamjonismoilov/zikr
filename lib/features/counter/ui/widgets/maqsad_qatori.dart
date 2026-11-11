@@ -5,6 +5,7 @@ import '../../../../core/l10n/generated/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text.dart';
 import '../../../../core/widgets/bortiq_tugma.dart';
+import '../../../../core/widgets/bosish_maydoni.dart';
 
 /// Maqsad tugmalari ostidagi bo'rtiq. Figma: yorug'da 3, tunda 4.
 double maqsadChuqurligi(bool tun) => tun ? 4 : 3;
@@ -71,31 +72,39 @@ class _MaqsadTugma extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final yorliq = Text(
-      matn,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-      style: faol
-          ? AppText.h3.copyWith(color: c.kokChuqur)
-          : AppText.matn.copyWith(color: c.matn2),
+    // Katta shriftda yorliq kesilmaydi, chip ichida kichrayadi.
+    final yorliq = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          matn,
+          maxLines: 1,
+          style: faol
+              ? AppText.h3.copyWith(color: c.kokChuqur)
+              : AppText.matn.copyWith(color: c.matn2),
+        ),
+      ),
     );
 
     if (faol) {
-      return Semantics(
-        button: true,
-        selected: true,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: onTap,
-          child: Container(
-            height: balandlik,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: c.kokOch,
-              borderRadius: BorderRadius.circular(radius),
-              border: Border.all(color: c.kok, width: 1.5),
+      return BosishMaydoni(
+        child: Semantics(
+          button: true,
+          selected: true,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onTap,
+            child: Container(
+              height: balandlik,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: c.kokOch,
+                borderRadius: BorderRadius.circular(radius),
+                border: Border.all(color: c.kok, width: 1.5),
+              ),
+              child: yorliq,
             ),
-            child: yorliq,
           ),
         ),
       );

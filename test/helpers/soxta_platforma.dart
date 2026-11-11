@@ -24,6 +24,7 @@ class SoxtaPlatforma implements Platforma {
   final rejalar = <(DateTime, String, String)>[];
   int bekorQilishlar = 0;
   int sozlamalarOchildi = 0;
+  final ochilganHavolalar = <String>[];
 
   final _ovoz = StreamController<void>.broadcast();
   final _bosildi = StreamController<void>.broadcast();
@@ -70,4 +71,7 @@ class SoxtaPlatforma implements Platforma {
 
   @override
   Future<String?> faylniTanlash() async => tanlanadiganFayl;
+
+  @override
+  Future<void> havolaniOch(String manzil) async => ochilganHavolalar.add(manzil);
 }

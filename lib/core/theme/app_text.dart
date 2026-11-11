@@ -50,6 +50,12 @@ abstract final class AppText {
   static final olovRaqam = _stil(family: _inter, weight: FontWeight.w700, size: 12, lineHeight: 15);
   static final olovRaqamKichik = _stil(family: _inter, weight: FontWeight.w700, size: 11, lineHeight: 14);
 
+  /// Onboarding sarlavhasi (Figma 10).
+  static final onbSarlavha = _stil(family: _inter, weight: FontWeight.w700, size: 30, lineHeight: 36, trackingPct: -2);
+
+  /// Onboarding savoli (Figma 11).
+  static final onbSavol = _stil(family: _inter, weight: FontWeight.w700, size: 22, lineHeight: 28, trackingPct: -1.5);
+
   /// Tab bar yorlig'i. `CLAUDE.md` jadvalida yo'q, Figma'dagi `OsmonTabBar` dan olingan.
   static final tabYorliq = _stil(family: _inter, weight: FontWeight.w600, size: 10, lineHeight: 12);
 }

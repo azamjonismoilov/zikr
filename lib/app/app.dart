@@ -14,6 +14,9 @@ import '../features/settings/domain/mavzu.dart';
 import 'router.dart';
 import 'sanagich_korinishi.dart';
 
+/// Matn masshtabining yuqori chegarasi.
+const engKattaMatn = 1.3;
+
 class ZikrApp extends ConsumerStatefulWidget {
   const ZikrApp({super.key});
 
@@ -22,7 +25,9 @@ class ZikrApp extends ConsumerStatefulWidget {
 }
 
 class _ZikrAppState extends ConsumerState<ZikrApp> {
-  late final GoRouter _router = routerYarat();
+  late final GoRouter _router = routerYarat(
+    onboardingKorildi: () => ref.read(sanagichProvider).value?.onboardingKorildi,
+  );
   late final AppLifecycleListener _hayot;
   StreamSubscription<void>? _bosildi;
 
@@ -102,6 +107,8 @@ class _ZikrAppState extends ConsumerState<ZikrApp> {
       _eslatmaniYangila();
     });
     ref.listen(sanagichKorinadiProvider, (_, _) => _ovozTugmasiniYangila());
+    // Holat yuklanganda va onboarding tugaganda yo'nalish qayta tekshiriladi.
+    ref.listen(sanagichProvider.select((h) => h.value?.onboardingKorildi), (_, _) => _router.refresh());
     final mavzu = ref.watch(sanagichProvider.select((h) => h.value?.mavzu ?? Mavzu.tizim));
 
     return MaterialApp.router(
@@ -123,6 +130,11 @@ class _ZikrAppState extends ConsumerState<ZikrApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       routerConfig: _router,
+      // Tizim shrift o'lchami 1.3 gacha qo'llanadi: undan kattasida maket buziladi.
+      builder: (context, child) => MediaQuery.withClampedTextScaling(
+        maxScaleFactor: engKattaMatn,
+        child: child!,
+      ),
     );
   }
 }

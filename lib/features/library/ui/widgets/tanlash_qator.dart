@@ -48,20 +48,11 @@ class TanlashQator extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      zikr.korinishNomi,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppText.h3.copyWith(color: c.matn),
-                    ),
+                    // Zikr matnlari kesilmaydi: sig'masa keyingi qatorga o'tadi.
+                    Text(zikr.korinishNomi, style: AppText.h3.copyWith(color: c.matn)),
                     if (zikr.manosi.isNotEmpty) ...[
                       const SizedBox(height: 1),
-                      Text(
-                        zikr.manosi,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppText.kichik.copyWith(color: c.matn2),
-                      ),
+                      Text(zikr.manosi, style: AppText.kichik.copyWith(color: c.matn2)),
                     ],
                   ],
                 ),
@@ -70,13 +61,17 @@ class TanlashQator extends StatelessWidget {
                 const SizedBox(width: 12),
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 120),
-                  child: Text(
-                    zikr.arabcha,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textDirection: TextDirection.rtl,
-                    textAlign: TextAlign.right,
-                    style: AppText.arabKichik.copyWith(color: c.matn),
+                  // Uzun arabcha matn kesilmaydi, kichrayadi.
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      zikr.arabcha,
+                      maxLines: 1,
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right,
+                      style: AppText.arabKichik.copyWith(color: c.matn),
+                    ),
                   ),
                 ),
               ],
@@ -93,6 +88,7 @@ class TanlashQator extends StatelessWidget {
                 child: tanlangan
                     ? SvgPicture.asset(
                         'assets/svg/icon_belgi.svg',
+                        excludeFromSemantics: true,
                         width: 14,
                         height: 14,
                         colorFilter: ColorFilter.mode(c.fon, BlendMode.srcIn),

@@ -12,6 +12,7 @@ import '../../../core/l10n/generated/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_shadows.dart';
 import '../../../core/theme/app_text.dart';
+import '../../../core/widgets/bosish_maydoni.dart';
 import '../../../core/widgets/osmon_ekran.dart';
 import '../../../core/widgets/pastki_panel.dart';
 import '../../../core/widgets/rasm_plitka.dart';
@@ -141,30 +142,33 @@ class _DavrTugma extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    return Semantics(
-      button: true,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(14, 8, 10, 8),
-          decoration: BoxDecoration(
-            color: c.fon,
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: AppShadows.pill,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(matn, style: AppText.teg.copyWith(color: c.matn)),
-              const SizedBox(width: 4),
-              SvgPicture.asset(
-                'assets/svg/icon_pastga.svg',
-                width: 16,
-                height: 16,
-                colorFilter: ColorFilter.mode(c.matn2, BlendMode.srcIn),
-              ),
-            ],
+    return BosishMaydoni(
+      child: Semantics(
+        button: true,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(14, 8, 10, 8),
+            decoration: BoxDecoration(
+              color: c.fon,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: AppShadows.pill,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(matn, style: AppText.teg.copyWith(color: c.matn)),
+                const SizedBox(width: 4),
+                SvgPicture.asset(
+                  'assets/svg/icon_pastga.svg',
+                  excludeFromSemantics: true,
+                  width: 16,
+                  height: 16,
+                  colorFilter: ColorFilter.mode(c.matn2, BlendMode.srcIn),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -229,6 +233,7 @@ class _StreakKarta extends StatelessWidget {
                   ),
                   SvgPicture.asset(
                     'assets/svg/icon_ongga.svg',
+                    excludeFromSemantics: true,
                     width: 20,
                     height: 20,
                     colorFilter: ColorFilter.mode(c.matn3, BlendMode.srcIn),
@@ -284,6 +289,7 @@ class _RaqamKartalari extends StatelessWidget {
                   decoration: BoxDecoration(color: fon, borderRadius: BorderRadius.circular(10)),
                   child: SvgPicture.asset(
                     ikonka,
+                    excludeFromSemantics: true,
                     width: 18,
                     height: 18,
                     colorFilter: ColorFilter.mode(rang, BlendMode.srcIn),
@@ -495,7 +501,7 @@ class _GrafikKarta extends StatelessWidget {
               child: Text(
                 yorliq,
                 textAlign: TextAlign.center,
-                style: AppText.teg.copyWith(color: bugunmi ? c.matn : c.matn3),
+                style: AppText.teg.copyWith(color: bugunmi ? c.matn : c.matn2),
               ),
             ),
     );

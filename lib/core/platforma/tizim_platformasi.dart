@@ -11,6 +11,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:timezone/data/latest_10y.dart' as tz_malumot;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import 'platforma.dart';
@@ -139,5 +140,10 @@ class TizimPlatformasi implements Platforma {
     final fayllar = await FilePicker.pickFiles();
     if (fayllar.isEmpty) return null;
     return utf8.decode(await fayllar.first.readAsBytes(), allowMalformed: true);
+  }
+
+  @override
+  Future<void> havolaniOch(String manzil) async {
+    await launchUrl(Uri.parse(manzil), mode: LaunchMode.externalApplication);
   }
 }

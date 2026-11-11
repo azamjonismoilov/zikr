@@ -15,6 +15,7 @@ import '../../path/data/yurish_repository.dart';
 import '../../path/domain/tabrik.dart';
 import '../../path/domain/toplam_sanash.dart';
 import '../../path/domain/yurish.dart';
+import '../../onboarding/domain/onboarding.dart';
 import '../../settings/domain/eslatma.dart';
 import '../../settings/domain/mavzu.dart';
 
@@ -99,6 +100,7 @@ class SanagichHolati {
     this.mavzu = Mavzu.tizim,
     this.eslatmaYoniq = false,
     this.eslatmaDaqiqa = Eslatma.standartDaqiqa,
+    this.onboardingKorildi = true,
   });
 
   final Kun bugun;
@@ -141,6 +143,9 @@ class SanagichHolati {
 
   /// Eslatma vaqti, kun boshidan daqiqalar.
   final int eslatmaDaqiqa;
+
+  /// `false` bo'lsa ilova onboarding'dan boshlanadi.
+  final bool onboardingKorildi;
 
   /// Hisoblangan kunlar (kun hisobi qoidasi bo'yicha).
   Set<Kun> get hisoblanganKunlar => KunHisobi.hisoblanganKunlar(yigindilar.values, kunlikMaqsad);
@@ -234,6 +239,7 @@ class SanagichHolati {
     Mavzu? mavzu,
     bool? eslatmaYoniq,
     int? eslatmaDaqiqa,
+    bool? onboardingKorildi,
   }) {
     return SanagichHolati(
       bugun: bugun ?? this.bugun,
@@ -258,6 +264,7 @@ class SanagichHolati {
       mavzu: mavzu ?? this.mavzu,
       eslatmaYoniq: eslatmaYoniq ?? this.eslatmaYoniq,
       eslatmaDaqiqa: eslatmaDaqiqa ?? this.eslatmaDaqiqa,
+      onboardingKorildi: onboardingKorildi ?? this.onboardingKorildi,
     );
   }
 }
@@ -279,6 +286,14 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     final kunlik = int.tryParse(await repo.sozlama(SozlamaKalit.kunlikMaqsad) ?? '');
     final toplamId = int.tryParse(await repo.sozlama(SozlamaKalit.joriyToplamId) ?? '');
     final davr = int.tryParse(await repo.sozlama(SozlamaKalit.statistikaDavri) ?? '');
+    final yigindilar = {for (final y in await repo.kunlikYigindilar()) y.sana: y};
+    final onboardingSozlama = await repo.sozlama(SozlamaKalit.onboardingKorildi);
+    final onboardingKorildi =
+        Onboarding.korildimi(sozlama: onboardingSozlama, sessiyaBor: yigindilar.isNotEmpty);
+    // Mavjud foydalanuvchi belgilab qo'yiladi: hisob nollansa ham onboarding qaytmaydi.
+    if (onboardingKorildi && onboardingSozlama != '1') {
+      await repo.sozlamaniYoz(SozlamaKalit.onboardingKorildi, '1');
+    }
 
     return SanagichHolati(
       bugun: Kun.dan(_soat.hozir()),
@@ -286,7 +301,7 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
       toplamlar: await repo.toplamlar(),
       joriyZikrId: joriyId,
       oxirgiQatorlar: await repo.oxirgiQatorlar(),
-      yigindilar: {for (final y in await repo.kunlikYigindilar()) y.sana: y},
+      yigindilar: yigindilar,
       haptik: await repo.sozlama(SozlamaKalit.haptik) != '0',
       kunlikMaqsad: kunlik ?? SozlamaKalit.standartKunlikMaqsad,
       joriyToplamId: toplamId,
@@ -301,6 +316,7 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
       eslatmaYoniq: await repo.sozlama(SozlamaKalit.eslatmaYoniq) == '1',
       eslatmaDaqiqa: Eslatma.daqiqaga(await repo.sozlama(SozlamaKalit.eslatmaVaqti) ?? '') ??
           Eslatma.standartDaqiqa,
+      onboardingKorildi: onboardingKorildi,
     );
   }
 
@@ -501,6 +517,12 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     if (maqsad < 1 || maqsad > 10000 || maqsad == _h.kunlikMaqsad) return;
     state = AsyncData(_h.copyWith(kunlikMaqsad: maqsad));
     navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.kunlikMaqsad, '$maqsad'));
+  }
+
+  /// Onboarding tugadi: keyingi ochilishlarda ko'rsatilmaydi.
+  void onboardingniYakunla() {
+    state = AsyncData(_h.copyWith(onboardingKorildi: true));
+    navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.onboardingKorildi, '1'));
   }
 
   /// Zaxiradan tiklash yoki nollashdan keyin: yozuvlar tugagach holat bazadan qayta o'qiladi.

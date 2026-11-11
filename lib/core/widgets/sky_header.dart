@@ -38,6 +38,7 @@ class SkyHeader extends StatelessWidget {
         width: double.infinity,
         child: SvgPicture.asset(
           faol == OsmonVaqt.xufton && oysiz ? _xuftonOysiz : faol.asset,
+          excludeFromSemantics: true,
           key: ValueKey((faol, oysiz)),
           fit: BoxFit.cover,
           alignment: Alignment.topCenter,
