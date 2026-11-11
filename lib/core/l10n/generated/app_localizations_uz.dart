@@ -345,4 +345,174 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get tasbehotYolini => 'Tasbehot yoʻlini ochish';
+
+  @override
+  String davrKun(String n) {
+    return '$n kun';
+  }
+
+  @override
+  String get davrSarlavha => 'Davr';
+
+  @override
+  String streakKun(String n) {
+    return '$n kun';
+  }
+
+  @override
+  String get streakBoshlang => 'Bugun birinchi kunni boshlang';
+
+  @override
+  String get streakBugunHali => 'Bugun hali zikr qilmadingiz';
+
+  @override
+  String get streakDavom => 'kun ketma-ket zikr qildingiz';
+
+  @override
+  String get jamiZikr => 'Jami zikr';
+
+  @override
+  String get aylana => 'Aylana';
+
+  @override
+  String get bugun => 'Bugun';
+
+  @override
+  String mingQisqa(String son) {
+    return '$son ming';
+  }
+
+  @override
+  String get engKopAytilgan => 'Eng koʻp aytilgan';
+
+  @override
+  String get davrdaBosh => 'Bu davrda hali zikr qilinmagan';
+
+  @override
+  String oxirgiKun(String n) {
+    return 'Oxirgi $n kun';
+  }
+
+  @override
+  String davrJami(String son) {
+    return '$son zikr';
+  }
+
+  @override
+  String get haftaDu => 'Du';
+
+  @override
+  String get haftaSe => 'Se';
+
+  @override
+  String get haftaCh => 'Ch';
+
+  @override
+  String get haftaPa => 'Pa';
+
+  @override
+  String get haftaJu => 'Ju';
+
+  @override
+  String get haftaSh => 'Sh';
+
+  @override
+  String get haftaYa => 'Ya';
+
+  @override
+  String get ketmaKetlik => 'Ketma-ketlik';
+
+  @override
+  String get kunKetmaKet => 'kun ketma-ket';
+
+  @override
+  String odatSarlavha(String maqsad) {
+    return '$maqsad kunlik odat';
+  }
+
+  @override
+  String odatHolat(String streak, String maqsad) {
+    return '$streak / $maqsad kun';
+  }
+
+  @override
+  String get boshlangan => 'Boshlangan';
+
+  @override
+  String get engUzun => 'Eng uzun';
+
+  @override
+  String get sanaYoq => '—';
+
+  @override
+  String sanaKunOy(String kun, String oy) {
+    return '$kun-$oy';
+  }
+
+  @override
+  String get oy1 => 'yanvar';
+
+  @override
+  String get oy2 => 'fevral';
+
+  @override
+  String get oy3 => 'mart';
+
+  @override
+  String get oy4 => 'aprel';
+
+  @override
+  String get oy5 => 'may';
+
+  @override
+  String get oy6 => 'iyun';
+
+  @override
+  String get oy7 => 'iyul';
+
+  @override
+  String get oy8 => 'avgust';
+
+  @override
+  String get oy9 => 'sentabr';
+
+  @override
+  String get oy10 => 'oktabr';
+
+  @override
+  String get oy11 => 'noyabr';
+
+  @override
+  String get oy12 => 'dekabr';
+
+  @override
+  String get bosqichlar => 'Bosqichlar';
+
+  @override
+  String bosqichNomi(String n, String nomi) {
+    return '$n kun · $nomi';
+  }
+
+  @override
+  String bosqichQoldi(String n, String k) {
+    return '$n kun · yana $k kun qoldi';
+  }
+
+  @override
+  String get bosqich7 => 'bir hafta';
+
+  @override
+  String get bosqich14 => 'ikki hafta';
+
+  @override
+  String get bosqich30 => 'bir oy';
+
+  @override
+  String get bosqich60 => 'ikki oy';
+
+  @override
+  String get bosqich100 => 'yuz kun';
+
+  @override
+  String get bosqich365 => 'bir yil';
 }

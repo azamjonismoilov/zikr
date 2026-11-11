@@ -36,6 +36,16 @@ abstract final class AppShadows {
     BoxShadow(color: Color(0x40000000), offset: Offset(0, 20), blurRadius: 50),
   ];
 
+  /// Odat shkalasidagi bosqich belgisi: rgba(15, 41, 82, 0.1), y 2, blur 6.
+  static const bosqichBelgi = [
+    BoxShadow(color: Color(0x1A0F2952), offset: Offset(0, 2), blurRadius: 6),
+  ];
+
+  /// Kun kapsulasi (Figma `KunKapsula`): rgba(15, 41, 82, 0.05), y 2, blur 3.
+  static const kunKapsula = [
+    BoxShadow(color: Color(0x0D0F2952), offset: Offset(0, 2), blurRadius: 3),
+  ];
+
   /// Bo'rtiq (3D) effekt: xiralashmagan, pastga surilgan soya.
   static List<BoxShadow> bortiq(Color rang, {double balandlik = 4}) => [
         BoxShadow(color: rang, offset: Offset(0, balandlik), blurRadius: 0),

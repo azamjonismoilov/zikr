@@ -48,6 +48,10 @@ const _kutilgan = <String, (int, int)>{
   'tugunYangiPast': (0xFFEEF2F6, 0xFF1B2A44),
   'tugunYangiSoya': (0xFFD3DBE4, 0xFF0A1220),
   'tugunYangiChegara': (0xFFD3DBE4, 0xFF2E4066),
+  'streakKartaYuqori': (0xFFDDF0FF, 0xFF16304D),
+  'streakKartaPast': (0xFFFFFFFF, 0xFF151F31),
+  'odatBoshi': (0xFFFFB23F, 0xFFFFB23F),
+  'odatOxiri': (0xFFFF7A1F, 0xFFFF7A1F),
 };
 
 void main() {

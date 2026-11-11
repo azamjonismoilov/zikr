@@ -48,6 +48,10 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.tugunYangiPast,
     required this.tugunYangiSoya,
     required this.tugunYangiChegara,
+    required this.streakKartaYuqori,
+    required this.streakKartaPast,
+    required this.odatBoshi,
+    required this.odatOxiri,
   });
 
   final Color fon;
@@ -130,6 +134,18 @@ class AppColors extends ThemeExtension<AppColors> {
   /// Yangi yo'l tuguni chegarasi.
   final Color tugunYangiChegara;
 
+  /// Statistikadagi ketma-ketlik kartasi gradienti, yuqori.
+  final Color streakKartaYuqori;
+
+  /// Statistikadagi ketma-ketlik kartasi gradienti, past.
+  final Color streakKartaPast;
+
+  /// Odat shkalasi gradienti, chap.
+  final Color odatBoshi;
+
+  /// Odat shkalasi gradienti, o'ng.
+  final Color odatOxiri;
+
   static const yorug = AppColors(
     fon: Color(0xFFFFFFFF),
     fon2: Color(0xFFF4F9FE),
@@ -174,6 +190,10 @@ class AppColors extends ThemeExtension<AppColors> {
     tugunYangiPast: Color(0xFFEEF2F6),
     tugunYangiSoya: Color(0xFFD3DBE4),
     tugunYangiChegara: Color(0xFFD3DBE4),
+    streakKartaYuqori: Color(0xFFDDF0FF),
+    streakKartaPast: Color(0xFFFFFFFF),
+    odatBoshi: Color(0xFFFFB23F),
+    odatOxiri: Color(0xFFFF7A1F),
   );
 
   static const tun = AppColors(
@@ -220,6 +240,10 @@ class AppColors extends ThemeExtension<AppColors> {
     tugunYangiPast: Color(0xFF1B2A44),
     tugunYangiSoya: Color(0xFF0A1220),
     tugunYangiChegara: Color(0xFF2E4066),
+    streakKartaYuqori: Color(0xFF16304D),
+    streakKartaPast: Color(0xFF151F31),
+    odatBoshi: Color(0xFFFFB23F),
+    odatOxiri: Color(0xFFFF7A1F),
   );
 
   /// Barcha tokenlar nomi bilan, `CLAUDE.md` jadvali tartibida.
@@ -267,6 +291,10 @@ class AppColors extends ThemeExtension<AppColors> {
         'tugunYangiPast': tugunYangiPast,
         'tugunYangiSoya': tugunYangiSoya,
         'tugunYangiChegara': tugunYangiChegara,
+        'streakKartaYuqori': streakKartaYuqori,
+        'streakKartaPast': streakKartaPast,
+        'odatBoshi': odatBoshi,
+        'odatOxiri': odatOxiri,
       };
 
   @override
@@ -314,6 +342,10 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? tugunYangiPast,
     Color? tugunYangiSoya,
     Color? tugunYangiChegara,
+    Color? streakKartaYuqori,
+    Color? streakKartaPast,
+    Color? odatBoshi,
+    Color? odatOxiri,
   }) {
     return AppColors(
       fon: fon ?? this.fon,
@@ -359,6 +391,10 @@ class AppColors extends ThemeExtension<AppColors> {
       tugunYangiPast: tugunYangiPast ?? this.tugunYangiPast,
       tugunYangiSoya: tugunYangiSoya ?? this.tugunYangiSoya,
       tugunYangiChegara: tugunYangiChegara ?? this.tugunYangiChegara,
+      streakKartaYuqori: streakKartaYuqori ?? this.streakKartaYuqori,
+      streakKartaPast: streakKartaPast ?? this.streakKartaPast,
+      odatBoshi: odatBoshi ?? this.odatBoshi,
+      odatOxiri: odatOxiri ?? this.odatOxiri,
     );
   }
 
@@ -410,6 +446,10 @@ class AppColors extends ThemeExtension<AppColors> {
       tugunYangiPast: l(tugunYangiPast, other.tugunYangiPast),
       tugunYangiSoya: l(tugunYangiSoya, other.tugunYangiSoya),
       tugunYangiChegara: l(tugunYangiChegara, other.tugunYangiChegara),
+      streakKartaYuqori: l(streakKartaYuqori, other.streakKartaYuqori),
+      streakKartaPast: l(streakKartaPast, other.streakKartaPast),
+      odatBoshi: l(odatBoshi, other.odatBoshi),
+      odatOxiri: l(odatOxiri, other.odatOxiri),
     );
   }
 }

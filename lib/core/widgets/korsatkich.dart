@@ -18,6 +18,7 @@ class KorsatkichPill extends StatefulWidget {
     required this.qiymat,
     required this.izoh,
     this.jonli = false,
+    this.onTap,
   });
 
   final String ikonka;
@@ -27,6 +28,9 @@ class KorsatkichPill extends StatefulWidget {
   /// Ekran o'quvchi uchun.
   final String izoh;
   final bool jonli;
+
+  /// Bosilganda (masalan, olov belgisi Ketma-ketlik ekranini ochadi).
+  final VoidCallback? onTap;
 
   @override
   State<KorsatkichPill> createState() => _KorsatkichPillState();
@@ -55,29 +59,34 @@ class _KorsatkichPillState extends State<KorsatkichPill> with SingleTickerProvid
   Widget build(BuildContext context) {
     final c = context.colors;
     return Semantics(
+      button: widget.onTap != null,
       label: widget.izoh,
       excludeSemantics: true,
-      child: ScaleTransition(
-        scale: _masshtab,
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(10, 7, 12, 7),
-          decoration: BoxDecoration(
-            color: c.fon,
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: AppShadows.pill,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgPicture.asset(
-                widget.ikonka,
-                width: 16,
-                height: 16,
-                colorFilter: ColorFilter.mode(widget.rang, BlendMode.srcIn),
-              ),
-              const SizedBox(width: 6),
-              Text(sonFormat(widget.qiymat), style: AppText.teg.copyWith(color: c.matn)),
-            ],
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: widget.onTap,
+        child: ScaleTransition(
+          scale: _masshtab,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(10, 7, 12, 7),
+            decoration: BoxDecoration(
+              color: c.fon,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: AppShadows.pill,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  widget.ikonka,
+                  width: 16,
+                  height: 16,
+                  colorFilter: ColorFilter.mode(widget.rang, BlendMode.srcIn),
+                ),
+                const SizedBox(width: 6),
+                Text(sonFormat(widget.qiymat), style: AppText.teg.copyWith(color: c.matn)),
+              ],
+            ),
           ),
         ),
       ),

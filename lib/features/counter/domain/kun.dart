@@ -29,7 +29,13 @@ class Kun implements Comparable<Kun> {
     return Kun(d.year, d.month, d.day);
   }
 
-  Kun get oldingi => qoshish(-1);
+  /// Hafta kuni: 1 — dushanba, 7 — yakshanba.
+  int get haftaKuni => _utc.weekday;
+
+  /// Ikki kun orasidagi kunlar soni (`this - boshqa`).
+  int farq(Kun boshqa) => _utc.difference(boshqa._utc).inDays;
+
+    Kun get oldingi => qoshish(-1);
   Kun get keyingi => qoshish(1);
 
   /// Bazadagi `sessiya.sana` ko'rinishi.

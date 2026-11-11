@@ -5,6 +5,7 @@ import '../features/library/ui/oz_zikr_ekrani.dart';
 import '../features/library/ui/zikrlar_ekrani.dart';
 import '../features/path/ui/yol_ekrani.dart';
 import '../features/settings/ui/sozlamalar_ekrani.dart';
+import '../features/stats/ui/ketma_ketlik_ekrani.dart';
 import '../features/stats/ui/statistika_ekrani.dart';
 import 'app_shell.dart';
 
@@ -16,6 +17,7 @@ abstract final class Yollar {
   static const yangiZikr = '/zikr/yangi';
   static String zikrniTahrirlash(int id) => '/zikr/$id';
   static String yol(int toplamId) => '/yol/$toplamId';
+  static const ketmaKetlik = '/ketma-ketlik';
 }
 
 GoRouter routerYarat() {
@@ -32,6 +34,7 @@ GoRouter routerYarat() {
         path: '/yol/:id',
         builder: (_, state) => YolEkrani(toplamId: int.parse(state.pathParameters['id']!)),
       ),
+      GoRoute(path: Yollar.ketmaKetlik, builder: (_, _) => const KetmaKetlikEkrani()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             AppShell(navigationShell: navigationShell),

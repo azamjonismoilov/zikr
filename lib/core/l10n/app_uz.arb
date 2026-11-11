@@ -524,5 +524,267 @@
   "tasbehotYolini": "Tasbehot yoʻlini ochish",
   "@tasbehotYolini": {
     "description": "Bo'lim sarlavhasi (ekran o'quvchi uchun)"
+  },
+  "davrKun": "{n} kun",
+  "@davrKun": {
+    "description": "Statistika davri (7 kun, 30 kun)",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "davrSarlavha": "Davr",
+  "@davrSarlavha": {
+    "description": "Davr tanlash paneli sarlavhasi"
+  },
+  "streakKun": "{n} kun",
+  "@streakKun": {
+    "description": "Ketma-ketlik kartasidagi son",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "streakBoshlang": "Bugun birinchi kunni boshlang",
+  "@streakBoshlang": {
+    "description": "Streak 0 bo'lganda izoh"
+  },
+  "streakBugunHali": "Bugun hali zikr qilmadingiz",
+  "@streakBugunHali": {
+    "description": "Bugun hali hisoblanmagan bo'lsa izoh"
+  },
+  "streakDavom": "kun ketma-ket zikr qildingiz",
+  "@streakDavom": {
+    "description": "Streak izohi"
+  },
+  "jamiZikr": "Jami zikr",
+  "@jamiZikr": {
+    "description": "Raqam kartasi yorlig'i"
+  },
+  "aylana": "Aylana",
+  "@aylana": {
+    "description": "Raqam kartasi yorlig'i"
+  },
+  "bugun": "Bugun",
+  "@bugun": {
+    "description": "Raqam kartasi yorlig'i"
+  },
+  "mingQisqa": "{son} ming",
+  "@mingQisqa": {
+    "description": "100 000 dan katta sonning qisqa ko'rinishi",
+    "placeholders": {
+      "son": {
+        "type": "String"
+      }
+    }
+  },
+  "engKopAytilgan": "Eng koʻp aytilgan",
+  "@engKopAytilgan": {
+    "description": "Statistika kartasi sarlavhasi"
+  },
+  "davrdaBosh": "Bu davrda hali zikr qilinmagan",
+  "@davrdaBosh": {
+    "description": "Eng ko'p aytilgan: bo'sh holat"
+  },
+  "oxirgiKun": "Oxirgi {n} kun",
+  "@oxirgiKun": {
+    "description": "Grafik sarlavhasi",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "davrJami": "{son} zikr",
+  "@davrJami": {
+    "description": "Grafikdagi davr jami",
+    "placeholders": {
+      "son": {
+        "type": "String"
+      }
+    }
+  },
+  "haftaDu": "Du",
+  "@haftaDu": {
+    "description": "Hafta kunining ikki harfli nomi"
+  },
+  "haftaSe": "Se",
+  "@haftaSe": {
+    "description": "Hafta kunining ikki harfli nomi"
+  },
+  "haftaCh": "Ch",
+  "@haftaCh": {
+    "description": "Hafta kunining ikki harfli nomi"
+  },
+  "haftaPa": "Pa",
+  "@haftaPa": {
+    "description": "Hafta kunining ikki harfli nomi"
+  },
+  "haftaJu": "Ju",
+  "@haftaJu": {
+    "description": "Hafta kunining ikki harfli nomi"
+  },
+  "haftaSh": "Sh",
+  "@haftaSh": {
+    "description": "Hafta kunining ikki harfli nomi"
+  },
+  "haftaYa": "Ya",
+  "@haftaYa": {
+    "description": "Hafta kunining ikki harfli nomi"
+  },
+  "ketmaKetlik": "Ketma-ketlik",
+  "@ketmaKetlik": {
+    "description": "Ketma-ketlik ekrani sarlavhasi"
+  },
+  "kunKetmaKet": "kun ketma-ket",
+  "@kunKetmaKet": {
+    "description": "Qahramon soni ostidagi yozuv"
+  },
+  "odatSarlavha": "{maqsad} kunlik odat",
+  "@odatSarlavha": {
+    "description": "Odat kartasi sarlavhasi",
+    "placeholders": {
+      "maqsad": {
+        "type": "String"
+      }
+    }
+  },
+  "odatHolat": "{streak} / {maqsad} kun",
+  "@odatHolat": {
+    "description": "Odat kartasidagi holat",
+    "placeholders": {
+      "streak": {
+        "type": "String"
+      },
+      "maqsad": {
+        "type": "String"
+      }
+    }
+  },
+  "boshlangan": "Boshlangan",
+  "@boshlangan": {
+    "description": "Ko'rsatkich yorlig'i"
+  },
+  "engUzun": "Eng uzun",
+  "@engUzun": {
+    "description": "Ko'rsatkich yorlig'i"
+  },
+  "sanaYoq": "—",
+  "@sanaYoq": {
+    "description": "Sana yo'q bo'lganda"
+  },
+  "sanaKunOy": "{kun}-{oy}",
+  "@sanaKunOy": {
+    "description": "Sana: 17-oktabr",
+    "placeholders": {
+      "kun": {
+        "type": "String"
+      },
+      "oy": {
+        "type": "String"
+      }
+    }
+  },
+  "oy1": "yanvar",
+  "@oy1": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy2": "fevral",
+  "@oy2": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy3": "mart",
+  "@oy3": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy4": "aprel",
+  "@oy4": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy5": "may",
+  "@oy5": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy6": "iyun",
+  "@oy6": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy7": "iyul",
+  "@oy7": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy8": "avgust",
+  "@oy8": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy9": "sentabr",
+  "@oy9": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy10": "oktabr",
+  "@oy10": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy11": "noyabr",
+  "@oy11": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "oy12": "dekabr",
+  "@oy12": {
+    "description": "Oy nomi (kichik harf)"
+  },
+  "bosqichlar": "Bosqichlar",
+  "@bosqichlar": {
+    "description": "Bosqichlar ro'yxati sarlavhasi"
+  },
+  "bosqichNomi": "{n} kun · {nomi}",
+  "@bosqichNomi": {
+    "description": "Bosqich qatori",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "nomi": {
+        "type": "String"
+      }
+    }
+  },
+  "bosqichQoldi": "{n} kun · yana {k} kun qoldi",
+  "@bosqichQoldi": {
+    "description": "Navbatdagi bosqich",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "k": {
+        "type": "String"
+      }
+    }
+  },
+  "bosqich7": "bir hafta",
+  "@bosqich7": {
+    "description": "Bosqich nomi"
+  },
+  "bosqich14": "ikki hafta",
+  "@bosqich14": {
+    "description": "Bosqich nomi"
+  },
+  "bosqich30": "bir oy",
+  "@bosqich30": {
+    "description": "Bosqich nomi"
+  },
+  "bosqich60": "ikki oy",
+  "@bosqich60": {
+    "description": "Bosqich nomi"
+  },
+  "bosqich100": "yuz kun",
+  "@bosqich100": {
+    "description": "Bosqich nomi"
+  },
+  "bosqich365": "bir yil",
+  "@bosqich365": {
+    "description": "Bosqich nomi"
   }
 }

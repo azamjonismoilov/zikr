@@ -16,6 +16,10 @@ abstract final class SozlamaKalit {
   /// Bo'sh bo'lmasa, sanagich shu to'plam rejimida.
   static const joriyToplamId = 'joriy_toplam_id';
 
+  /// Statistika davri: `7` yoki `30` kun.
+  static const statistikaDavri = 'statistika_davri';
+  static const standartDavr = 7;
+
   static const standartKunlikMaqsad = 100;
 }
 
@@ -77,6 +81,16 @@ class SanagichRepository {
     final natija = <int, KunQatori>{};
     for (final q in qatorlar) {
       natija.putIfAbsent(q.zikrId, () => _kunQatori(q));
+    }
+    return natija;
+  }
+
+  /// Har zikrning har kungi `jami` si (o'chirilgan zikrlar ham).
+  Future<Map<int, Map<Kun, int>>> zikrKunlari() async {
+    final qatorlar = await _db.select(_db.sessiya).get();
+    final natija = <int, Map<Kun, int>>{};
+    for (final q in qatorlar) {
+      natija.putIfAbsent(q.zikrId, () => {})[Kun.parse(q.sana)] = q.jami;
     }
     return natija;
   }

@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../app/router.dart';
 
 import '../../../core/format/son_format.dart';
 import '../../../core/l10n/generated/app_localizations.dart';
@@ -321,6 +324,7 @@ class _YuqoriQator extends StatelessWidget {
             ikonka: 'assets/svg/icon_olov.svg',
             rang: c.olov,
             jonli: true,
+            onTap: () => context.push(Yollar.ketmaKetlik),
             qiymat: streak,
             izoh: l.streakIzoh(sonFormat(streak)),
           ),

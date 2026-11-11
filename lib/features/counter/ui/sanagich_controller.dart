@@ -89,6 +89,8 @@ class SanagichHolati {
     this.yurishlar = const {},
     this.tugaganYurishlar = const [],
     this.kechiktirilgan,
+    this.zikrKunlari = const {},
+    this.statistikaDavri = SozlamaKalit.standartDavr,
   });
 
   final Kun bugun;
@@ -111,6 +113,15 @@ class SanagichHolati {
   final Map<int, Yurish> yurishlar;
   final List<TugaganYurish> tugaganYurishlar;
   final KechiktirilganTabrik? kechiktirilgan;
+
+  /// Har zikrning har kungi `jami` si (statistika uchun, o'chirilganlar ham).
+  final Map<int, Map<Kun, int>> zikrKunlari;
+
+  /// Statistika davri: 7 yoki 30 kun.
+  final int statistikaDavri;
+
+  /// Hisoblangan kunlar (kun hisobi qoidasi bo'yicha).
+  Set<Kun> get hisoblanganKunlar => KunHisobi.hisoblanganKunlar(yigindilar.values, kunlikMaqsad);
 
   ToplamQator? toplamById(int id) {
     for (final t in toplamlar) {
@@ -175,10 +186,7 @@ class SanagichHolati {
   /// Bugun barcha zikrlar bo'yicha tugagan aylanalar.
   int get bugunTugaganAylanalar => yigindilar[bugun]?.aylanalar ?? 0;
 
-  StreakNatijasi get streak => KunHisobi.streak(
-        KunHisobi.hisoblanganKunlar(yigindilar.values, kunlikMaqsad),
-        bugun,
-      );
+  StreakNatijasi get streak => KunHisobi.streak(hisoblanganKunlar, bugun);
 
   /// [zikrId] ning bugungi holati (Zikrlar ekranidagi kartalar uchun).
   ZikrHolatMalumoti holat(ZikrQator z) =>
@@ -195,6 +203,8 @@ class SanagichHolati {
     Map<int, Yurish>? yurishlar,
     List<TugaganYurish>? tugaganYurishlar,
     Object? kechiktirilgan = _yoq,
+    Map<int, Map<Kun, int>>? zikrKunlari,
+    int? statistikaDavri,
   }) {
     return SanagichHolati(
       bugun: bugun ?? this.bugun,
@@ -211,6 +221,8 @@ class SanagichHolati {
       kechiktirilgan: identical(kechiktirilgan, _yoq)
           ? this.kechiktirilgan
           : kechiktirilgan as KechiktirilganTabrik?,
+      zikrKunlari: zikrKunlari ?? this.zikrKunlari,
+      statistikaDavri: statistikaDavri ?? this.statistikaDavri,
     );
   }
 }
@@ -231,6 +243,7 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     final joriyId = zikrlar.any((z) => z.id == saqlanganId) ? saqlanganId! : zikrlar.first.id;
     final kunlik = int.tryParse(await repo.sozlama(SozlamaKalit.kunlikMaqsad) ?? '');
     final toplamId = int.tryParse(await repo.sozlama(SozlamaKalit.joriyToplamId) ?? '');
+    final davr = int.tryParse(await repo.sozlama(SozlamaKalit.statistikaDavri) ?? '');
 
     return SanagichHolati(
       bugun: Kun.dan(_soat.hozir()),
@@ -244,6 +257,8 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
       joriyToplamId: toplamId,
       yurishlar: await _yurishRepo.tugallanmaganlar(),
       tugaganYurishlar: await _yurishRepo.tugaganlar(),
+      zikrKunlari: await repo.zikrKunlari(),
+      statistikaDavri: davr == 30 ? 30 : SozlamaKalit.standartDavr,
     );
   }
 
@@ -409,6 +424,13 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
     navbat.qosh(() => _repo.maqsadniYoz(id, maqsad));
   }
 
+  /// Statistika davrini (7 yoki 30 kun) o'rnatadi.
+  void davrniOrnat(int kunlar) {
+    if (kunlar != 7 && kunlar != 30 || kunlar == _h.statistikaDavri) return;
+    state = AsyncData(_h.copyWith(statistikaDavri: kunlar));
+    navbat.qosh(() => _repo.sozlamaniYoz(SozlamaKalit.statistikaDavri, '$kunlar'));
+  }
+
   void haptikniAlmashtir() {
     final yangi = !_h.haptik;
     state = AsyncData(_h.copyWith(haptik: yangi));
@@ -496,6 +518,10 @@ class SanagichController extends AsyncNotifier<SanagichHolati> {
       bugun: bugun,
       oxirgiQatorlar: {...h.oxirgiQatorlar, yangi.zikrId: yangi},
       yigindilar: {...h.yigindilar, bugun: yigindi},
+      zikrKunlari: {
+        ...h.zikrKunlari,
+        yangi.zikrId: {...?h.zikrKunlari[yangi.zikrId], bugun: yangi.jami},
+      },
     ));
     navbat.qosh(() => _repo.qatorniYoz(yangi, vaqt));
   }

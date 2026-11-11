@@ -675,6 +675,306 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Tasbehot yoʻlini ochish'**
   String get tasbehotYolini;
+
+  /// Statistika davri (7 kun, 30 kun)
+  ///
+  /// In uz, this message translates to:
+  /// **'{n} kun'**
+  String davrKun(String n);
+
+  /// Davr tanlash paneli sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Davr'**
+  String get davrSarlavha;
+
+  /// Ketma-ketlik kartasidagi son
+  ///
+  /// In uz, this message translates to:
+  /// **'{n} kun'**
+  String streakKun(String n);
+
+  /// Streak 0 bo'lganda izoh
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun birinchi kunni boshlang'**
+  String get streakBoshlang;
+
+  /// Bugun hali hisoblanmagan bo'lsa izoh
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun hali zikr qilmadingiz'**
+  String get streakBugunHali;
+
+  /// Streak izohi
+  ///
+  /// In uz, this message translates to:
+  /// **'kun ketma-ket zikr qildingiz'**
+  String get streakDavom;
+
+  /// Raqam kartasi yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Jami zikr'**
+  String get jamiZikr;
+
+  /// Raqam kartasi yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Aylana'**
+  String get aylana;
+
+  /// Raqam kartasi yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun'**
+  String get bugun;
+
+  /// 100 000 dan katta sonning qisqa ko'rinishi
+  ///
+  /// In uz, this message translates to:
+  /// **'{son} ming'**
+  String mingQisqa(String son);
+
+  /// Statistika kartasi sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Eng koʻp aytilgan'**
+  String get engKopAytilgan;
+
+  /// Eng ko'p aytilgan: bo'sh holat
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu davrda hali zikr qilinmagan'**
+  String get davrdaBosh;
+
+  /// Grafik sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Oxirgi {n} kun'**
+  String oxirgiKun(String n);
+
+  /// Grafikdagi davr jami
+  ///
+  /// In uz, this message translates to:
+  /// **'{son} zikr'**
+  String davrJami(String son);
+
+  /// Hafta kunining ikki harfli nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Du'**
+  String get haftaDu;
+
+  /// Hafta kunining ikki harfli nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Se'**
+  String get haftaSe;
+
+  /// Hafta kunining ikki harfli nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Ch'**
+  String get haftaCh;
+
+  /// Hafta kunining ikki harfli nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Pa'**
+  String get haftaPa;
+
+  /// Hafta kunining ikki harfli nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Ju'**
+  String get haftaJu;
+
+  /// Hafta kunining ikki harfli nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Sh'**
+  String get haftaSh;
+
+  /// Hafta kunining ikki harfli nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'Ya'**
+  String get haftaYa;
+
+  /// Ketma-ketlik ekrani sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Ketma-ketlik'**
+  String get ketmaKetlik;
+
+  /// Qahramon soni ostidagi yozuv
+  ///
+  /// In uz, this message translates to:
+  /// **'kun ketma-ket'**
+  String get kunKetmaKet;
+
+  /// Odat kartasi sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'{maqsad} kunlik odat'**
+  String odatSarlavha(String maqsad);
+
+  /// Odat kartasidagi holat
+  ///
+  /// In uz, this message translates to:
+  /// **'{streak} / {maqsad} kun'**
+  String odatHolat(String streak, String maqsad);
+
+  /// Ko'rsatkich yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshlangan'**
+  String get boshlangan;
+
+  /// Ko'rsatkich yorlig'i
+  ///
+  /// In uz, this message translates to:
+  /// **'Eng uzun'**
+  String get engUzun;
+
+  /// Sana yo'q bo'lganda
+  ///
+  /// In uz, this message translates to:
+  /// **'—'**
+  String get sanaYoq;
+
+  /// Sana: 17-oktabr
+  ///
+  /// In uz, this message translates to:
+  /// **'{kun}-{oy}'**
+  String sanaKunOy(String kun, String oy);
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'yanvar'**
+  String get oy1;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'fevral'**
+  String get oy2;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'mart'**
+  String get oy3;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'aprel'**
+  String get oy4;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'may'**
+  String get oy5;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'iyun'**
+  String get oy6;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'iyul'**
+  String get oy7;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'avgust'**
+  String get oy8;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'sentabr'**
+  String get oy9;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'oktabr'**
+  String get oy10;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'noyabr'**
+  String get oy11;
+
+  /// Oy nomi (kichik harf)
+  ///
+  /// In uz, this message translates to:
+  /// **'dekabr'**
+  String get oy12;
+
+  /// Bosqichlar ro'yxati sarlavhasi
+  ///
+  /// In uz, this message translates to:
+  /// **'Bosqichlar'**
+  String get bosqichlar;
+
+  /// Bosqich qatori
+  ///
+  /// In uz, this message translates to:
+  /// **'{n} kun · {nomi}'**
+  String bosqichNomi(String n, String nomi);
+
+  /// Navbatdagi bosqich
+  ///
+  /// In uz, this message translates to:
+  /// **'{n} kun · yana {k} kun qoldi'**
+  String bosqichQoldi(String n, String k);
+
+  /// Bosqich nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'bir hafta'**
+  String get bosqich7;
+
+  /// Bosqich nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'ikki hafta'**
+  String get bosqich14;
+
+  /// Bosqich nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'bir oy'**
+  String get bosqich30;
+
+  /// Bosqich nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'ikki oy'**
+  String get bosqich60;
+
+  /// Bosqich nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'yuz kun'**
+  String get bosqich100;
+
+  /// Bosqich nomi
+  ///
+  /// In uz, this message translates to:
+  /// **'bir yil'**
+  String get bosqich365;
 }
 
 class _AppLocalizationsDelegate

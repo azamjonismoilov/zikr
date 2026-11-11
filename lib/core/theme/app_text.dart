@@ -43,6 +43,13 @@ abstract final class AppText {
   static final arabMaydon =
       _stil(family: _amiri, weight: FontWeight.w400, size: 21, lineHeight: 30, trackingPct: -0.5);
 
+  /// Ketma-ketlik ekranidagi katta son (Figma 12, "Qahramon").
+  static final qahramon = _stil(family: _inter, weight: FontWeight.w800, size: 76, lineHeight: 80, trackingPct: -4);
+
+  /// Olov ichidagi raqam (Figma `KunKapsula`) va bosqich olovidagi kichikroq raqam.
+  static final olovRaqam = _stil(family: _inter, weight: FontWeight.w700, size: 12, lineHeight: 15);
+  static final olovRaqamKichik = _stil(family: _inter, weight: FontWeight.w700, size: 11, lineHeight: 14);
+
   /// Tab bar yorlig'i. `CLAUDE.md` jadvalida yo'q, Figma'dagi `OsmonTabBar` dan olingan.
   static final tabYorliq = _stil(family: _inter, weight: FontWeight.w600, size: 10, lineHeight: 12);
 }

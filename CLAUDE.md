@@ -91,7 +91,17 @@ Ular uchun oldindan abstraksiya yoki bo'sh interfeys yozma. Ular alohida topshir
 - **Maqsadni almashtirish:** `son > 0` bo'lsa tasdiq so'raladi va joriy aylana nollanadi.
   Tanlangan maqsad shu zikrning `zikr.maqsad` iga yoziladi.
 
-Streak va statistika saqlanmaydi, sessiyalardan hisoblanadi.
+Streak va statistika saqlanmaydi, sessiyalardan hisoblanadi (`features/stats/domain/`).
+Statistika sanagich bilan bitta holatdan o'qiydi: sanagichdagi o'zgarish darhol ko'rinadi.
+
+- **Jamlar:** jami zikr va aylana barcha davrdagi yig'indi, o'chirilgan zikrlar ham kiradi.
+  "Eng ko'p aytilgan" davr (7 yoki 30 kun) bo'yicha, o'chirilganlar kirmaydi, tenglikda `tartib`.
+- **Joriy hafta** dushanbadan yakshanbagacha; hisoblangan kunda uzluksiz qatordagi tartib raqami.
+- **Bosqichlar** (7, 14, 30, 60, 100, 365) rekord bo'yicha: yetilgani streak uzilsa ham ✓ qoladi.
+  Navbatdagi — rekorddan katta eng kichik bosqich; "yana k kun" joriy streakdan hisoblanadi.
+- **Odat kartasi** (shkala va belgilar) joriy streak bo'yicha: streak < 30 → 30, < 100 → 100,
+  aks holda 365.
+- 100 000 dan katta son qisqartiriladi ("124 ming").
 
 ## Ma'lumot modeli
 
@@ -133,6 +143,7 @@ O'z zikrlari turkumidan qat'i nazar "Mening" bo'limida ko'rsatiladi.
 | `haptik` | `1` | tebranish yoqilgan (`0` — o'chiq) |
 | `kunlik_maqsad` | `100` | kun hisoblanishi uchun jami bosishlar |
 | `joriy_toplam_id` | yo'q | bo'lsa, sanagich shu to'plam rejimida |
+| `statistika_davri` | `7` | statistika davri: `7` yoki `30` kun |
 | `seed_versiya` | — | seed yuklanganini belgilaydi |
 
 Standart zikrlar `assets/seed/zikrlar.json` dan yuklanadi. Diniy matnlar (arabcha, talaffuz,
@@ -182,6 +193,8 @@ tomonidan tekshiriladi va tuzatiladi.
 | tugunKokYuqori / Past / Soya | #6CC2FF / #2E9BF2 / #1B7FD0 | xuddi shunday |
 | tugunYangiYuqori / Past | #FFFFFF / #EEF2F6 | #26385A / #1B2A44 |
 | tugunYangiSoya / Chegara | #D3DBE4 / #D3DBE4 | #0A1220 / #2E4066 |
+| streakKartaYuqori / Past | #DDF0FF / #FFFFFF | #16304D / #151F31 |
+| odatBoshi / odatOxiri | #FFB23F / #FF7A1F | xuddi shunday |
 
 `AppText` — Inter (interfeys) va Amiri (arabcha), ikkalasi ham ilova ichiga joylanadi.
 
@@ -199,6 +212,8 @@ tomonidan tekshiriladi va tuzatiladi.
 | tabYorliq | Inter SemiBold | 10 / 12 | 0 |
 | arabKichik | Amiri Regular | 19 / 30 | 0 |
 | arabOrta | Amiri Regular | 28 / 46 | 0 |
+| qahramon | Inter ExtraBold | 76 / 80 | -4% |
+| olovRaqam / olovRaqamKichik | Inter Bold | 12 / 15, 11 / 14 | 0 |
 | arabMaydon | Amiri Regular | 21 / 30 | -0.5% |
 
 Shakl va effektlar:
@@ -210,8 +225,9 @@ Shakl va effektlar:
 - Karta soyasi: rgba(15, 41, 82, 0.06), y 3, blur 12.
 - Pill soyasi: rgba(15, 41, 82, 0.08), y 2, blur 8. Doira ikonka tugma: rgba(15, 41, 82, 0.1), y 3, blur 10.
 - Zikr kartasi (`DarsKarta`): rgba(15, 41, 82, 0.06), y 3, blur 5. Turkumlar kartasi: rgba(15, 41, 82, 0.1), y 6, blur 9.
+- Odat shkalasi belgisi: rgba(15, 41, 82, 0.1), y 2, blur 6. Kun kapsulasi: rgba(15, 41, 82, 0.05), y 2, blur 3.
 - Tabrik kartasi: rgba(0, 0, 0, 0.25), y 20, blur 50. Tunda osmon zonasida markazda sarlavha yoki
-  rasm turgan joylarda (08, yo'l ekrani, tabrik) `SkyHeader(oysiz: true)`.
+  rasm turgan joylarda (08, yo'l ekrani, tabrik, Ketma-ketlik) `SkyHeader(oysiz: true)`.
 - Oq tugmalar (maqsad, nollash): `fon`, 1.5 `chiziq` chegara, ostida `bortiq` bo'rtiq soya.
 - Tab bar kapsulasi soyasi: rgba(10, 26, 51, 0.14), y 8, blur 28.
 
