@@ -212,8 +212,9 @@ tomonidan tekshiriladi va tuzatiladi.
 | olov | #FF8A1F | #FF9A3D |
 | olovOch | #FFF2E6 | #2B1E14 |
 | olovChiziq | #FFCFA3 | #5A3A1E |
-| qizil | #F5455C | #FF6B7C |
-| qizilSoya | #D0304A | #B83A4C |
+| qizil | #D32F46 | #FF6B7C |
+| qizilTugma | #D32F46 | #D32F46 |
+| qizilSoya | #A3243A | #A3243A |
 | binafsha | #8E63FF | #A68AFF |
 | shisha | #FFFFFF 72% | #1A2438 72% |
 | shishaFaol | #000000 6% | #FFFFFF 10% |
@@ -268,9 +269,12 @@ Shakl va effektlar:
 - Odat shkalasi belgisi: rgba(15, 41, 82, 0.1), y 2, blur 6. Kun kapsulasi: rgba(15, 41, 82, 0.05), y 2, blur 3.
 - Tabrik kartasi: rgba(0, 0, 0, 0.25), y 20, blur 50. Tunda osmon zonasida markazda sarlavha yoki
   rasm turgan joylarda (08, yo'l ekrani, tabrik, Ketma-ketlik) `SkyHeader(oysiz: true)`.
-- Xavfli tugma (`AsosiyTugma(xavfli: true)`): `qizil` fon, `belgiOq` matn, ostida `qizilSoya`
+- Xavfli tugma (`AsosiyTugma(xavfli: true)`): `qizilTugma` fon, `belgiOq` matn, ostida `qizilSoya`
   bo'rtiq soya. Faqat qaytarib bo'lmaydigan amalning oxirgi tasdig'ida: hisobni nollashning
   ikkinchi oynasi, o'z zikrini o'chirish. Birinchi tasdiq oynasidagi tugma oddiy.
+- Kontrast (`test/core/theme/kontrast_test.dart`): `qizil` `fon` va `fon2` ustida, oq matn
+  `qizilTugma` ustida — ikki rejimda kamida 4.5:1. To'ldirilgan qizil tugmalar faqat
+  `qizilTugma` ni ishlatadi, `qizil` — matn va ikonka uchun.
 - Oq tugmalar (maqsad, nollash): `fon`, 1.5 `chiziq` chegara, ostida `bortiq` bo'rtiq soya.
 - Tab bar kapsulasi soyasi: rgba(10, 26, 51, 0.14), y 8, blur 28.
 - Toggle (`OsmonToggle`, 50×30, tugmacha 24): yoqilgan `kok`, o'chiq `chiziq`; tugmacha soyasi

@@ -115,7 +115,7 @@ class AsosiyTugma extends StatelessWidget {
         radius: balandlik / 2,
         soya: xavfli ? c.qizilSoya : c.asosiySoya,
         yuza: xavfli
-            ? BoxDecoration(color: c.qizil)
+            ? BoxDecoration(color: c.qizilTugma)
             : BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
